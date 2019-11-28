@@ -1,0 +1,16 @@
+includes:
+    - vendor/pixidos/coding-standards/phpstan.neon
+
+parameters:
+    autoload_files:
+        - vendor/autoload.php
+    paths:
+        - src
+        - tests
+    level: max
+    inferPrivatePropertyTypeFromConstructor: true
+
+    ignoreErrors:
+        -
+            message: '#Parameter \#1 $amount of class Pixidos\\GPWebPay\\Param\\Amount constructor expects float|int, string given\.#'
+            path: tests/Param/AmountTest.php
