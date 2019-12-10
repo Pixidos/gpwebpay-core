@@ -1,11 +1,21 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay;
 
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 /**
- * @param mixed  $value
+ * @param mixed $value
  * @param string $name
  *
  * @throws InvalidArgumentException
@@ -22,8 +32,8 @@ function assertIsInteger($value, string $name): void
 }
 
 /**
- * @param mixed  $value
- * @param int    $length
+ * @param mixed $value
+ * @param int $length
  * @param string $name
  *
  * @throws InvalidArgumentException
@@ -37,8 +47,8 @@ function assertMaxLenght($value, int $length, string $name): void
 }
 
 /**
- * @param mixed  $value
- * @param int    $length
+ * @param mixed $value
+ * @param int $length
  * @param string $name
  *
  * @throws InvalidArgumentException

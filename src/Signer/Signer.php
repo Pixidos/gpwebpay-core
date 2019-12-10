@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Signer;
 
 use Pixidos\GPWebPay\Exceptions\SignerException;
@@ -69,7 +79,7 @@ class Signer implements ISigner
     }
 
     /**
-     * @param array  $params
+     * @param array $params
      * @param string $digest
      *
      * @return bool
@@ -117,7 +127,7 @@ class Signer implements ISigner
         $publicKey = file_get_contents($this->publicKey);
         if ($publicKey === false) {
             throw new SignerException(sprintf('Failed open file with public key "%s"', $this->publicKey));
-        };
+        }
 
         $publicKeyResource = openssl_pkey_get_public($publicKey);
         if ($publicKeyResource === false) {

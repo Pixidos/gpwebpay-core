@@ -1,8 +1,19 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Enum;
 
-use MyCLabs\Enum\Enum;
+use Grifart\Enum\AutoInstances;
+use Grifart\Enum\Enum;
 
 /**
  * Class Currency
@@ -191,6 +202,8 @@ use MyCLabs\Enum\Enum;
  */
 final class Currency extends Enum
 {
+
+    use AutoInstances;
 
     public const AFN = '971'; // Afghani
     public const EUR = '978'; // Euro

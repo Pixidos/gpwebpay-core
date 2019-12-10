@@ -1,8 +1,19 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Tests\Enum;
 
 use Generator;
+use Grifart\Enum\MissingValueDeclarationException;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\Currency;
 use UnexpectedValueException;
@@ -15,7 +26,7 @@ class CurrencyTest extends TestCase
         $currency = Currency::CZK();
 
         self::assertSame('203', (string)$currency);
-        self::assertSame('203', $currency->getValue());
+        self::assertSame('203', $currency->toScalar());
     }
 
     public function testEUR(): void
@@ -23,7 +34,7 @@ class CurrencyTest extends TestCase
         $currency = Currency::EUR();
 
         self::assertSame('978', (string)$currency);
-        self::assertSame('978', $currency->getValue());
+        self::assertSame('978', $currency->toScalar());
     }
 
     /**
@@ -31,25 +42,25 @@ class CurrencyTest extends TestCase
      *
      * @param string $value
      *
-     * @throws UnexpectedValueException
+     * @throws MissingValueDeclarationException
      */
     public function testSuccessCreateByValue(string $value): void
     {
-        $currency = new Currency($value);
+        $currency = Currency::fromScalar($value);
 
-        self::assertSame((string)$value, (string)$currency);
-        self::assertSame($value, $currency->getValue());
+        self::assertSame($value, (string)$currency);
+        self::assertSame($value, $currency->toScalar());
     }
 
     /**
-     * @throws UnexpectedValueException
+     * @throws MissingValueDeclarationException
      */
     public function testCreateFailWithUnknownCurrency(): void
     {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage("Value '10' is not part of the enum Pixidos\GPWebPay\Enum\Currency");
+        $this->expectException(MissingValueDeclarationException::class);
+        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\Currency' and scalar value '10'.");
 
-        new Currency('10');
+        Currency::fromScalar('10');
     }
 
     /**

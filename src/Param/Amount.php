@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Param;
 
 use Pixidos\GPWebPay\Enum\Param;
@@ -22,7 +32,7 @@ class Amount implements IParam
      * Amount constructor.
      *
      * @param int|float $amount
-     * @param bool      $converToPennies
+     * @param bool $converToPennies
      *
      * @throws InvalidArgumentException
      */

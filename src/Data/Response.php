@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Enum\Param;
@@ -30,16 +40,16 @@ class Response implements IResponse
     private $gatewayKey;
 
     /**
-     * @param string      $operation
-     * @param string      $ordernumber
+     * @param string $operation
+     * @param string $ordernumber
      * @param string|null $merordernum
-     * @param string      $md
-     * @param int         $prcode
-     * @param int         $srcode
-     * @param string      $resulttext
-     * @param string      $digest
-     * @param string      $digest1
-     * @param string      $gatewayKey
+     * @param string $md
+     * @param int $prcode
+     * @param int $srcode
+     * @param string $resulttext
+     * @param string $digest
+     * @param string $digest1
+     * @param string $gatewayKey
      */
     public function __construct(
         string $operation,

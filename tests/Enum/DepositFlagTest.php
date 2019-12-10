@@ -1,8 +1,19 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Tests\Enum;
 
 use Generator;
+use Grifart\Enum\MissingValueDeclarationException;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\DepositFlag;
 use UnexpectedValueException;
@@ -15,7 +26,7 @@ class DepositFlagTest extends TestCase
         $depositFlag = DepositFlag::YES();
 
         self::assertSame('1', (string)$depositFlag);
-        self::assertSame(1, $depositFlag->getValue());
+        self::assertSame(1, $depositFlag->toScalar());
     }
 
     public function testNO(): void
@@ -23,33 +34,29 @@ class DepositFlagTest extends TestCase
         $depositFlag = DepositFlag::NO();
 
         self::assertSame('0', (string)$depositFlag);
-        self::assertSame(0, $depositFlag->getValue());
+        self::assertSame(0, $depositFlag->toScalar());
     }
 
     /**
      * @dataProvider getDepositFlag
      *
      * @param int $value
-     *
-     * @throws UnexpectedValueException
      */
     public function testSuccessCreateByValue(int $value): void
     {
-        $depositFlag = new DepositFlag($value);
+        $depositFlag = DepositFlag::fromScalar($value);
 
         self::assertSame((string)$value, (string)$depositFlag);
-        self::assertSame($value, $depositFlag->getValue());
+        self::assertSame($value, $depositFlag->toScalar());
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
+
     public function testCreateFailWithUnknownCurrency(): void
     {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage("Value '10' is not part of the enum Pixidos\GPWebPay\Enum\DepositFlag");
+        $this->expectException(MissingValueDeclarationException::class);
+        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\DepositFlag' and scalar value '10'.");
 
-        new DepositFlag(10);
+        DepositFlag::fromScalar(10);
     }
 
     /**

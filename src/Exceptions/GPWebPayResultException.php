@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Exceptions;
 
 use Throwable;
@@ -74,11 +84,11 @@ class GPWebPayResultException extends GPWebPayException
     /**
      * GPWebPayResultException constructor.
      *
-     * @param string         $message
-     * @param int            $prcode
-     * @param int            $srcode
-     * @param string|null    $resulttext
-     * @param int            $code
+     * @param string $message
+     * @param int $prcode
+     * @param int $srcode
+     * @param string|null $resulttext
+     * @param int $code
      * @param Throwable|null $previous
      */
     public function __construct(string $message, int $prcode, int $srcode, ?string $resulttext = null, int $code = 0, Throwable $previous = null)

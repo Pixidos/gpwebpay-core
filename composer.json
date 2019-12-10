@@ -23,13 +23,13 @@
         }
     ],
     "support": {
-        "email": "dev@pixidos.com",
-        "issues": "https://github.com/Pixidos/GPWebPay/issues"
+        "email": "ondra@votava.it",
+        "issues": "https://github.com/Pixidos/gpwebpay-core/issues"
     },
     "require": {
         "php": "~7.1",
         "ext-openssl": "*",
-        "myclabs/php-enum": "^1.7"
+        "grifart/enum": "^0.2.0"
     },
     "require-dev": {
         "pixidos/coding-standards": "^0.1.0",

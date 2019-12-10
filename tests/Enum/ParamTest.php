@@ -1,61 +1,68 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Tests\Enum;
 
 use Generator;
+use Grifart\Enum\MissingValueDeclarationException;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\Param;
-use UnexpectedValueException;
 
 class ParamTest extends TestCase
 {
 
     public function testUSERPARAM(): void
     {
-        $Param = Param::USERPARAM();
+        $param = Param::USERPARAM();
 
-        self::assertSame('USERPARAM1', (string)$Param);
-        self::assertSame('USERPARAM1', $Param->getValue());
+        self::assertSame('USERPARAM1', (string)$param);
+        self::assertSame('USERPARAM1', $param->toScalar());
     }
 
     public function testRESPONSE_URL(): void
     {
-        $Param = Param::RESPONSE_URL();
+        $param = Param::RESPONSE_URL();
 
-        self::assertSame('URL', (string)$Param);
-        self::assertSame('URL', $Param->getValue());
+        self::assertSame('URL', (string)$param);
+        self::assertSame('URL', $param->toScalar());
     }
 
     /**
-     * @dataProvider getCurrency
+     * @dataProvider getParams
      *
      * @param string $value
      *
-     * @throws UnexpectedValueException
      */
     public function testSuccessCreateByValue(string $value): void
     {
-        $Param = new Param($value);
+        $param = Param::fromScalar($value);
 
-        self::assertSame($value, (string)$Param);
-        self::assertSame($value, $Param->getValue());
+        self::assertSame($value, (string)$param);
+        self::assertSame($value, $param->toScalar());
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
+
     public function testCreateFailWithUnknownCurrency(): void
     {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage("Value 'CARD' is not part of the enum Pixidos\GPWebPay\Enum\Param");
+        $this->expectException(MissingValueDeclarationException::class);
+        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\Param' and scalar value 'CARD'.");
 
-        new Param('CARD');
+        Param::fromScalar('CARD');
     }
 
     /**
      * @return Generator
      */
-    public function getCurrency(): Generator
+    public function getParams(): Generator
     {
         yield [Param::MERORDERNUM];
         yield [Param::ORDERNUMBER];

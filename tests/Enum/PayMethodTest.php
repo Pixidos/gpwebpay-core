@@ -1,11 +1,21 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Tests\Enum;
 
 use Generator;
+use Grifart\Enum\MissingValueDeclarationException;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\PayMethod;
-use UnexpectedValueException;
 
 class PayMethodTest extends TestCase
 {
@@ -15,7 +25,7 @@ class PayMethodTest extends TestCase
         $payMethod = PayMethod::CARD();
 
         self::assertSame('CRD', (string)$payMethod);
-        self::assertSame('CRD', $payMethod->getValue());
+        self::assertSame('CRD', $payMethod->toScalar());
     }
 
     public function testGOOGLE_PAY(): void
@@ -23,7 +33,7 @@ class PayMethodTest extends TestCase
         $payMethod = PayMethod::GOOGLE_PAY();
 
         self::assertSame('GPAY', (string)$payMethod);
-        self::assertSame('GPAY', $payMethod->getValue());
+        self::assertSame('GPAY', $payMethod->toScalar());
     }
 
     /**
@@ -31,25 +41,21 @@ class PayMethodTest extends TestCase
      *
      * @param string $value
      *
-     * @throws UnexpectedValueException
      */
     public function testSuccessCreateByValue(string $value): void
     {
-        $payMethod = new PayMethod($value);
+        $payMethod = PayMethod::fromScalar($value);
 
         self::assertSame($value, (string)$payMethod);
-        self::assertSame($value, $payMethod->getValue());
+        self::assertSame($value, $payMethod->toScalar());
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
     public function testCreateFailWithUnknownCurrency(): void
     {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage("Value 'CARD' is not part of the enum Pixidos\GPWebPay\Enum\PayMethod");
+        $this->expectException(MissingValueDeclarationException::class);
+        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\PayMethod' and scalar value 'CARD'.");
 
-        new PayMethod('CARD');
+        PayMethod::fromScalar('CARD');
     }
 
     /**

@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Enum;
@@ -67,7 +77,7 @@ class Operation implements IOperation
     private $gatewayKey;
 
     /**
-     * @var \Pixidos\GPWebPay\Param\IParam[]
+     * @var IParam[]
      */
     private $params = [];
 
@@ -75,12 +85,12 @@ class Operation implements IOperation
     /**
      * Operation constructor.
      *
-     * @param OrderNumber|string      $orderNumber max. length is 15
-     * @param Amount|int|float        $amount
-     * @param Currency|int            $currency max. length is 3
-     * @param null|string             $gatewayKey
+     * @param OrderNumber|string $orderNumber max. length is 15
+     * @param Amount|int|float $amount
+     * @param Currency|int $currency max. length is 3
+     * @param null|string $gatewayKey
      * @param null|ResponseUrl|string $responseUrl
-     * @param bool                    $converToPennies
+     * @param bool $converToPennies
      *
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
@@ -482,12 +492,12 @@ class Operation implements IOperation
 
     /**
      *
-     * @param OrderNumber|string      $orderNumber max. length is 15
-     * @param Amount|int|float        $amount
-     * @param Currency|int            $currency max. length is 3
-     * @param null|string             $gatewayKey
+     * @param OrderNumber|string $orderNumber max. length is 15
+     * @param Amount|int|float $amount
+     * @param Currency|int $currency max. length is 3
+     * @param null|string $gatewayKey
      * @param null|ResponseUrl|string $responseUrl
-     * @param bool                    $converToPennies
+     * @param bool $converToPennies
      *
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
@@ -530,7 +540,7 @@ class Operation implements IOperation
                 ),
                 E_USER_DEPRECATED
             );
-            $currency = new Currency(new Enum\Currency($currency));
+            $currency = new Currency(Enum\Currency::fromScalar($currency));
         }
 
         $this->addParam($amount);

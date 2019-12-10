@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Enum;
@@ -133,10 +143,10 @@ class Request implements IRequest
     private $url;
 
     /**
-     * @param IOperation            $operation
+     * @param IOperation $operation
      * @param string|MerchantNumber $merchantNumber
-     * @param int|DepositFlag       $depositFlag
-     * @param string                $url
+     * @param int|DepositFlag $depositFlag
+     * @param string $url
      *
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
@@ -164,7 +174,7 @@ class Request implements IRequest
                 ),
                 E_USER_DEPRECATED
             );
-            $depositFlag = new DepositFlag(new Enum\DepositFlag($depositFlag));
+            $depositFlag = new DepositFlag(Enum\DepositFlag::fromScalar($depositFlag));
         }
 
         $this->setParam($merchantNumber);

@@ -1,7 +1,9 @@
 # GPWebPay Core library
 [![Build Status](https://travis-ci.org/Pixidos/gpwebpay-core.svg?branch=master)](https://travis-ci.org/Pixidos/gpwebpay-core)
-[![Donwload this Month](https://img.shields.io/packagist/dm/pixidos/gpwebpay-core.svg)](https://packagist.org/packages/pixidos/gpwebpay-core)
-[![Latest stable](https://img.shields.io/packagist/v/pixidos/gpwebpay-core.svg)](https://packagist.org/packages/pixidos/gpwebpay-core)
+[![Donwloads](https://poser.pugx.org/pixidos/gpwebpay-core/downloads)](https://packagist.org/packages/pixidos/gpwebpay-core)
+[![Latest stable](https://poser.pugx.org/pixidos/gpwebpay-core/v/stable)](https://packagist.org/packages/pixidos/gpwebpay-core)
+![](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)
+[![Code coverage](https://codecov.io/gh/Pixidos/gpwebpay-core/branch/master/graph/badge.svg)](https://codecov.io/gh/Pixidos/gpwebpay-core)
 
 GPWebPay Core is library for http api of [GPWebPay service](http://www.gpwebpay.cz/ )
 

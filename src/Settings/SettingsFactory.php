@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Settings;
 
 use Pixidos\GPWebPay\Enum\DepositFlag as DepositFlagEnum;
@@ -17,8 +27,8 @@ class SettingsFactory implements SettingsFactoryInterface
      * @param array<string>|string $publicKey
      * @param array<string>|string $url
      * @param array<string>|string $merchantNumber
-     * @param array<int>|int       $depositFlag
-     * @param string               $defaultGatewayKey
+     * @param array<int>|int $depositFlag
+     * @param string $defaultGatewayKey
      *
      * @return Settings
      * @throws InvalidArgumentException
@@ -68,12 +78,12 @@ class SettingsFactory implements SettingsFactoryInterface
 
 
     /**
-     * @param array                $privateKeys
-     * @param array                $privateKeyPasswords
+     * @param array $privateKeys
+     * @param array $privateKeyPasswords
      * @param array<string>|string $publicKey
      * @param array<string>|string $url
-     * @param array                $merchantNumbers
-     * @param array<int>|int       $depositFlag
+     * @param array $merchantNumbers
+     * @param array<int>|int $depositFlag
      *
      * @return array
      * @throws InvalidArgumentException
@@ -96,7 +106,7 @@ class SettingsFactory implements SettingsFactoryInterface
                 throw new InvalidArgumentException(sprintf('Missing key:"%s" in merchantNumbers configurarion', $key));
             }
 
-            $settings[$key] = self::createSetting(
+            $settings[] = self::createSetting(
                 $privateKeys[$key],
                 $privateKeyPasswords[$key],
                 (string)self::getValue($key, $publicKey, 'publicKey'),
@@ -112,9 +122,9 @@ class SettingsFactory implements SettingsFactoryInterface
 
 
     /**
-     * @param string           $key
+     * @param string $key
      * @param array|int|string $data
-     * @param string           $name
+     * @param string $name
      *
      * @return int|string
      * @throws InvalidArgumentException
@@ -137,7 +147,7 @@ class SettingsFactory implements SettingsFactoryInterface
      * @param string $publicKey
      * @param string $url
      * @param string $merchantNumber
-     * @param int    $depositFlag
+     * @param int $depositFlag
      * @param string $key
      *
      * @return Setting
@@ -159,7 +169,7 @@ class SettingsFactory implements SettingsFactoryInterface
             $publicKey,
             $url,
             new MerchantNumber($merchantNumber),
-            new DepositFlag((new DepositFlagEnum($depositFlag))),
+            new DepositFlag(DepositFlagEnum::fromScalar($depositFlag)),
             $key
         );
     }

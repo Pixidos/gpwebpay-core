@@ -1,5 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.it>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
+
 namespace Pixidos\GPWebPay\Settings;
 
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
@@ -25,7 +35,7 @@ class Settings
     /**
      * Settings constructor.
      *
-     * @param string  $defaultGatewayKey
+     * @param string $defaultGatewayKey
      * @param Setting ...$settings
      */
     public function __construct(string $defaultGatewayKey, Setting ...$settings)
