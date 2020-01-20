@@ -28,4 +28,4 @@ $ composer require pixidos/gpwebpay-core
 Documentation
 ------------
 
-Learn more in the [documentation](docs/index.md).
+Learn more in the [documentation](https://pixidos.github.io/gpwebpay-core/).
