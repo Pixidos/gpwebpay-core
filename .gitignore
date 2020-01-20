@@ -3,3 +3,5 @@ composer.lock
 .phpcs-cache
 coverage.xml
 /tests/_reports/
+.idea/
+gpwebpay-core.iml
