@@ -16,10 +16,6 @@ use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
 
 /**
- * Class Param
- * @package Pixidos\GPWebPay\Enum
- * @author Ondra Votava <ondra@votava.it>
- *
  * @method static Param MERCHANTNUMBER()
  * @method static Param OPERATION()
  * @method static Param ORDERNUMBER()
@@ -75,4 +71,5 @@ final class Param extends Enum
     public const FAST_TOKEN = 'FASTTOKEN';
     public const VRCODE = 'VRCODE';
     public const PANPATTERN = 'PANPATTERN';
+
 }

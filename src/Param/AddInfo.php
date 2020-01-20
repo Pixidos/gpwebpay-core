@@ -16,11 +16,6 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use function Pixidos\GPWebPay\assertMaxLenght;
 
-/**
- * Class AddInfo
- * @package Pixidos\GPWebPay\Param
- * @author Ondra Votava <ondra@votava.it>
- */
 class AddInfo implements IParam
 {
     /**

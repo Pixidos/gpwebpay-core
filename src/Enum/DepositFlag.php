@@ -16,10 +16,6 @@ use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
 
 /**
- * Class DepositFlag
- * @package Pixidos\GPWebPay\Enum
- * @author Ondra Votava <ondra@votava.it>
- *
  * @method static DepositFlag YES()
  * @method static DepositFlag NO()
  */

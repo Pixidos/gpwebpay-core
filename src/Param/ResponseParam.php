@@ -12,31 +12,29 @@
 
 namespace Pixidos\GPWebPay\Param;
 
-use Pixidos\GPWebPay\Enum\Param;
-use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
-use function Pixidos\GPWebPay\assertIsEmail;
-use function Pixidos\GPWebPay\assertMaxLenght;
-
-class Email implements IParam
+class ResponseParam implements IParam
 {
 
     /**
      * @var string
      */
     private $value;
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * Email constructor.
      *
      * @param string $value
-     *
-     * @throws InvalidArgumentException
+     * @param string $name
      */
-    public function __construct(string $value)
+    public function __construct(string $value, string $name)
     {
         $value = trim($value);
-        $this->validate($value);
         $this->value = $value;
+        $this->name = $name;
     }
 
     public function getValue(): string
@@ -51,18 +49,8 @@ class Email implements IParam
 
     public function getParamName(): string
     {
-        return Param::EMAIL;
+        return $this->name;
     }
 
-    /**
-     * @param string $value
-     *
-     * @throws InvalidArgumentException
-     */
-    protected function validate(string $value): void
-    {
-        assertIsEmail($value);
-        assertMaxLenght($value, 255, 'EMAIL');
-    }
 
 }

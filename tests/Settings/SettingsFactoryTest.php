@@ -22,7 +22,24 @@ class SettingsFactoryTest extends TestCase
     private const CZK = 'czk';
     private const EUR = 'eur';
 
-    public function testSuccessCreate(): void
+
+    public function testSuccessCreateSettingsFromStrings(): void
+    {
+        $settings = SettingsFactory::create(
+            __DIR__ . '/_certs/test.pem',
+            '1234567',
+            __DIR__ . '/_certs/test-pub.pem',
+            'https://test.3dsecure.gpwebpay.com/unicredit/order.do',
+            '123456789',
+            0,
+            'czk'
+        );
+
+        self::assertSame(self::CZK, $settings->getDefaultGatewayKey());
+        self::assertSame(DepositFlag::NO(), $settings->getDepositFlag(self::CZK)->getValue());
+    }
+
+    public function testSuccessCreateSettingsFromArray(): void
     {
         $settings = SettingsFactory::create(
             [

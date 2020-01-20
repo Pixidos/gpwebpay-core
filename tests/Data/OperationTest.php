@@ -41,16 +41,16 @@ class OperationTest extends TestCase
             new Amount(1000.00),
             new Currency(CurrencyEnum::CZK()),
             'CZK',
-            new ResponseUrl('http://response.com')
+            new ResponseUrl('http://response.com/proccess-gpw-response')
         );
 
         self::assertSame('123456', (string)$operation->getParam(Param::ORDERNUMBER()));
         self::assertSame('100000', (string)$operation->getParam(Param::AMOUNT()));
         self::assertSame('203', (string)$operation->getParam(Param::CURRENCY()));
-        self::assertSame('CZK', $operation->getGatewayKey());
+        self::assertSame('czk', $operation->getGatewayKey());
         $responseUrl = $operation->getParam(Param::RESPONSE_URL());
         self::assertNotNull($responseUrl);
-        self::assertSame('http://response.com', $responseUrl->getValue());
+        self::assertSame('http://response.com/proccess-gpw-response', $responseUrl->getValue());
     }
 
 }

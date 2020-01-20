@@ -12,13 +12,9 @@
 
 namespace Pixidos\GPWebPay\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-/**
- * Class GPWebPayException
- * @package Pixidos\GPWebPay\Exceptions
- */
-class GPWebPayException extends Exception
+class GPWebPayException extends RuntimeException
 {
 
 }

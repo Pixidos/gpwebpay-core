@@ -19,7 +19,7 @@ use Pixidos\GPWebPay\Enum\Operation;
 class OperationTest extends TestCase
 {
 
-    public function testYES(): void
+    public function testCreateOrder(): void
     {
         $operation = Operation::CREATE_ORDER();
 

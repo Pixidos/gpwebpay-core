@@ -12,11 +12,6 @@
 
 namespace Pixidos\GPWebPay\Signer;
 
-/**
- * Class ISigner
- * @package Pixidos\GPWebPay\Intefaces
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 interface ISigner
 {
     /**

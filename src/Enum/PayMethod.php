@@ -16,10 +16,6 @@ use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
 
 /**
- * Class PayMethod
- * @package Pixidos\GPWebPay\Enum
- * @author Ondra Votava <ondra@votava.it>
- *
  * @method static PayMethod CARD()
  * @method static PayMethod MASTERCARD_MOBILE()
  * @method static PayMethod MASTERPASS()

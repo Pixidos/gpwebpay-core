@@ -15,11 +15,6 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Operation as OperationEnum;
 use Pixidos\GPWebPay\Enum\Param;
 
-/**
- * Class Currency
- * @package Pixidos\GPWebPay\Data
- * @author Ondra Votava <ondra@votava.it>
- */
 class Operation implements IParam
 {
     /**

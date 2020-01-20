@@ -16,11 +16,6 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use function Pixidos\GPWebPay\assertIsInteger;
 
-/**
- * Class Amount
- * @package Pixidos\GPWebPay\Data
- * @author Ondra Votava <ondra@votava.it>
- */
 class Amount implements IParam
 {
     /**

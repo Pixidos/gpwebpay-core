@@ -12,18 +12,21 @@
 
 namespace Pixidos\GPWebPay\Data;
 
+use Pixidos\GPWebPay\Enum\Operation as EnumOperation;
 use Pixidos\GPWebPay\Enum\Param;
+use Pixidos\GPWebPay\Param\IParam;
+use Pixidos\GPWebPay\Param\Md;
+use Pixidos\GPWebPay\Param\MerOrderNum;
+use Pixidos\GPWebPay\Param\Operation;
+use Pixidos\GPWebPay\Param\OrderNumber;
+use Pixidos\GPWebPay\Param\ResponseParam;
+use Pixidos\GPWebPay\Param\UserParam;
 
-/**
- * Class Response
- * @package Pixidos\GPWebPay
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 class Response implements IResponse
 {
 
     /**
-     * @var array $params
+     * @var IParam[] $params
      */
     private $params;
     /**
@@ -40,16 +43,16 @@ class Response implements IResponse
     private $gatewayKey;
 
     /**
-     * @param string $operation
-     * @param string $ordernumber
+     * @param string      $operation
+     * @param string      $ordernumber
      * @param string|null $merordernum
-     * @param string $md
-     * @param int $prcode
-     * @param int $srcode
-     * @param string $resulttext
-     * @param string $digest
-     * @param string $digest1
-     * @param string $gatewayKey
+     * @param string      $md
+     * @param int         $prcode
+     * @param int         $srcode
+     * @param string      $resulttext
+     * @param string      $digest
+     * @param string      $digest1
+     * @param string      $gatewayKey
      */
     public function __construct(
         string $operation,
@@ -63,22 +66,24 @@ class Response implements IResponse
         string $digest1,
         string $gatewayKey
     ) {
-        $this->params[Param::OPERATION] = $operation;
-        $this->params[Param::ORDERNUMBER] = $ordernumber;
+        $this->addParam(
+            new Operation(EnumOperation::fromScalar($operation))
+        );
+        $this->addParam(new OrderNumber($ordernumber));
 
         if ($merordernum !== null) {
-            $this->params[Param::MERORDERNUM] = $merordernum;
+            $this->addParam(new MerOrderNum($merordernum));
         }
 
         if ($md !== null) {
-            $this->params[Param::MD] = $md;
+            $this->addParam(new Md($md));
         }
+        $this->addParam(new ResponseParam((string)$prcode, self::PRCODE));
+        $this->addParam(new ResponseParam((string)$srcode, self::SRCODE));
 
-        $this->params[self::PRCODE] = $prcode;
-        $this->params[self::SRCODE] = $srcode;
 
         if ($resulttext !== null) {
-            $this->params[self::RESULTTEXT] = $resulttext;
+            $this->addParam(new ResponseParam($resulttext, self::RESULTTEXT));
         }
 
         $this->digest = $digest;
@@ -86,14 +91,6 @@ class Response implements IResponse
         $this->gatewayKey = $gatewayKey;
     }
 
-
-    /**
-     * @return array
-     */
-    public function getParams(): array
-    {
-        return $this->params;
-    }
 
     /**
      * @return string
@@ -108,7 +105,8 @@ class Response implements IResponse
      */
     public function hasError(): bool
     {
-        return (bool)$this->params[self::PRCODE] || (bool)$this->params[self::SRCODE];
+        return (bool)$this->params[self::PRCODE]->getValue()
+            || (bool)$this->params[self::SRCODE]->getValue();
     }
 
     /**
@@ -124,7 +122,7 @@ class Response implements IResponse
      */
     public function getMerOrderNumber(): ?string
     {
-        return $this->params[Param::MERORDERNUM] ?? null;
+        return isset($this->params[Param::MERORDERNUM]) ? (string)$this->params[Param::MERORDERNUM] : null;
     }
 
     /**
@@ -132,10 +130,12 @@ class Response implements IResponse
      */
     public function getMd(): ?string
     {
-        $explode = explode('|', $this->params[Param::MD], 2);
+        if (!isset($this->params[Param::MD])) {
+            return null;
+        }
+        $explode = explode('|', $this->params[Param::MD]->getValue(), 2);
 
         return $explode[1] ?? null;
-
     }
 
     /**
@@ -151,7 +151,7 @@ class Response implements IResponse
      */
     public function getOrderNumber(): string
     {
-        return $this->params[Param::ORDERNUMBER];
+        return $this->params[Param::ORDERNUMBER]->getValue();
     }
 
     /**
@@ -159,7 +159,7 @@ class Response implements IResponse
      */
     public function getSrcode(): int
     {
-        return $this->params[self::SRCODE];
+        return (int)$this->params[self::SRCODE]->getValue();
     }
 
     /**
@@ -167,7 +167,7 @@ class Response implements IResponse
      */
     public function getPrcode(): int
     {
-        return $this->params[self::PRCODE];
+        return (int)$this->params[self::PRCODE]->getValue();
     }
 
     /**
@@ -175,7 +175,7 @@ class Response implements IResponse
      */
     public function getResultText(): ?string
     {
-        return $this->params[self::RESULTTEXT] ?? null;
+        return isset($this->params[self::RESULTTEXT]) ? $this->params[self::RESULTTEXT]->getValue() : null;
     }
 
     /**
@@ -183,16 +183,33 @@ class Response implements IResponse
      */
     public function getUserParam1(): ?string
     {
-        return $this->params[Param::USERPARAM] ?? null;
+        return isset($this->params[Param::USERPARAM]) ? $this->params[Param::USERPARAM]->getValue() : null;
     }
 
     /**
      * @param string $userParam1
+     * @deprecated use addParam()
      */
     public function setUserParam1(string $userParam1): void
     {
-        $this->params[Param::USERPARAM] = $userParam1;
+        $this->addParam(new UserParam($userParam1));
     }
 
+    public function addParam(IParam $param): void
+    {
+        $this->params[$param->getParamName()] = $param;
+    }
 
+    public function getParam(string $paramName): ?IParam
+    {
+        return $this->params[$paramName] ?? null;
+    }
+
+    /**
+     * @return array<IParam>
+     */
+    public function getParams(): array
+    {
+        return $this->params;
+    }
 }

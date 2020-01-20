@@ -17,11 +17,6 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use function Pixidos\GPWebPay\assertMaxLenght;
 use function Pixidos\GPWebPay\assertUrl;
 
-/**
- * Class ResponseUrl
- * @package Pixidos\GPWebPay\Param
- * @author Ondra Votava <ondra@votava.it>
- */
 class ResponseUrl implements IParam
 {
 

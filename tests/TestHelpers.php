@@ -32,7 +32,7 @@ use UnexpectedValueException;
 class TestHelpers
 {
     public const ORDER_NUMBER = '123456';
-    public const MER_ORDER_NUM = 'FA12345';
+    public const MER_ORDER_NUM = '12345678';
     public const PRCODE = '0';
     public const SRCODE = '0';
     public const RESULTTEXT = 'resulttext';
@@ -40,6 +40,10 @@ class TestHelpers
     public const HASH_2 = 'hash2';
     public const GATEWAY = 'czk';
     public const RESPONSE_URL = 'http://test.com';
+
+    public const CZK = 'czk';
+    public const EUR = 'eur';
+
     /**
      * @var string|null
      */
@@ -91,11 +95,28 @@ class TestHelpers
     public static function createSettings(): Settings
     {
         return SettingsFactory::create(
-            __DIR__ . '/_certs/test.pem',
-            '1234567',
-            __DIR__ . '/_certs/test-pub.pem',
+            [
+                self::CZK => __DIR__ . '/_certs/test.pem',
+                self::EUR => __DIR__ . '/_certs/test2.pem'
+            ],
+            [
+                self::CZK => '1234567',
+                self::EUR => '12345678'
+            ],
+            [
+                self::CZK => __DIR__ . '/_certs/test-pub.pem',
+                self::EUR => __DIR__ . '/_certs/test-pub2.pem',
+            ],
             'https://test.3dsecure.gpwebpay.com/unicredit/order.do',
-            '123456789'
+            [
+                self::CZK => '123456789',
+                self::EUR => '123456780'
+            ],
+            [
+                self::CZK => 1,
+                self::EUR => 1
+            ],
+            self::CZK
         );
     }
 

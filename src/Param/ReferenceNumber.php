@@ -15,11 +15,6 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
-/**
- * Class ReferenceNumber
- * @package Pixidos\GPWebPay\Data
- * @author Ondra Votava <ondra@votava.it>
- */
 class ReferenceNumber implements IParam
 {
 

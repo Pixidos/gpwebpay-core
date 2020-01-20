@@ -16,15 +16,15 @@ use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
 
 /**
- * Class Operation
- * @package Pixidos\GPWebPay\Enum
- * @author Ondra Votava <ondra@votava.it>
- *
  * @method static Operation CREATE_ORDER()
+ * @method static Operation CARD_VERIFICATION()
+ * @method static Operation FINALIZE_ORDER()
  */
 final class Operation extends Enum
 {
     use AutoInstances;
 
     public const CREATE_ORDER = 'CREATE_ORDER';
+    public const CARD_VERIFICATION = 'CARD_VERIFICATION';
+    public const FINALIZE_ORDER = 'FINALIZE_ORDER';
 }

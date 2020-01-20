@@ -39,9 +39,6 @@ HEADER;
 
 $docBloc = <<<DOCBLOC
 /**
- * Class Currency
- * @package Pixidos\GPWebPay\Enum
- * @author Ondra Votava <ondra@votava.it>
  * \n
 DOCBLOC;
 

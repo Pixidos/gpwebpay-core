@@ -16,10 +16,6 @@ use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
 
 /**
- * Class Currency
- * @package Pixidos\GPWebPay\Enum
- * @author Ondra Votava <ondra@votava.it>
- *
  * @method static Currency AFN()
  * @method static Currency EUR()
  * @method static Currency ALL()

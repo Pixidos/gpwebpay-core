@@ -26,11 +26,6 @@ use Pixidos\GPWebPay\Settings\Settings;
 use Pixidos\GPWebPay\Signer\ISignerFactory;
 use UnexpectedValueException;
 
-/**
- * Class Provider
- * @package Pixidos\GPWebPay
- * @author Ondra Votava <ondra@votava.it>
- */
 class Provider implements IProvider
 {
 

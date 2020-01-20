@@ -1,3 +1,5 @@
 vendor/
 composer.lock
 .phpcs-cache
+coverage.xml
+/tests/_reports/

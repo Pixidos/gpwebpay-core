@@ -16,11 +16,6 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\DepositFlag;
 use Pixidos\GPWebPay\Param\MerchantNumber;
 
-/**
- * Class Settings
- * @package Pixidos\GPWebPay
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 class Settings
 {
     /**

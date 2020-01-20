@@ -16,11 +16,6 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use function Pixidos\GPWebPay\assertMaxLenght;
 
-/**
- * Class Token
- * @package Pixidos\GPWebPay\Param
- * @author Ondra Votava <ondra@votava.it>
- */
 class FastToken implements IParam
 {
 

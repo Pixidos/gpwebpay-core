@@ -14,11 +14,6 @@ namespace Pixidos\GPWebPay\Signer;
 
 use Pixidos\GPWebPay\Exceptions\SignerException;
 
-/**
- * Interface ISignerFactory
- * @package Pixidos\GPWebPay\Intefaces
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 interface ISignerFactory
 {
     /**

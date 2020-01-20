@@ -12,20 +12,30 @@
 
 namespace Pixidos\GPWebPay\Data;
 
-/**
- * Interface IResponse
- * @package Pixidos\GPWebPay\Intefaces
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
+use Pixidos\GPWebPay\Param\IParam;
+
 interface IResponse
 {
     public const PRCODE = 'PRCODE';
     public const SRCODE = 'SRCODE';
     public const RESULTTEXT = 'RESULTTEXT';
+    public const EXPIRY = 'EXPIRY';
+    public const ACSRES = 'ACSRES';
+    public const ACCODE = 'ACCODE';
+    public const DAYTOCAPTURE = 'DAYTOCAPTURE';
+    public const TOKENREGSTATUS = 'TOKENREGSTATUS';
     public const DIGEST_1 = 'DIGEST_1';
 
+    public const RESPONSE_PARAMS = [
+        self::EXPIRY,
+        self::ACCODE,
+        self::ACSRES,
+        self::DAYTOCAPTURE,
+        self::TOKENREGSTATUS
+    ];
+
     /**
-     * @return array
+     * @return IParam[]
      */
     public function getParams(): array;
 

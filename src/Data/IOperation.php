@@ -16,11 +16,6 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\IParam;
 
-/**
- * Class OperationContract
- * @package Pixidos\GPWebPay\Contracts
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 interface IOperation
 {
     /**
@@ -31,7 +26,7 @@ interface IOperation
     /**
      * @param IParam $param
      *
-     * @return $this
+     * @return IOperation
      * @throws InvalidArgumentException
      */
     public function addParam(IParam $param): IOperation;

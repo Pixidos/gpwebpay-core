@@ -43,11 +43,11 @@ class SettingsFactory implements SettingsFactoryInterface
         $depositFlag = 1,
         string $defaultGatewayKey = 'czk'
     ): Settings {
-
+        $defaultGatewayKey = strtolower($defaultGatewayKey);
         if (is_array($privateKey)) {
             if (!is_array($privateKeyPassword) || !is_array($merchantNumber)) {
                 throw new InvalidArgumentException(
-                    'Mischmath data. When you set privateKey as array you must set privateKeyPassword and merchantNumber as array too.'
+                    'Mixed data. When you set privateKey as array you must set privateKeyPassword and merchantNumber as array too.'
                 );
             }
             $settings = self::processArray($privateKey, $privateKeyPassword, $publicKey, $url, $merchantNumber, $depositFlag);
@@ -57,7 +57,7 @@ class SettingsFactory implements SettingsFactoryInterface
 
         if (is_array($publicKey) || is_array($url) || is_array($depositFlag) || is_array($privateKeyPassword) || is_array($merchantNumber)) {
             throw new InvalidArgumentException(
-                'Mischmath data. When you set privateKey as string you must set all other parameters as scalar too.'
+                'Mixed data. When you set privateKey as string you must set all other parameters as scalar too.'
             );
         }
 
@@ -113,7 +113,7 @@ class SettingsFactory implements SettingsFactoryInterface
                 (string)self::getValue($key, $url, 'url'),
                 $merchantNumbers[$key],
                 (int)self::getValue($key, $depositFlag, 'depositFlag'),
-                $key
+                strtolower($key)
             );
         }
 

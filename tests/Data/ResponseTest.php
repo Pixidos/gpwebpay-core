@@ -21,12 +21,14 @@ use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Data\IResponse;
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
+use Pixidos\GPWebPay\Param\Token;
+use Pixidos\GPWebPay\Param\UserParam;
 use Pixidos\GPWebPay\Tests\TestHelpers;
 
 /**
  * Class ResponseTest
  * @package PixidosTests\GPWebPay
- * @author Ondra Votava <ondra@votava.it>
+ * @author  Ondra Votava <ondra@votava.it>
  */
 class ResponseTest extends TestCase
 {
@@ -48,10 +50,10 @@ class ResponseTest extends TestCase
             $params['gatewayKey']
         );
 
-        $response->setUserParam1('userparam');
+        $response->addParam(new UserParam('userparam'));
 
         self::assertSame('123456', $response->getOrderNumber());
-        self::assertSame('FA12345', $response->getMerOrderNumber());
+        self::assertSame('12345678', $response->getMerOrderNumber());
         self::assertSame('sometext', $response->getMd());
         self::assertSame(0, $response->getPrcode());
         self::assertSame(0, $response->getSrcode());
@@ -61,7 +63,6 @@ class ResponseTest extends TestCase
         self::assertSame('czk', $response->getGatewayKey());
         self::assertSame('userparam', $response->getUserParam1());
         self::assertFalse($response->hasError());
-
     }
 
 
@@ -80,19 +81,16 @@ class ResponseTest extends TestCase
             $params[IResponse::DIGEST_1],
             $params['gatewayKey']
         );
+        $response->addParam(new Token('XXXX'));
 
-        self::assertSame(
-            [
-                'OPERATION' => 'CREATE_ORDER',
-                'ORDERNUMBER' => '123456',
-                'MERORDERNUM' => 'FA12345',
-                'MD' => 'czk|sometext',
-                'PRCODE' => 0,
-                'SRCODE' => 0,
-                'RESULTTEXT' => 'resulttext',
-            ],
-            $response->getParams()
-        );
+        self::assertSame('sometext', $response->getMd());
+        self::assertSame(TestHelpers::ORDER_NUMBER, $response->getOrderNumber());
+        self::assertSame(TestHelpers::MER_ORDER_NUM, $response->getMerOrderNumber());
+        self::assertSame(0, $response->getPrcode());
+        self::assertSame(0, $response->getSrcode());
+        self::assertSame(TestHelpers::RESULTTEXT, $response->getResultText());
+        self::assertSame('czk', $response->getGatewayKey());
+        self::assertSame('XXXX', $response->getParams()[Param::TOKEN]->getValue());
     }
 
 
@@ -114,6 +112,5 @@ class ResponseTest extends TestCase
         );
 
         self::assertTrue($response->hasError());
-
     }
 }

@@ -548,6 +548,7 @@ class Operation implements IOperation
         $this->addParam($currency);
 
         if ($gatewayKey !== null) {
+            $gatewayKey = strtolower($gatewayKey);
             $this->gatewayKey = $gatewayKey;
             $this->addParam(new Md($gatewayKey));
         }

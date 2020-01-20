@@ -12,15 +12,10 @@
 
 namespace Pixidos\GPWebPay\Signer;
 
-use Pixidos\GPWebPay\Exceptions;
+use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Settings\Settings;
 
-/**
- * Class SingerFactory
- * @package Pixidos\GPWebPay
- * @author Ondra Votava <ondrej.votava@pixidos.com>
- */
 class SignerFactory implements ISignerFactory
 {
     /**
@@ -45,7 +40,8 @@ class SignerFactory implements ISignerFactory
      * @param null|string $gatewayKey
      *
      * @return ISigner
-     * @throws Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
+     *
      * @throws SignerException
      */
     public function create(?string $gatewayKey = null): ISigner

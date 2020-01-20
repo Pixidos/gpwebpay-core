@@ -17,15 +17,11 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\DepositFlag;
 use Pixidos\GPWebPay\Param\Digest;
+use Pixidos\GPWebPay\Param\DigestParams;
 use Pixidos\GPWebPay\Param\IParam;
 use Pixidos\GPWebPay\Param\MerchantNumber;
 use UnexpectedValueException;
 
-/**
- * Class Request
- * @package Pixidos\GPWebPay
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 class Request implements IRequest
 {
     /**
@@ -102,30 +98,7 @@ class Request implements IRequest
     public const ADDINFO = 'ADDINFO';
 
 
-    /**
-     *
-     * @var array DIGEST_PARAMS_KEYS
-     */
-    private const DIGEST_PARAMS_KEYS = [
-        Param::MERCHANTNUMBER,
-        Param::OPERATION,
-        Param::ORDERNUMBER,
-        Param::AMOUNT,
-        Param::CURRENCY,
-        Param::DEPOSITFLAG,
-        Param::MERORDERNUM,
-        Param::RESPONSE_URL,
-        Param::DESCRIPTION,
-        Param::MD,
-        Param::USERPARAM,
-        Param::FASTPAYID,
-        Param::PAYMETHOD,
-        Param::DISABLEPAYMETHOD,
-        Param::PAYMETHODS,
-        Param::EMAIL,
-        Param::REFERENCENUMBER,
-        Param::ADDINFO,
-    ];
+
     /**
      * @var  IOperation $operation
      */
@@ -216,7 +189,7 @@ class Request implements IRequest
      */
     public function getDigestParams(): array
     {
-        return array_intersect_key($this->params, array_flip(self::DIGEST_PARAMS_KEYS));
+        return DigestParams::getDigestParams($this->params);
     }
 
     /**

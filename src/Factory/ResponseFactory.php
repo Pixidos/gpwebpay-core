@@ -12,10 +12,14 @@
 
 namespace Pixidos\GPWebPay\Factory;
 
+use Grifart\Enum\ReflectionFailedException;
 use Pixidos\GPWebPay\Data\IResponse;
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
+use Pixidos\GPWebPay\Param\ResponseParam;
 use Pixidos\GPWebPay\Settings\Settings;
+use ReflectionClass;
+use ReflectionException;
 
 class ResponseFactory
 {
@@ -31,37 +35,61 @@ class ResponseFactory
 
     public function create(array $params): IResponse
     {
-        $operation = $params[Param::OPERATION] ?? '';
-        $ordernumber = $params[Param::ORDERNUMBER] ?? '';
-        $merordernum = $params[Param::MERORDERNUM] ?? null;
-        $md = $params[Param::MD] ?? null;
-        $prcode = $params[Response::PRCODE] ?? 1000;
-        $srcode = $params[Response::SRCODE] ?? 0;
-        $resulttext = $params[Response::RESULTTEXT] ?? null;
-        $digest = $params[Param::DIGEST] ?? '';
-        $digest1 = $params[Response::DIGEST_1] ?? '';
 
+        $md = $this->getStringValue(Param::MD, $params, null);
         $key = explode('|', $md, 2);
 
         $gatewayKey = $key[0] ?: $this->settings->getDefaultGatewayKey();
 
         $response = new Response(
-            $operation,
-            $ordernumber,
-            $merordernum,
+            $this->getStringValue(Param::OPERATION, $params),
+            $this->getStringValue(Param::ORDERNUMBER, $params),
+            $this->getStringValue(Param::MERORDERNUM, $params, null),
             $md,
-            (int)$prcode,
-            (int)$srcode,
-            $resulttext,
-            $digest,
-            $digest1,
+            $this->getIntValue(Response::PRCODE, $params, 1000),
+            $this->getIntValue(Response::SRCODE, $params, 0),
+            $this->getStringValue(Response::RESULTTEXT, $params, null),
+            $this->getStringValue(Param::DIGEST, $params),
+            $this->getStringValue(Response::DIGEST_1, $params),
             $gatewayKey
         );
 
-        if (isset($params[Param::USERPARAM])) {
-            $response->setUserParam1($params[Param::USERPARAM]);
+        try {
+            $paramsKeys = array_keys((new ReflectionClass(Param::class))->getConstants());
+        } catch (ReflectionException $e) {
+            $paramsKeys = [];
+        }
+        $paramsKeys = array_merge($paramsKeys, IResponse::RESPONSE_PARAMS);
+
+        foreach ($params as $key => $value) {
+            if (in_array($key, $paramsKeys, true)) {
+                $response->addParam(new ResponseParam((string)$value, $key));
+            }
         }
 
         return $response;
+    }
+
+
+    private function getStringValue(string $name, &$params, $defaultValue = ''): ?string
+    {
+        $value = $defaultValue;
+        if (isset($params[$name])) {
+            $value = $params[$name];
+            unset($params[$name]);
+        }
+
+        return $value;
+    }
+
+    private function getIntValue(string $name, &$params, $defaultValue = 0): int
+    {
+        $value = $defaultValue;
+        if (isset($params[$name])) {
+            $value = $params[$name];
+            unset($params[$name]);
+        }
+
+        return (int)$value;
     }
 }

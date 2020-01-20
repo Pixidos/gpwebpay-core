@@ -14,11 +14,6 @@ namespace Pixidos\GPWebPay\Signer;
 
 use Pixidos\GPWebPay\Exceptions\SignerException;
 
-/**
- * Class Signer
- * @package Pixidos\GPWebPay
- * @author Ondra Votava <ondra.votava@pixidos.com>
- */
 class Signer implements ISigner
 {
 
