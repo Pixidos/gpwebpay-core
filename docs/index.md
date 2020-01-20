@@ -1,6 +1,5 @@
 # GPWebPay core library
 
-## About
 
 Is it library from integrate [GPWebPay](https://www.gpwebpay.cz/) pay gateway service to your project.
 It framework agnostic and you can use with any php framework or pure php.
@@ -15,7 +14,7 @@ $ composer require pixidos/gpwebpay-core
 
 ## Usage
 
-####Create services
+### Create services
 
 ```php
 <?php declare(strict_types=1);
@@ -54,7 +53,7 @@ $provider = new Provider(
 
 ```
 
-#### Operation and Request
+### Operation and Request
 
 ```php
 $operation = new Operation(
@@ -68,7 +67,7 @@ $operation = new Operation(
 $request = $provider->createRequest($operation);
 ```
 
-#### HTML
+### HTML
 you can simple create HMTL pay button of rendering form
 
 ```php
@@ -89,7 +88,7 @@ echo sprintf('<a href="%s">This is pay link</a>', $request->getRequestUrl());
 </form>
 ```
 
-####Process Response
+### Process Response
 
 ```php
 <?php
