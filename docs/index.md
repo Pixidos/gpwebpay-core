@@ -15,7 +15,7 @@ $ composer require pixidos/gpwebpay-core
 
 ## Usage
 
-**You need create setting for GPWebPay**
+#### Setting
 
 ```php
 $settings = \Pixidos\GPWebPay\Settings\SettingsFactory::create(
@@ -30,14 +30,14 @@ $settings = \Pixidos\GPWebPay\Settings\SettingsFactory::create(
 
 you can configure more then one gateway. 
 
-For example you need receive payment from CZK a EUR [advanced example](advanced-settings.md)
+For example: When you need receive payment from CZK a EUR [advanced example](advanced-settings.md)
 
-**create signer factory **
+#### Signer factory
 ```php
 $signerFactory = new \Pixidos\GPWebPay\Signer\SignerFactory($settings);
 ```
 
-**next create Provider**
+#### Provider
 
 ```php
 $provider = new Provider(
@@ -48,7 +48,7 @@ $provider = new Provider(
         );
 ```
 
-**next create Operation**
+#### Operation
 
 ```php
 $operation = new Operation(
@@ -60,12 +60,14 @@ $operation = new Operation(
         );
 ```
 
-**and create html link or button for pay**
+#### HTML PayButton
+you can simple create HMTL pay button
 ```php
 $request = $provider->createRequest($operation);
 echo "<a href='$request->getRequestUrl()'>This is pay link</a>';
 ```
-**or create from**
+#### Form
+or you can use form for post action
 ```php
 <form action="<?= $request->getRequestUrl(true)?>">
 <?php
@@ -77,7 +79,7 @@ foreach ($request->getParams() as $param){
 </form>
 ```
 
-** Proccess GPWebPayResponse **
+####Process Response
 
 ```php
 <?php
