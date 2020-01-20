@@ -15,67 +15,77 @@ $ composer require pixidos/gpwebpay-core
 
 ## Usage
 
-#### Setting
+####Create services
 
 ```php
-$settings = \Pixidos\GPWebPay\Settings\SettingsFactory::create(
-            __DIR__ . '/_certs/test.pem', // path to private certificate
-            '1234567', // password for private certificate
-            __DIR__ . '/_certs/test-pub.pem', // public certificate by GPWebPay
-            'https://test.3dsecure.gpwebpay.com/unicredit/order.do', // url address to pay gatewey by GPWebPay and selected bank
-            '123456789', // Merchant number
-            1, // Deposit flag -> possible values 1 or 0
-        );
-```
+<?php declare(strict_types=1);
 
-you can configure more then one gateway. 
+use Pixidos\GPWebPay\Data\Operation;
+use Pixidos\GPWebPay\Enum\Currency as CurrencyEnum;
+use Pixidos\GPWebPay\Factory\RequestFactory;
+use Pixidos\GPWebPay\Factory\ResponseFactory;
+use Pixidos\GPWebPay\Param\Amount;
+use Pixidos\GPWebPay\Param\Currency;
+use Pixidos\GPWebPay\Param\IParam;
+use Pixidos\GPWebPay\Param\OrderNumber;
+use Pixidos\GPWebPay\Param\ResponseUrl;
+use Pixidos\GPWebPay\Provider;
+use Pixidos\GPWebPay\Settings\SettingsFactory;
+use Pixidos\GPWebPay\Signer\SignerFactory;
 
-For example: When you need receive payment from CZK a EUR [advanced example](advanced-settings.md)
+$settings = SettingsFactory::create(
+    __DIR__ . '/_certs/test.pem', // path to private certificate
+    '1234567', // password for private certificate
+    __DIR__ . '/_certs/test-pub.pem', // public certificate by GPWebPay
+    'https://test.3dsecure.gpwebpay.com/unicredit/order.do', // url address to pay gatewey by GPWebPay and selected bank
+    '123456789', // Merchant number
+    1 // Deposit flag -> possible values 1 or 0
+);
 
-#### Signer factory
-```php
-$signerFactory = new \Pixidos\GPWebPay\Signer\SignerFactory($settings);
-```
 
-#### Provider
+$signerFactory = new SignerFactory($settings);
 
-```php
 $provider = new Provider(
-            $settings,
-            $signerFactory,
-            new RequestFactory($settings, $signerFactory),
-            new ResponseFactory($settings)
-        );
+    $settings,
+    $signerFactory,
+    new RequestFactory($settings, $signerFactory),
+    new ResponseFactory($settings)
+);
+
 ```
 
-#### Operation
+#### Operation and Request
 
 ```php
 $operation = new Operation(
-            new OrderNumber('123456'),
-            new Amount(1000.00),
-            new Currency(CurrencyEnum::CZK()),
-            null,
-            new ResponseUrl('http://example.com/proccess-gpw-response')
-        );
+    new OrderNumber('123456'),
+    new Amount(1000.00),
+    new Currency(CurrencyEnum::CZK()),
+    null,
+    new ResponseUrl('http://example.com/proccess-gpw-response')
+);
+
+$request = $provider->createRequest($operation);
 ```
 
-#### HTML PayButton
-you can simple create HMTL pay button
+#### HTML
+you can simple create HMTL pay button of rendering form
+
 ```php
-$request = $provider->createRequest($operation);
-echo "<a href='$request->getRequestUrl()'>This is pay link</a>';
-```
-#### Form
-or you can use form for post action
-```php
-<form action="<?= $request->getRequestUrl(true)?>">
-<?php
-foreach ($request->getParams() as $param){
-    echo "<input type=hidden value='$param->getValue()' name='$param->getParamName()'>";
-}
- ?>
-<input type="submit" value="Pay"> 
+// Render button
+echo sprintf('<a href="%s">This is pay link</a>', $request->getRequestUrl());
+
+// OR CREATE FORM
+
+?>
+<form action="<?= $request->getRequestUrl(true) ?>">
+    <?php
+    /** @var IParam $param */
+    foreach ($request->getParams() as $param) {
+        echo sprintf('<input type=hidden value="%s" name="%s">%s', $param->getValue(), $param->getParamName(), "\n\r");
+    }
+    ?>
+    <input type="submit" value="Pay">
 </form>
 ```
 
