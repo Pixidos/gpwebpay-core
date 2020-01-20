@@ -12,7 +12,6 @@
 
 namespace Pixidos\GPWebPay\Factory;
 
-use Grifart\Enum\ReflectionFailedException;
 use Pixidos\GPWebPay\Data\IResponse;
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
@@ -35,20 +34,22 @@ class ResponseFactory
 
     public function create(array $params): IResponse
     {
+        $md = $this->getStringValue(Param::MD, $params);
+        $gatewayKey = $this->settings->getDefaultGatewayKey();
 
-        $md = $this->getStringValue(Param::MD, $params, null);
-        $key = explode('|', $md, 2);
-
-        $gatewayKey = $key[0] ?: $this->settings->getDefaultGatewayKey();
+        if ($md !== '') {
+            $key = explode('|', $md, 2);
+            $gatewayKey = $key[0];
+        }
 
         $response = new Response(
             $this->getStringValue(Param::OPERATION, $params),
             $this->getStringValue(Param::ORDERNUMBER, $params),
-            $this->getStringValue(Param::MERORDERNUM, $params, null),
+            $this->getStringValue(Param::MERORDERNUM, $params),
             $md,
             $this->getIntValue(Response::PRCODE, $params, 1000),
             $this->getIntValue(Response::SRCODE, $params, 0),
-            $this->getStringValue(Response::RESULTTEXT, $params, null),
+            $this->getStringValue(Response::RESULTTEXT, $params),
             $this->getStringValue(Param::DIGEST, $params),
             $this->getStringValue(Response::DIGEST_1, $params),
             $gatewayKey
@@ -71,7 +72,7 @@ class ResponseFactory
     }
 
 
-    private function getStringValue(string $name, &$params, $defaultValue = ''): ?string
+    private function getStringValue(string $name, array &$params, string $defaultValue = ''): string
     {
         $value = $defaultValue;
         if (isset($params[$name])) {
@@ -82,7 +83,7 @@ class ResponseFactory
         return $value;
     }
 
-    private function getIntValue(string $name, &$params, $defaultValue = 0): int
+    private function getIntValue(string $name, array &$params, int $defaultValue = 0): int
     {
         $value = $defaultValue;
         if (isset($params[$name])) {

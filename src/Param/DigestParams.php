@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * This file is part of the Pixidos package.
  *
@@ -10,7 +11,6 @@
  */
 
 namespace Pixidos\GPWebPay\Param;
-
 
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;

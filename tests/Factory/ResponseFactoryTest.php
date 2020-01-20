@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * This file is part of the Pixidos package.
  *
@@ -21,7 +22,7 @@ class ResponseFactoryTest extends TestCase
 {
 
     /***/
-    public function testCreateResponse()
+    public function testCreateResponse(): void
     {
         $factory = new ResponseFactory(TestHelpers::createSettings());
         $response = $factory->create($this->getParams());
@@ -35,11 +36,10 @@ class ResponseFactoryTest extends TestCase
         self::assertSame('czk', $response->getGatewayKey());
         self::assertSame('XXXX', $response->getParams()[Param::TOKEN]->getValue());
         self::assertFalse($response->hasError());
-
     }
 
 
-    private function getParams()
+    private function getParams(): array
     {
         return [
             'OPERATION' => 'CREATE_ORDER',
