@@ -33,7 +33,8 @@
     },
     "require-dev": {
         "pixidos/coding-standards": "^0.1.0",
-        "phpunit/phpunit": "^7.4"
+        "phpunit/phpunit": "^7.4",
+        "phpstan/phpstan-phpunit": "^0.11.2"
     },
     "autoload": {
         "psr-4": {

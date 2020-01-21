@@ -1,5 +1,7 @@
 includes:
     - vendor/pixidos/coding-standards/phpstan.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
     autoload_files:
