@@ -29,3 +29,4 @@ Documentation
 ------------
 
 Learn more in the [documentation](https://pixidos.github.io/gpwebpay-core/).
+
