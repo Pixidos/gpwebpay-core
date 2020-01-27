@@ -34,17 +34,6 @@ interface IRequest
     public function getDigestParams(): array;
 
     /**
-     * Method only for ISinger
-     *
-     * @param string $digest
-     *
-     * @return void
-     * @internal
-     * @deprecated use setParam
-     */
-    public function setDigest(string $digest): void;
-
-    /**
      * @param bool $asPost
      *
      * @return string

@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Param\MerOrderNum;
 use Pixidos\GPWebPay\Param\Operation;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseParam;
-use Pixidos\GPWebPay\Param\UserParam;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
 
 class Response implements IResponse
@@ -44,16 +43,16 @@ class Response implements IResponse
     private $gatewayKey;
 
     /**
-     * @param string      $operation
-     * @param string      $ordernumber
+     * @param string $operation
+     * @param string $ordernumber
      * @param string $merordernum
-     * @param string      $md
-     * @param int         $prcode
-     * @param int         $srcode
-     * @param string      $resulttext
-     * @param string      $digest
-     * @param string      $digest1
-     * @param string      $gatewayKey
+     * @param string $md
+     * @param int    $prcode
+     * @param int    $srcode
+     * @param string $resulttext
+     * @param string $digest
+     * @param string $digest1
+     * @param string $gatewayKey
      */
     public function __construct(
         string $operation,
@@ -187,14 +186,6 @@ class Response implements IResponse
         return isset($this->params[Param::USERPARAM]) ? $this->params[Param::USERPARAM]->getValue() : null;
     }
 
-    /**
-     * @param string $userParam1
-     * @deprecated use addParam()
-     */
-    public function setUserParam1(string $userParam1): void
-    {
-        $this->addParam(new UserParam($userParam1));
-    }
 
     public function addParam(IParam $param): void
     {
