@@ -23,7 +23,7 @@
         }
     ],
     "support": {
-        "email": "ondra@votava.it",
+        "email": "ondra@votava.dev",
         "issues": "https://github.com/Pixidos/gpwebpay-core/issues"
     },
     "require": {
