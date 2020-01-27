@@ -42,9 +42,6 @@
         },
         "files": [
             "src/validators.php"
-        ],
-        "classmap": [
-            "src/depracated.php"
         ]
     },
     "autoload-dev": {
