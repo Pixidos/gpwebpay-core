@@ -46,7 +46,7 @@ class Response implements IResponse
     /**
      * @param string      $operation
      * @param string      $ordernumber
-     * @param string|null $merordernum
+     * @param string $merordernum
      * @param string      $md
      * @param int         $prcode
      * @param int         $srcode
@@ -58,11 +58,11 @@ class Response implements IResponse
     public function __construct(
         string $operation,
         string $ordernumber,
-        ?string $merordernum,
-        ?string $md,
+        string $merordernum,
+        string $md,
         int $prcode,
         int $srcode,
-        ?string $resulttext,
+        string $resulttext,
         string $digest,
         string $digest1,
         string $gatewayKey
@@ -72,18 +72,18 @@ class Response implements IResponse
         );
         $this->addParam(new OrderNumber($ordernumber));
 
-        if ($merordernum !== null) {
+        if ($merordernum !== '') {
             $this->addParam(new MerOrderNum($merordernum));
         }
 
-        if ($md !== null) {
+        if ($md !== '') {
             $this->addParam(new Md($md));
         }
         $this->addParam(new ResponseParam((string)$prcode, self::PRCODE));
         $this->addParam(new ResponseParam((string)$srcode, self::SRCODE));
 
 
-        if ($resulttext !== null) {
+        if ($resulttext !== '') {
             $this->addParam(new ResponseParam($resulttext, self::RESULTTEXT));
         }
 

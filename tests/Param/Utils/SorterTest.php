@@ -13,9 +13,9 @@
 namespace Pixidos\GPWebPay\Tests\Param\Utils;
 
 use PHPUnit\Framework\TestCase;
-use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
+use Pixidos\GPWebPay\Data\Response;
 
 class SorterTest extends TestCase
 {
@@ -70,7 +70,7 @@ class SorterTest extends TestCase
             Param::OPERATION => new FakeParam('someparam'),
             Response::ACSRES => new FakeParam('someparam'),
             Response::ACCODE => new FakeParam('someparam'),
-            'DIGEST1' => new FakeParam('someparam'),
+            Response::DIGEST1 => new FakeParam('someparam'),
             Param::PANPATTERN => new FakeParam('someparam'),
             Response::DAYTOCAPTURE => new FakeParam('someparam'),
             Response::TOKENREGSTATUS => new FakeParam('someparam'),

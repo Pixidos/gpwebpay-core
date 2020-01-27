@@ -51,7 +51,7 @@ class ResponseFactory
             $this->getIntValue(Response::SRCODE, $params, 0),
             $this->getStringValue(Response::RESULTTEXT, $params),
             $this->getStringValue(Param::DIGEST, $params),
-            $this->getStringValue(Response::DIGEST_1, $params),
+            $this->getStringValue(Response::DIGEST1, $params),
             $gatewayKey
         );
 

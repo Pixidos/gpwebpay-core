@@ -81,7 +81,7 @@ class TestHelpers
             IResponse::SRCODE => self::SRCODE,
             IResponse::RESULTTEXT => self::RESULTTEXT,
             Param::DIGEST => self::HASH_1,
-            IResponse::DIGEST_1 => self::HASH_2,
+            IResponse::DIGEST1 => self::HASH_2,
             'gatewayKey' => self::GATEWAY,
         ];
     }

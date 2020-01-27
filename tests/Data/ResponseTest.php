@@ -46,7 +46,7 @@ class ResponseTest extends TestCase
             (int)$params[IResponse::SRCODE],
             $params[IResponse::RESULTTEXT],
             $params[Param::DIGEST],
-            $params[IResponse::DIGEST_1],
+            $params[IResponse::DIGEST1],
             $params['gatewayKey']
         );
 
@@ -78,7 +78,7 @@ class ResponseTest extends TestCase
             (int)$params[IResponse::SRCODE],
             $params[IResponse::RESULTTEXT],
             $params[Param::DIGEST],
-            $params[IResponse::DIGEST_1],
+            $params[IResponse::DIGEST1],
             $params['gatewayKey']
         );
         $response->addParam(new Token('XXXX'));
@@ -107,7 +107,7 @@ class ResponseTest extends TestCase
             30,
             $params[IResponse::RESULTTEXT],
             $params[Param::DIGEST],
-            $params[IResponse::DIGEST_1],
+            $params[IResponse::DIGEST1],
             $params['gatewayKey']
         );
 

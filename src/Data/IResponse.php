@@ -24,7 +24,7 @@ interface IResponse
     public const ACCODE = 'ACCODE';
     public const DAYTOCAPTURE = 'DAYTOCAPTURE';
     public const TOKENREGSTATUS = 'TOKENREGSTATUS';
-    public const DIGEST_1 = 'DIGEST_1';
+    public const DIGEST1 = 'DIGEST1';
 
     public const RESPONSE_PARAMS = [
         self::EXPIRY,
