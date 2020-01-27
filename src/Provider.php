@@ -116,7 +116,7 @@ class Provider implements IProvider
         $verify = $signer->verify($params, $response->getDigest());
         $params[Param::MERCHANTNUMBER] = $this->settings->getMerchantNumber($response->getGatewayKey());
         $verify1 = $signer->verify($params, $response->getDigest1());
-        if (!$verify || $verify1) {
+        if ($verify === false || $verify1 === false) {
             throw new GPWebPayException('Digest or Digest1 is incorrect!');
         }
         // verify PRCODE and SRCODE

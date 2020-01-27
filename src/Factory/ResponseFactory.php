@@ -82,7 +82,7 @@ class ResponseFactory
             unset($params[$name]);
         }
 
-        return $value;
+        return (string)$value;
     }
 
     private function getIntValue(string $name, array &$params, int $defaultValue = 0): int
