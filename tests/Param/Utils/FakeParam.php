@@ -10,38 +10,33 @@
  *
  */
 
-namespace Pixidos\GPWebPay\Param;
+namespace Pixidos\GPWebPay\Tests\Param\Utils;
 
-use Pixidos\GPWebPay\Enum\Currency as CurrencyEnum;
-use Pixidos\GPWebPay\Enum\Param;
+use Pixidos\GPWebPay\Param\IParam;
 
-class Currency implements IParam
+class FakeParam implements IParam
 {
     /**
-     * @var CurrencyEnum
+     * @var string
      */
     private $value;
 
-    public function __construct(CurrencyEnum $currency)
+    public function __construct(string $value)
     {
-        $this->value = $currency;
+        $this->value = $value;
     }
 
     public function __toString(): string
     {
-        return (string)$this->value;
+        return $this->value;
     }
-
 
     public function getParamName(): string
     {
-        return Param::CURRENCY;
+        return 'fake';
     }
 
-    /**
-     * @return CurrencyEnum
-     */
-    public function getValue(): CurrencyEnum
+    public function getValue()
     {
         return $this->value;
     }

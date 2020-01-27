@@ -3,7 +3,7 @@
 /**
  * This file is part of the Pixidos package.
  *
- *  (c) Ondra Votava <ondra@votava.it>
+ *  (c) Ondra Votava <ondra@votava.dev>
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -25,11 +25,11 @@ class DepositFlag implements IParam
     /**
      * DepositFlag constructor.
      *
-     * @param DepositFlagEnum $currency
+     * @param DepositFlagEnum $flag
      */
-    public function __construct(DepositFlagEnum $currency)
+    public function __construct(DepositFlagEnum $flag)
     {
-        $this->value = $currency;
+        $this->value = $flag;
     }
 
     /**

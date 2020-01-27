@@ -3,7 +3,7 @@
 /**
  * This file is part of the Pixidos package.
  *
- *  (c) Ondra Votava <ondra@votava.it>
+ *  (c) Ondra Votava <ondra@votava.dev>
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -58,6 +58,7 @@ class RequestFactory
 
         $signer = $this->signerFactory->create($operation->getGatewayKey());
         $request->setParam(new Digest($signer->sign($request->getDigestParams())));
+        $request->sortParams();
 
         return $request;
     }

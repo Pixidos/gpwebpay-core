@@ -3,19 +3,19 @@
 /**
  * This file is part of the Pixidos package.
  *
- *  (c) Ondra Votava <ondra@votava.it>
+ *  (c) Ondra Votava <ondra@votava.dev>
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  *
  */
 
-namespace Pixidos\GPWebPay\Param;
+namespace Pixidos\GPWebPay\Param\Utils;
 
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
 
-final class DigestParams
+final class DigestParamsFilter
 {
     /**
      *
@@ -32,8 +32,6 @@ final class DigestParams
         Param::RESPONSE_URL,
         Param::DESCRIPTION,
         Param::MD,
-        Param::USERPARAM,
-        Param::FASTPAYID,
         Param::PAYMETHOD,
         Param::DISABLEPAYMETHOD,
         Param::PAYMETHODS,
@@ -41,6 +39,8 @@ final class DigestParams
         Param::REFERENCENUMBER,
         Param::ADDINFO,
         Param::TOKEN,
+        Param::USERPARAM,
+        Param::FASTPAYID,
         Response::RESULTTEXT,
         Response::SRCODE,
         Response::PRCODE,
@@ -55,7 +55,7 @@ final class DigestParams
      * @param array $params
      * @return array
      */
-    public static function getDigestParams(array $params): array
+    public static function filter(array $params): array
     {
         return array_intersect_key($params, array_flip(self::DIGEST_PARAMS_KEYS));
     }

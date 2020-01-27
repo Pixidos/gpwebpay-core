@@ -3,7 +3,7 @@
 /**
  * This file is part of the Pixidos package.
  *
- *  (c) Ondra Votava <ondra@votava.it>
+ *  (c) Ondra Votava <ondra@votava.dev>
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -28,7 +28,7 @@ use UnexpectedValueException;
 /**
  * Class ProviderTest
  * @package Pixidos\GPWebPay\Tests
- * @author Ondra Votava <ondra@votava.it>
+ * @author  Ondra Votava <ondra@votava.dev>
  */
 class ProviderTest extends TestCase
 {
@@ -67,12 +67,13 @@ class ProviderTest extends TestCase
         $operation = TestHelpers::createOperation();
         $request = $provider->createRequest($operation);
 
-        $expectetd = 'https://test.3dsecure.gpwebpay.com/unicredit/order.do?MERCHANTNUMBER=123456789&DEPOSITFLAG=1&OPERATION=CREATE_ORDER&AMOUNT=100000'
-            . '&ORDERNUMBER=123456&CURRENCY=203&MD=czk&URL=http%3A%2F%2Ftest.com&DIGEST=kMl9tg%2Fup2z9CJu%2BEbgm7mg3XSGOAvY2ZkrtgqOtzSprh1L22bvshGRlfDT91'
-            . '34Z2Hj1PWNitDOvgoAFnxyax8oIyx6eB4hMnNkB6xyr3X5XQXqsCsVRGYHYUOLvNuAag1kaNcVx%2Bjuqijxd0huvk60PMn5JjQijNl4ij36YwoqyN4UdP16LjIqYRIngaeHsTTR1X'
-            . 'gIVmJIcuIfETV1QsiQCOYPw0s%2FZTeri1DzpQq1Es5cERSupFBVp5Y8tJUna0Yx%2FoLh2SBhsw6BPixm6jhLAjqvQn%2BgmMv4AKDfTYdSPDqg1A%2BT3XFK%2F%2BvE%2BzOGW0%2'
-            . 'FDHKr2ZqNYUQyD1adi3QA%3D%3D';
-        self::assertSame($expectetd, $provider->getRequestUrl($request));
+        $expected = 'https://test.3dsecure.gpwebpay.com/unicredit/order.do?MERCHANTNUMBER=123456789'
+            . '&OPERATION=CREATE_ORDER&ORDERNUMBER=123456&AMOUNT=100000&CURRENCY=203&DEPOSITFLAG=1&'
+            . 'URL=http%3A%2F%2Ftest.com&MD=czk&DIGEST=kMl9tg%2Fup2z9CJu%2BEbgm7mg3XSGOAvY2ZkrtgqOtzSprh1L22bvshGRlfDT9'
+            . '134Z2Hj1PWNitDOvgoAFnxyax8oIyx6eB4hMnNkB6xyr3X5XQXqsCsVRGYHYUOLvNuAag1kaNcVx%2Bjuqijxd0huvk60PMn5JjQijNl'
+            . '4ij36YwoqyN4UdP16LjIqYRIngaeHsTTR1XgIVmJIcuIfETV1QsiQCOYPw0s%2FZTeri1DzpQq1Es5cERSupFBVp5Y8tJUna0Yx%2FoLh'
+            . '2SBhsw6BPixm6jhLAjqvQn%2BgmMv4AKDfTYdSPDqg1A%2BT3XFK%2F%2BvE%2BzOGW0%2FDHKr2ZqNYUQyD1adi3QA%3D%3D';
+        self::assertSame($expected, $provider->getRequestUrl($request));
     }
 
     /**
