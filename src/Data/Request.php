@@ -16,9 +16,10 @@ use Pixidos\GPWebPay\Enum;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\DepositFlag;
 use Pixidos\GPWebPay\Param\Digest;
-use Pixidos\GPWebPay\Param\DigestParams;
 use Pixidos\GPWebPay\Param\IParam;
 use Pixidos\GPWebPay\Param\MerchantNumber;
+use Pixidos\GPWebPay\Param\Utils\DigestParamsFilter;
+use Pixidos\GPWebPay\Param\Utils\Sorter;
 use UnexpectedValueException;
 
 class Request implements IRequest
@@ -114,10 +115,10 @@ class Request implements IRequest
     private $url;
 
     /**
-     * @param IOperation $operation
+     * @param IOperation            $operation
      * @param string|MerchantNumber $merchantNumber
-     * @param int|DepositFlag $depositFlag
-     * @param string $url
+     * @param int|DepositFlag       $depositFlag
+     * @param string                $url
      *
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
@@ -181,12 +182,21 @@ class Request implements IRequest
         return $this->params;
     }
 
+    public function sortParams(): void
+    {
+        $params = Sorter::sortRequestParams($this->params);
+        $this->params = $params;
+    }
+
+
     /**
      * @return array
      */
     public function getDigestParams(): array
     {
-        return DigestParams::getDigestParams($this->params);
+        $this->sortParams();
+
+        return DigestParamsFilter::filter($this->params);
     }
 
     /**

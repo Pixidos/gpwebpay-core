@@ -58,6 +58,7 @@ class RequestFactory
 
         $signer = $this->signerFactory->create($operation->getGatewayKey());
         $request->setParam(new Digest($signer->sign($request->getDigestParams())));
+        $request->sortParams();
 
         return $request;
     }

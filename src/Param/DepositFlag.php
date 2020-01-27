@@ -25,11 +25,11 @@ class DepositFlag implements IParam
     /**
      * DepositFlag constructor.
      *
-     * @param DepositFlagEnum $currency
+     * @param DepositFlagEnum $flag
      */
-    public function __construct(DepositFlagEnum $currency)
+    public function __construct(DepositFlagEnum $flag)
     {
-        $this->value = $currency;
+        $this->value = $flag;
     }
 
     /**
