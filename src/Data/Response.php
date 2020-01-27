@@ -21,6 +21,7 @@ use Pixidos\GPWebPay\Param\Operation;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseParam;
 use Pixidos\GPWebPay\Param\UserParam;
+use Pixidos\GPWebPay\Param\Utils\Sorter;
 
 class Response implements IResponse
 {
@@ -211,5 +212,10 @@ class Response implements IResponse
     public function getParams(): array
     {
         return $this->params;
+    }
+
+    public function sortParams(): void
+    {
+        $this->params = Sorter::sortResponseParams($this->params);
     }
 }

@@ -98,4 +98,9 @@ interface IResponse
      * @param string $userParam1
      */
     public function setUserParam1(string $userParam1): void;
+
+    /**
+     * Sorting params order by documentation
+     */
+    public function sortParams(): void;
 }

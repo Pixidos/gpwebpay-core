@@ -51,4 +51,8 @@ interface IRequest
      */
     public function getRequestUrl(bool $asPost = false): string;
 
+    /**
+     * Sorting Param by documentation
+     */
+    public function sortParams(): void;
 }

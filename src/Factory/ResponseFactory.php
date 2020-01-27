@@ -68,6 +68,8 @@ class ResponseFactory
             }
         }
 
+        $response->sortParams();
+
         return $response;
     }
 
