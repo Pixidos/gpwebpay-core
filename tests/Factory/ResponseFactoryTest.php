@@ -13,7 +13,7 @@
 namespace Pixidos\GPWebPay\Tests\Factory;
 
 use PHPUnit\Framework\TestCase;
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Tests\TestHelpers;
 
@@ -61,11 +61,11 @@ class ResponseFactoryTest extends TestCase
             Param::ORDERNUMBER => TestHelpers::ORDER_NUMBER,
             Param::MERORDERNUM => TestHelpers::MER_ORDER_NUM,
             Param::MD => 'czk|sometext',
-            IResponse::PRCODE => TestHelpers::PRCODE,
-            IResponse::SRCODE => TestHelpers::SRCODE,
-            IResponse::RESULTTEXT => TestHelpers::RESULTTEXT,
+            ResponseInterface::PRCODE => TestHelpers::PRCODE,
+            ResponseInterface::SRCODE => TestHelpers::SRCODE,
+            ResponseInterface::RESULTTEXT => TestHelpers::RESULTTEXT,
             Param::DIGEST => TestHelpers::HASH_1,
-            IResponse::DIGEST1 => TestHelpers::HASH_2,
+            ResponseInterface::DIGEST1 => TestHelpers::HASH_2,
             Param::TOKEN => 'XXXX',
         ];
     }
@@ -76,11 +76,11 @@ class ResponseFactoryTest extends TestCase
             Param::OPERATION => 'CREATE_ORDER',
             Param::ORDERNUMBER => TestHelpers::ORDER_NUMBER,
             Param::MD => 'czk',
-            IResponse::PRCODE => 14,
-            IResponse::SRCODE => 0,
-            IResponse::RESULTTEXT => 'Duplicate order number',
+            ResponseInterface::PRCODE => 14,
+            ResponseInterface::SRCODE => 0,
+            ResponseInterface::RESULTTEXT => 'Duplicate order number',
             Param::DIGEST => TestHelpers::HASH_1,
-            IResponse::DIGEST1 => TestHelpers::HASH_2,
+            ResponseInterface::DIGEST1 => TestHelpers::HASH_2,
         ];
     }
 

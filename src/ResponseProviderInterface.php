@@ -12,25 +12,25 @@
 
 namespace Pixidos\GPWebPay;
 
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 
 interface ResponseProviderInterface
 {
     /**
-     * @param IResponse $response
-     * @return IResponse
+     * @param ResponseInterface $response
+     * @return ResponseInterface
      */
-    public function provide(IResponse $response): IResponse;
+    public function provide(ResponseInterface $response): ResponseInterface;
 
 
     /**
-     * @param IResponse $response
+     * @param ResponseInterface $response
      *
      * @return bool
      * @throws GPWebPayException
      * @throws GPWebPayResultException
      */
-    public function verifyPaymentResponse(IResponse $response): bool;
+    public function verifyPaymentResponse(ResponseInterface $response): bool;
 }

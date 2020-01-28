@@ -13,14 +13,14 @@
 namespace Pixidos\GPWebPay\Factory;
 
 use Pixidos\GPWebPay\Config\PaymentConfigProvider;
-use Pixidos\GPWebPay\Data\IOperation;
+use Pixidos\GPWebPay\Data\OperationInterface;
 use Pixidos\GPWebPay\Data\Request;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Exceptions\LogicException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Param\Digest;
-use Pixidos\GPWebPay\Signer\SignerProvider;
+use Pixidos\GPWebPay\Signer\SignerProviderInterface;
 use UnexpectedValueException;
 
 class RequestFactory
@@ -30,30 +30,30 @@ class RequestFactory
      */
     private $config;
     /**
-     * @var SignerProvider
+     * @var SignerProviderInterface
      */
     private $signerProvider;
 
     /**
      * RequestFactory constructor.
-     * @param PaymentConfigProvider $config
-     * @param SignerProvider        $signerProvider
+     * @param PaymentConfigProvider   $config
+     * @param SignerProviderInterface $signerProvider
      */
-    public function __construct(PaymentConfigProvider $config, SignerProvider $signerProvider)
+    public function __construct(PaymentConfigProvider $config, SignerProviderInterface $signerProvider)
     {
         $this->config = $config;
         $this->signerProvider = $signerProvider;
     }
 
     /**
-     * @param IOperation $operation
+     * @param OperationInterface $operation
      *
      * @return Request
      * @throws InvalidArgumentException
      * @throws SignerException
      * @throws UnexpectedValueException
      */
-    public function create(IOperation $operation): Request
+    public function create(OperationInterface $operation): Request
     {
         $key = $this->config->getGateway($operation->getGateway());
         if ($operation->getParam(Param::RESPONSE_URL()) === null) {

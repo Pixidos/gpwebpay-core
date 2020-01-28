@@ -18,7 +18,7 @@
 namespace Pixidos\GPWebPay\Tests\Data;
 
 use PHPUnit\Framework\TestCase;
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\Token;
@@ -42,11 +42,11 @@ class ResponseTest extends TestCase
             $params[Param::ORDERNUMBER],
             $params[Param::MERORDERNUM],
             $params[Param::MD],
-            (int)$params[IResponse::PRCODE],
-            (int)$params[IResponse::SRCODE],
-            $params[IResponse::RESULTTEXT],
+            (int)$params[ResponseInterface::PRCODE],
+            (int)$params[ResponseInterface::SRCODE],
+            $params[ResponseInterface::RESULTTEXT],
             $params[Param::DIGEST],
-            $params[IResponse::DIGEST1],
+            $params[ResponseInterface::DIGEST1],
             $params['gatewayKey']
         );
 
@@ -74,11 +74,11 @@ class ResponseTest extends TestCase
             $params[Param::ORDERNUMBER],
             $params[Param::MERORDERNUM],
             $params[Param::MD],
-            (int)$params[IResponse::PRCODE],
-            (int)$params[IResponse::SRCODE],
-            $params[IResponse::RESULTTEXT],
+            (int)$params[ResponseInterface::PRCODE],
+            (int)$params[ResponseInterface::SRCODE],
+            $params[ResponseInterface::RESULTTEXT],
             $params[Param::DIGEST],
-            $params[IResponse::DIGEST1],
+            $params[ResponseInterface::DIGEST1],
             $params['gatewayKey']
         );
         $response->addParam(new Token('XXXX'));
@@ -105,9 +105,9 @@ class ResponseTest extends TestCase
             $params[Param::MD],
             1000,
             30,
-            $params[IResponse::RESULTTEXT],
+            $params[ResponseInterface::RESULTTEXT],
             $params[Param::DIGEST],
-            $params[IResponse::DIGEST1],
+            $params[ResponseInterface::DIGEST1],
             $params['gatewayKey']
         );
 

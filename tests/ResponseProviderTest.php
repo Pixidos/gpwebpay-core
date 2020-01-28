@@ -15,7 +15,7 @@ namespace Pixidos\GPWebPay\Tests;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\RuntimeException;
 use PHPUnit\Framework\TestCase;
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
@@ -75,7 +75,7 @@ class ResponseProviderTest extends TestCase
 
         $called = false;
         $provider->addOnError(
-            static function (GPWebPayException $exception, IResponse $response) use (&$called) {
+            static function (GPWebPayException $exception, ResponseInterface $response) use (&$called) {
                 $called = true;
             }
         );
@@ -91,7 +91,7 @@ class ResponseProviderTest extends TestCase
 
         $called = false;
         $provider->addOnSuccess(
-            static function (IResponse $response) use (&$called) {
+            static function (ResponseInterface $response) use (&$called) {
                 $called = true;
             }
         );

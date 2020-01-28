@@ -22,7 +22,7 @@ use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseParam;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
 
-class Response implements IResponse
+class Response implements ResponseInterface
 {
 
     /**

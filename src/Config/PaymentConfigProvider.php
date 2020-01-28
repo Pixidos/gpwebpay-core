@@ -19,6 +19,7 @@ use Pixidos\GPWebPay\Param\MerchantNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
 
 class PaymentConfigProvider
+
 {
     /**
      * @var string defaultGatewayKey

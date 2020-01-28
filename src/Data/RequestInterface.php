@@ -14,7 +14,7 @@ namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Param\IParam;
 
-interface IRequest
+interface RequestInterface
 {
     /**
      * Return all parameters

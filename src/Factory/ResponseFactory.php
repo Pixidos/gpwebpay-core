@@ -13,7 +13,7 @@
 namespace Pixidos\GPWebPay\Factory;
 
 use Pixidos\GPWebPay\Config\PaymentConfigProvider;
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\ResponseParam;
@@ -35,7 +35,7 @@ class ResponseFactory
         $this->configProvider = $configProvider;
     }
 
-    public function create(array $params): IResponse
+    public function create(array $params): ResponseInterface
     {
         $md = $this->getStringValue(Param::MD, $params);
         $gateway = $this->configProvider->getDefaultGateway();
@@ -60,7 +60,7 @@ class ResponseFactory
 
         $paramsKeys = array_keys((new ReflectionClass(Param::class))->getConstants());
 
-        $paramsKeys = array_merge($paramsKeys, IResponse::RESPONSE_PARAMS);
+        $paramsKeys = array_merge($paramsKeys, ResponseInterface::RESPONSE_PARAMS);
 
         foreach ($params as $key => $value) {
             if (in_array($key, $paramsKeys, true)) {
