@@ -14,12 +14,13 @@ namespace Pixidos\GPWebPay;
 
 use Closure;
 use Pixidos\GPWebPay\Config\PaymentConfigProvider;
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Signer\SignerProvider;
+use Pixidos\GPWebPay\Signer\SignerProviderInterface;
 
 class ResponseProvider implements ResponseProviderInterface
 {
@@ -34,7 +35,7 @@ class ResponseProvider implements ResponseProviderInterface
     public $onError = [];
 
     /**
-     * @var SignerProvider
+     * @var SignerProviderInterface
      */
     private $signerProvider;
 
@@ -46,19 +47,19 @@ class ResponseProvider implements ResponseProviderInterface
     /**
      * Provider constructor.
      *
-     * @param PaymentConfigProvider $configProvider
-     * @param SignerProvider        $signerProvider
+     * @param PaymentConfigProvider   $configProvider
+     * @param SignerProviderInterface $signerProvider
      */
     public function __construct(
         PaymentConfigProvider $configProvider,
-        SignerProvider $signerProvider
+        SignerProviderInterface $signerProvider
     ) {
         $this->signerProvider = $signerProvider;
         $this->settings = $configProvider;
     }
 
 
-    public function provide(IResponse $response): IResponse
+    public function provide(ResponseInterface $response): ResponseInterface
     {
         try {
             if (!$this->verifyPaymentResponse($response)) {
@@ -84,13 +85,13 @@ class ResponseProvider implements ResponseProviderInterface
     }
 
     /**
-     * @param IResponse $response
+     * @param ResponseInterface $response
      *
      * @return bool
      * @throws GPWebPayException
      * @throws GPWebPayResultException
      */
-    public function verifyPaymentResponse(IResponse $response): bool
+    public function verifyPaymentResponse(ResponseInterface $response): bool
     {
         // verify digest & digest1
         $signer = $this->signerProvider->get($response->getGatewayKey());
@@ -117,7 +118,7 @@ class ResponseProvider implements ResponseProviderInterface
         return $this;
     }
 
-    private function onSuccess(IResponse $response): void
+    private function onSuccess(ResponseInterface $response): void
     {
         foreach ($this->onSuccess as $callback) {
             $callback($response);
@@ -126,9 +127,9 @@ class ResponseProvider implements ResponseProviderInterface
 
     /**
      * @param GPWebPayException $exception
-     * @param IResponse         $response
+     * @param ResponseInterface $response
      */
-    private function onError(GPWebPayException $exception, IResponse $response): void
+    private function onError(GPWebPayException $exception, ResponseInterface $response): void
     {
         if (count($this->onError) === 0) {
             throw $exception;

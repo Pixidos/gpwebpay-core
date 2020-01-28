@@ -14,7 +14,7 @@ namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Param\IParam;
 
-interface IResponse
+interface ResponseInterface
 {
     public const PRCODE = 'PRCODE';
     public const SRCODE = 'SRCODE';

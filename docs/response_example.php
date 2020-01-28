@@ -1,6 +1,15 @@
 <?php declare(strict_types=1);
+/**
+ * This file is part of the Pixidos package.
+ *
+ *  (c) Ondra Votava <ondra@votava.dev>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ *
+ */
 
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Factory\ResponseFactory;
 use Pixidos\GPWebPay\ResponseProvider;
@@ -23,14 +32,14 @@ $response = $responseFactory->create($params);
 // you can add callbacks for onSuccess and onError events
 // success callbacks
 $provider->addOnSuccess(
-    static function (IResponse $response) {
+    static function (ResponseInterface $response) {
         // here is you code for processing response
     }
 );
 
 // error callback
 $provider->addOnError(
-    static function (GPWebPayException $exception, IResponse $response) {
+    static function (GPWebPayException $exception, ResponseInterface $response) {
         // here is you code for processing error
     }
 );

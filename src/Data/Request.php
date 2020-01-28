@@ -20,10 +20,10 @@ use Pixidos\GPWebPay\Param\Utils\DigestParamsFilter;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
 use UnexpectedValueException;
 
-class Request implements IRequest
+class Request implements RequestInterface
 {
     /**
-     * @var  IOperation $operation
+     * @var  OperationInterface $operation
      */
     private $operation;
     /**
@@ -39,16 +39,16 @@ class Request implements IRequest
     private $url;
 
     /**
-     * @param IOperation     $operation
-     * @param MerchantNumber $merchantNumber
-     * @param DepositFlag    $depositFlag
-     * @param string         $url
+     * @param OperationInterface $operation
+     * @param MerchantNumber     $merchantNumber
+     * @param DepositFlag        $depositFlag
+     * @param string             $url
      *
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
      */
     public function __construct(
-        IOperation $operation,
+        OperationInterface $operation,
         MerchantNumber $merchantNumber,
         DepositFlag $depositFlag,
         string $url

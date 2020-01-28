@@ -107,7 +107,7 @@ class ConfigFactory implements ConfigFactoryInterface
                 $this->paymentConfigFactory->create(
                     (string)$this->getValue(self::URL, $data, $gateway),
                     (string)$this->getValue(self::MERCHANT_NUMBER, $data, $gateway),
-                    (int)$this->getValue(self::DEPOSIT_FLAG, $data, $gateway),
+                    array_key_exists(self::DEPOSIT_FLAG, $data) ? (int)$data[self::DEPOSIT_FLAG] : 1,
                     $gateway,
                     (string)($data[self::RESPONSE_URL] ?? null)
                 )

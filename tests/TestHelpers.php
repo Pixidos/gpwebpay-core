@@ -15,7 +15,7 @@ namespace Pixidos\GPWebPay\Tests;
 use Pixidos\GPWebPay\Config\Config;
 use Pixidos\GPWebPay\Config\Factory\ConfigFactory;
 use Pixidos\GPWebPay\Config\Factory\PaymentConfigFactory;
-use Pixidos\GPWebPay\Data\IResponse;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Data\Operation;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
@@ -85,9 +85,9 @@ class TestHelpers
 
     /**
      * @param array $params
-     * @return IResponse
+     * @return ResponseInterface
      */
-    public static function createResponse(array $params): IResponse
+    public static function createResponse(array $params): ResponseInterface
     {
         return self::createResponseFactory()->create($params);
     }
@@ -113,11 +113,11 @@ class TestHelpers
             Param::ORDERNUMBER => self::ORDER_NUMBER,
             Param::MERORDERNUM => self::MER_ORDER_NUM,
             Param::MD => 'czk|sometext',
-            IResponse::PRCODE => self::PRCODE,
-            IResponse::SRCODE => self::SRCODE,
-            IResponse::RESULTTEXT => self::RESULTTEXT,
+            ResponseInterface::PRCODE => self::PRCODE,
+            ResponseInterface::SRCODE => self::SRCODE,
+            ResponseInterface::RESULTTEXT => self::RESULTTEXT,
             Param::DIGEST => self::HASH_1,
-            IResponse::DIGEST1 => self::HASH_2,
+            ResponseInterface::DIGEST1 => self::HASH_2,
             'gatewayKey' => self::GATEWAY,
         ];
     }

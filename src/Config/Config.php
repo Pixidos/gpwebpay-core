@@ -27,11 +27,10 @@ class Config
      */
     private $defaultGateway;
 
-    public function __construct(PaymentConfigProvider $paymentConfigProvider, SignerConfigProvider $signerConfigProvider, string $defaultGateway)
+    public function __construct(PaymentConfigProvider $paymentConfigProvider, SignerConfigProvider $signerConfigProvider)
     {
         $this->paymentConfigProvider = $paymentConfigProvider;
         $this->signerConfigProvider = $signerConfigProvider;
-        $this->defaultGateway = $defaultGateway;
     }
 
     /**

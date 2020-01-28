@@ -16,7 +16,7 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\IParam;
 
-interface IOperation
+interface OperationInterface
 {
     /**
      * @return null|string
@@ -26,10 +26,10 @@ interface IOperation
     /**
      * @param IParam $param
      *
-     * @return IOperation
+     * @return OperationInterface
      * @throws InvalidArgumentException
      */
-    public function addParam(IParam $param): IOperation;
+    public function addParam(IParam $param): OperationInterface;
 
     /**
      * @param Param $param

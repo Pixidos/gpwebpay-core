@@ -28,7 +28,7 @@ use Pixidos\GPWebPay\Param\ResponseUrl;
  * @package Pixidos\GPWebPay
  * @author  Ondra Votava <ondra@votava.dev>
  */
-class Operation implements IOperation
+class Operation implements OperationInterface
 {
     /**
      * @var string|null $gateway
@@ -86,7 +86,7 @@ class Operation implements IOperation
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function addParam(IParam $param): IOperation
+    public function addParam(IParam $param): OperationInterface
     {
         if (($param instanceof Md) && $this->gateway !== (string)$param) {
             $param = new Md($this->gateway . '|' . $param);
