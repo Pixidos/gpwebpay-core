@@ -12,34 +12,37 @@
 
 namespace Pixidos\GPWebPay\Factory;
 
+use Pixidos\GPWebPay\Config\PaymentConfigProvider;
 use Pixidos\GPWebPay\Data\IResponse;
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\ResponseParam;
-use Pixidos\GPWebPay\Settings\Settings;
 use ReflectionClass;
-use ReflectionException;
 
 class ResponseFactory
 {
     /**
-     * @var Settings
+     * @var PaymentConfigProvider
      */
-    private $settings;
+    private $configProvider;
 
-    public function __construct(Settings $settings)
+    /**
+     * ResponseFactory constructor.
+     * @param PaymentConfigProvider $configProvider
+     */
+    public function __construct(PaymentConfigProvider $configProvider)
     {
-        $this->settings = $settings;
+        $this->configProvider = $configProvider;
     }
 
     public function create(array $params): IResponse
     {
         $md = $this->getStringValue(Param::MD, $params);
-        $gatewayKey = $this->settings->getDefaultGatewayKey();
+        $gateway = $this->configProvider->getDefaultGateway();
 
         if ($md !== '') {
             $key = explode('|', $md, 2);
-            $gatewayKey = $key[0];
+            $gateway = $key[0];
         }
 
         $response = new Response(
@@ -52,14 +55,11 @@ class ResponseFactory
             $this->getStringValue(Response::RESULTTEXT, $params),
             $this->getStringValue(Param::DIGEST, $params),
             $this->getStringValue(Response::DIGEST1, $params),
-            $gatewayKey
+            $gateway
         );
 
-        try {
-            $paramsKeys = array_keys((new ReflectionClass(Param::class))->getConstants());
-        } catch (ReflectionException $e) {
-            $paramsKeys = [];
-        }
+        $paramsKeys = array_keys((new ReflectionClass(Param::class))->getConstants());
+
         $paramsKeys = array_merge($paramsKeys, IResponse::RESPONSE_PARAMS);
 
         foreach ($params as $key => $value) {

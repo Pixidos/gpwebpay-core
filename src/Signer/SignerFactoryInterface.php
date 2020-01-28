@@ -12,20 +12,13 @@
 
 namespace Pixidos\GPWebPay\Signer;
 
-interface ISigner
+use Pixidos\GPWebPay\Config\SignerConfig;
+
+interface SignerFactoryInterface
 {
     /**
-     * @param array $params
-     *
-     * @return string
+     * @param SignerConfig $config
+     * @return SignerInterface
      */
-    public function sign(array $params): string;
-
-    /**
-     * @param array $params
-     * @param string $digest
-     *
-     * @return bool
-     */
-    public function verify(array $params, string $digest): bool;
+    public function create(SignerConfig $config): SignerInterface;
 }

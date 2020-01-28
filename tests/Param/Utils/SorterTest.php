@@ -82,4 +82,5 @@ class SorterTest extends TestCase
         self::assertSame(Sorter::RESPONSE_PARAM_ORDER, array_keys($sorted));
     }
 
+
 }

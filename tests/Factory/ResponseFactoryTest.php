@@ -15,7 +15,6 @@ namespace Pixidos\GPWebPay\Tests\Factory;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Data\IResponse;
 use Pixidos\GPWebPay\Enum\Param;
-use Pixidos\GPWebPay\Factory\ResponseFactory;
 use Pixidos\GPWebPay\Tests\TestHelpers;
 
 class ResponseFactoryTest extends TestCase
@@ -24,7 +23,7 @@ class ResponseFactoryTest extends TestCase
     /***/
     public function testCreateResponse(): void
     {
-        $factory = new ResponseFactory(TestHelpers::createSettings());
+        $factory = TestHelpers::createResponseFactory();
         $response = $factory->create($this->getFullParams());
 
         self::assertSame('sometext', $response->getMd());
@@ -38,9 +37,10 @@ class ResponseFactoryTest extends TestCase
         self::assertFalse($response->hasError());
     }
 
+
     public function testErrorResponse(): void
     {
-        $factory = new ResponseFactory(TestHelpers::createSettings());
+        $factory = TestHelpers::createResponseFactory();
         $response = $factory->create($this->getErrorParams());
 
         self::assertNull($response->getMd());

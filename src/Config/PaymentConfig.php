@@ -10,25 +10,14 @@
  *
  */
 
-namespace Pixidos\GPWebPay\Settings;
+namespace Pixidos\GPWebPay\Config;
 
 use Pixidos\GPWebPay\Param\DepositFlag;
 use Pixidos\GPWebPay\Param\MerchantNumber;
+use Pixidos\GPWebPay\Param\ResponseUrl;
 
-class Setting
+class PaymentConfig
 {
-    /**
-     * @var string
-     */
-    private $privateKey;
-    /**
-     * @var string
-     */
-    private $privateKeyPassword;
-    /**
-     * @var string
-     */
-    private $publicKey;
     /**
      * @var string
      */
@@ -44,60 +33,33 @@ class Setting
     /**
      * @var string
      */
-    private $gatewayKey;
+    private $gateway;
+    /**
+     * @var ResponseUrl|null
+     */
+    private $responseUrl;
 
     /**
      * Settings constructor.
-     *
-     * @param string $privateKey
-     * @param string $privateKeyPassword
-     * @param string $publicKey
-     * @param string $url
-     * @param MerchantNumber $merchantNumber
-     * @param DepositFlag $depositFlag
-     * @param string $gatewayKey
+     * @TODO: url as object
+     * @param string           $url
+     * @param MerchantNumber   $merchantNumber
+     * @param DepositFlag      $depositFlag
+     * @param string           $gateway
+     * @param ResponseUrl|null $responseUrl
      */
     public function __construct(
-        string $privateKey,
-        string $privateKeyPassword,
-        string $publicKey,
         string $url,
         MerchantNumber $merchantNumber,
         DepositFlag $depositFlag,
-        string $gatewayKey
+        string $gateway,
+        ?ResponseUrl $responseUrl = null
     ) {
-
-        $this->privateKey = $privateKey;
-        $this->privateKeyPassword = $privateKeyPassword;
-        $this->publicKey = $publicKey;
         $this->url = $url;
         $this->merchantNumber = $merchantNumber;
         $this->depositFlag = $depositFlag;
-        $this->gatewayKey = $gatewayKey;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrivateKey(): string
-    {
-        return $this->privateKey;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrivateKeyPassword(): string
-    {
-        return $this->privateKeyPassword;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPublicKey(): string
-    {
-        return $this->publicKey;
+        $this->gateway = $gateway;
+        $this->responseUrl = $responseUrl;
     }
 
     /**
@@ -125,11 +87,22 @@ class Setting
     }
 
     /**
+     * @return ResponseUrl|null
+     */
+    public function getResponseUrl(): ?ResponseUrl
+    {
+        return $this->responseUrl;
+    }
+
+
+    /**
      * @return string
      */
-    public function getGatewayKey(): string
+    public function getGateway(): string
     {
-        return $this->gatewayKey;
+        return $this->gateway;
     }
+
+
 
 }

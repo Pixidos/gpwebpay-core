@@ -41,16 +41,6 @@ class AmountTest extends TestCase
         self::assertSame('1000', (string)$amount);
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function testFloatWithoutConvertingThrowException(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('You dost not use AMOUNT as FLOAT|DOUBLE withou converToPennies=true  ! "double" given.');
-
-        new Amount(1000.00, false);
-    }
 
     /**
      * @throws InvalidArgumentException
@@ -61,16 +51,5 @@ class AmountTest extends TestCase
         $this->expectExceptionMessage('AMOUNT must be integer "100000.1" given.');
 
         new Amount(1000.001);
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function testNonNumericValueThrowException(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('AMOUNT must be type of INT|FLOAT|DOUBLE ! "string" given.');
-
-        new Amount('1000');
     }
 }

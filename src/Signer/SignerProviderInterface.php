@@ -10,9 +10,13 @@
  *
  */
 
-namespace Pixidos\GPWebPay\Exceptions;
+namespace Pixidos\GPWebPay\Signer;
 
-class InvalidArgumentException extends LogicException
+interface SignerProviderInterface
 {
-
+    /**
+     * @param string $gateway
+     * @return SignerInterface
+     */
+    public function get(string $gateway): SignerInterface;
 }

@@ -12,28 +12,18 @@
 
 namespace Pixidos\GPWebPay;
 
-use Pixidos\GPWebPay\Data\IOperation;
-use Pixidos\GPWebPay\Data\IRequest;
 use Pixidos\GPWebPay\Data\IResponse;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 
-interface IProvider
+interface ResponseProviderInterface
 {
     /**
-     * @param IOperation $operation
-     *
-     * @return IRequest
-     */
-    public function createRequest(IOperation $operation): IRequest;
-
-
-    /**
-     * @param array $params
-     *
+     * @param IResponse $response
      * @return IResponse
      */
-    public function createResponse(array $params): IResponse;
+    public function provide(IResponse $response): IResponse;
+
 
     /**
      * @param IResponse $response

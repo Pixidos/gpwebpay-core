@@ -12,8 +12,8 @@
 
 namespace Pixidos\GPWebPay\Data;
 
-use Pixidos\GPWebPay\Enum;
-use Pixidos\GPWebPay\Enum\Param;
+use Pixidos\GPWebPay\Enum\Operation as OperationEnum;
+use Pixidos\GPWebPay\Enum\Param as ParamEnum;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\Amount;
 use Pixidos\GPWebPay\Param\Currency;
@@ -31,9 +31,9 @@ use Pixidos\GPWebPay\Param\ResponseUrl;
 class Operation implements IOperation
 {
     /**
-     * @var string|null $gatewayKey
+     * @var string|null $gateway
      */
-    private $gatewayKey;
+    private $gateway;
 
     /**
      * @var IParam[]
@@ -46,25 +46,25 @@ class Operation implements IOperation
      * @param OrderNumber      $orderNumber
      * @param Amount           $amount
      * @param Currency         $currency
-     * @param string|null      $gatewayKey
+     * @param string|null      $gateway
      * @param ResponseUrl|null $responseUrl
      */
     public function __construct(
         OrderNumber $orderNumber,
         Amount $amount,
         Currency $currency,
-        ?string $gatewayKey = null,
+        ?string $gateway = null,
         ?ResponseUrl $responseUrl = null
     ) {
-        $this->addParam(new OperationParam(Enum\Operation::CREATE_ORDER()));
+        $this->addParam(new OperationParam(OperationEnum::CREATE_ORDER()));
         $this->addParam($amount);
         $this->addParam($orderNumber);
         $this->addParam($currency);
 
-        if ($gatewayKey !== null) {
-            $gatewayKey = strtolower($gatewayKey);
-            $this->gatewayKey = $gatewayKey;
-            $this->addParam(new Md($gatewayKey));
+        if ($gateway !== null) {
+            $gateway = strtolower($gateway);
+            $this->gateway = $gateway;
+            $this->addParam(new Md($gateway));
         }
 
         if ($responseUrl !== null) {
@@ -75,9 +75,9 @@ class Operation implements IOperation
     /**
      * @return null|string
      */
-    public function getGatewayKey(): ?string
+    public function getGateway(): ?string
     {
-        return $this->gatewayKey;
+        return $this->gateway;
     }
 
     /**
@@ -88,8 +88,8 @@ class Operation implements IOperation
      */
     public function addParam(IParam $param): IOperation
     {
-        if (($param instanceof Md) && $this->gatewayKey !== (string)$param) {
-            $param = new Md($this->gatewayKey . '|' . $param);
+        if (($param instanceof Md) && $this->gateway !== (string)$param) {
+            $param = new Md($this->gateway . '|' . $param);
         }
 
         $this->params[$param->getParamName()] = $param;
@@ -98,11 +98,11 @@ class Operation implements IOperation
     }
 
     /**
-     * @param Param $param
+     * @param ParamEnum $param
      *
      * @return IParam|null
      */
-    public function getParam(Param $param): ?IParam
+    public function getParam(ParamEnum $param): ?IParam
     {
         return $this->params[(string)$param] ?? null;
     }

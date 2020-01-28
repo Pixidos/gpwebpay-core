@@ -14,7 +14,6 @@ namespace Pixidos\GPWebPay\Param\Utils;
 
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
-use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Param\IParam;
 
 class Sorter
@@ -98,9 +97,6 @@ class Sorter
     private static function sort(array $params, array $order): array
     {
         $sort = array_replace($order, $params);
-        if ($sort === null) {
-            throw new GPWebPayException('Cant sorting parameters');
-        }
 
         return array_intersect_key($sort, $params);
     }

@@ -19,6 +19,7 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\Amount;
 use Pixidos\GPWebPay\Param\Currency;
+use Pixidos\GPWebPay\Param\Md;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
 use UnexpectedValueException;
@@ -44,13 +45,16 @@ class OperationTest extends TestCase
             new ResponseUrl('http://response.com/proccess-gpw-response')
         );
 
+        $operation->addParam(new Md('someMd'));
+
         self::assertSame('123456', (string)$operation->getParam(Param::ORDERNUMBER()));
         self::assertSame('100000', (string)$operation->getParam(Param::AMOUNT()));
         self::assertSame('203', (string)$operation->getParam(Param::CURRENCY()));
-        self::assertSame('czk', $operation->getGatewayKey());
+        self::assertSame('czk', $operation->getGateway());
         $responseUrl = $operation->getParam(Param::RESPONSE_URL());
         self::assertNotNull($responseUrl);
         self::assertSame('http://response.com/proccess-gpw-response', $responseUrl->getValue());
+        self::assertSame('czk|someMd', (string)$operation->getParam(Param::MD()));
     }
 
 }

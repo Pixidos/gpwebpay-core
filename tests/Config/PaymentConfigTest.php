@@ -10,38 +10,34 @@
  *
  */
 
-namespace Pixidos\GPWebPay\Tests\Settings;
+namespace Pixidos\GPWebPay\Tests\Config;
 
+use PHPUnit\Framework\TestCase;
+use Pixidos\GPWebPay\Config\PaymentConfig;
 use Pixidos\GPWebPay\Param\DepositFlag;
 use Pixidos\GPWebPay\Param\MerchantNumber;
-use Pixidos\GPWebPay\Settings\Setting;
-use PHPUnit\Framework\TestCase;
+use Pixidos\GPWebPay\Param\ResponseUrl;
 
-class SettingTest extends TestCase
+class PaymentConfigTest extends TestCase
 {
 
     public function testCreate(): void
     {
-        $privateKey = __DIR__ . '/../_certs/test.pem';
-        $publicKey = __DIR__ . '/../_certs/test-pub.pem';
         $merchantNumber = new MerchantNumber('1234567890');
         $depositFlag = new DepositFlag(\Pixidos\GPWebPay\Enum\DepositFlag::YES());
-
-        $setting = new Setting(
-            $privateKey,
-            '123456789',
-            $publicKey,
+        $responseUrl = new ResponseUrl('http://example.com');
+        $setting = new PaymentConfig(
             'http://localhost',
             $merchantNumber,
             $depositFlag,
-            'czk'
+            'czk',
+            $responseUrl
         );
 
-        self::assertSame($privateKey, $setting->getPrivateKey());
-        self::assertSame('123456789', $setting->getPrivateKeyPassword());
-        self::assertSame($publicKey, $setting->getPublicKey());
         self::assertSame('http://localhost', $setting->getUrl());
         self::assertSame($merchantNumber, $setting->getMerchantNumber());
         self::assertSame($depositFlag, $setting->getDepositFlag());
+        self::assertSame('czk', $setting->getGateway());
+        self::assertSame($responseUrl, $setting->getResponseUrl());
     }
 }

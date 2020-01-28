@@ -23,11 +23,11 @@ class OperationTest extends TestCase
 
     public function testSuccessCreate(): void
     {
-        $amount = new Operation(OperationEnum::CREATE_ORDER());
+        $operation = new Operation(OperationEnum::CREATE_ORDER());
 
-        self::assertEquals(OperationEnum::CREATE_ORDER(), $amount->getValue());
-        self::assertSame('CREATE_ORDER', (string)$amount);
-        self::assertSame(Param::OPERATION, $amount->getParamName());
+        self::assertEquals(OperationEnum::CREATE_ORDER(), $operation->getValue());
+        self::assertSame('CREATE_ORDER', (string)$operation);
+        self::assertSame(Param::OPERATION, $operation->getParamName());
     }
 
 }

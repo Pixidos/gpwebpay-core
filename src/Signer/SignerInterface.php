@@ -12,15 +12,20 @@
 
 namespace Pixidos\GPWebPay\Signer;
 
-use Pixidos\GPWebPay\Exceptions\SignerException;
-
-interface ISignerFactory
+interface SignerInterface
 {
     /**
-     * @param null|string $gatewayKey
+     * @param array $params
      *
-     * @return ISigner
-     * @throws SignerException
+     * @return string
      */
-    public function create(?string $gatewayKey = null): ISigner;
+    public function sign(array $params): string;
+
+    /**
+     * @param array $params
+     * @param string $digest
+     *
+     * @return bool
+     */
+    public function verify(array $params, string $digest): bool;
 }
