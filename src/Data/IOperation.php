@@ -21,7 +21,7 @@ interface IOperation
     /**
      * @return null|string
      */
-    public function getGatewayKey(): ?string;
+    public function getGateway(): ?string;
 
     /**
      * @param IParam $param

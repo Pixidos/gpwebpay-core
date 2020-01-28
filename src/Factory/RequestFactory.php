@@ -12,30 +12,37 @@
 
 namespace Pixidos\GPWebPay\Factory;
 
+use Pixidos\GPWebPay\Config\PaymentConfigProvider;
 use Pixidos\GPWebPay\Data\IOperation;
 use Pixidos\GPWebPay\Data\Request;
+use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
+use Pixidos\GPWebPay\Exceptions\LogicException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Param\Digest;
-use Pixidos\GPWebPay\Settings\Settings;
-use Pixidos\GPWebPay\Signer\ISignerFactory;
+use Pixidos\GPWebPay\Signer\SignerProvider;
 use UnexpectedValueException;
 
 class RequestFactory
 {
     /**
-     * @var Settings
+     * @var PaymentConfigProvider
      */
-    private $settings;
+    private $config;
     /**
-     * @var ISignerFactory
+     * @var SignerProvider
      */
-    private $signerFactory;
+    private $signerProvider;
 
-    public function __construct(Settings $settings, ISignerFactory $signerFactory)
+    /**
+     * RequestFactory constructor.
+     * @param PaymentConfigProvider $config
+     * @param SignerProvider        $signerProvider
+     */
+    public function __construct(PaymentConfigProvider $config, SignerProvider $signerProvider)
     {
-        $this->settings = $settings;
-        $this->signerFactory = $signerFactory;
+        $this->config = $config;
+        $this->signerProvider = $signerProvider;
     }
 
     /**
@@ -48,15 +55,22 @@ class RequestFactory
      */
     public function create(IOperation $operation): Request
     {
-        $key = $this->settings->getGatewayKey($operation->getGatewayKey());
+        $key = $this->config->getGateway($operation->getGateway());
+        if ($operation->getParam(Param::RESPONSE_URL()) === null) {
+            $responseUrl = $this->config->getResponseUrl();
+            if ($responseUrl === null) {
+                throw new LogicException('You are forgot setup response url');
+            }
+            $operation->addParam($responseUrl);
+        }
         $request = new  Request(
             $operation,
-            $this->settings->getMerchantNumber($key),
-            $this->settings->getDepositFlag($key),
-            $this->settings->getUrl($key)
+            $this->config->getMerchantNumber($key),
+            $this->config->getDepositFlag($key),
+            $this->config->getUrl($key)
         );
 
-        $signer = $this->signerFactory->create($operation->getGatewayKey());
+        $signer = $this->signerProvider->get($key);
         $request->setParam(new Digest($signer->sign($request->getDigestParams())));
         $request->sortParams();
 

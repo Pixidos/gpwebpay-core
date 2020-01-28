@@ -14,6 +14,8 @@ namespace Pixidos\GPWebPay\Tests\Signer;
 
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Exceptions\SignerException;
+use Pixidos\GPWebPay\Signer\Key\PrivateKey;
+use Pixidos\GPWebPay\Signer\Key\PublicKey;
 use Pixidos\GPWebPay\Signer\Signer;
 
 class SignerTest extends TestCase
@@ -24,7 +26,7 @@ class SignerTest extends TestCase
      */
     public function testCreateSign(): void
     {
-        $signer = new Signer(__DIR__ . '/../_certs/test.pem', '1234567', __DIR__ . '/../_certs/test-pub.pem');
+        $signer = new Signer(new PrivateKey(__DIR__ . '/../_certs/test.pem', '1234567'), new PublicKey(__DIR__ . '/../_certs/test-pub.pem'));
         $hash = $signer->sign(
             [
                 'MERCHANTNUMBER' => '123456789',
@@ -51,7 +53,8 @@ class SignerTest extends TestCase
      */
     public function testSuccessVerify(): void
     {
-        $signer = new Signer(__DIR__ . '/../_certs/test.pem', '1234567', __DIR__ . '/../_certs/test-pub.pem');
+        $signer = new Signer(new PrivateKey(__DIR__ . '/../_certs/test.pem', '1234567'), new PublicKey(__DIR__ . '/../_certs/test-pub.pem'));
+
         $params = [
             'MERCHANTNUMBER' => '123456789',
             'DEPOSITFLAG' => '1',
@@ -75,7 +78,7 @@ class SignerTest extends TestCase
     public function testFailedVerify(): void
     {
 
-        $signer = new Signer(__DIR__ . '/../_certs/test.pem', '1234567', __DIR__ . '/../_certs/test-pub.pem');
+        $signer = new Signer(new PrivateKey(__DIR__ . '/../_certs/test.pem', '1234567'), new PublicKey(__DIR__ . '/../_certs/test-pub.pem'));
         $params = [
             'MERCHANTNUMBER' => '123456789',
             'DEPOSITFLAG' => '1',

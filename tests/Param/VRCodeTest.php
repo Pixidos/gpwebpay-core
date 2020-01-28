@@ -31,11 +31,11 @@ class VRCodeTest extends TestCase
      */
     public function testCreate(): void
     {
-        $token = new VRCode('vrcode');
+        $code = new VRCode('vrcode');
 
-        self::assertSame('vrcode', (string)$token);
-        self::assertSame('vrcode', $token->getValue());
-        self::assertSame(Param::VRCODE, $token->getParamName());
+        self::assertSame('vrcode', (string)$code);
+        self::assertSame('vrcode', $code->getValue());
+        self::assertSame(Param::VRCODE, $code->getParamName());
     }
 
 

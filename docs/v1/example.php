@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Pixidos\GPWebPay\Config\Factory\ConfigFactory;
 use Pixidos\GPWebPay\Data\Operation;
 use Pixidos\GPWebPay\Enum\Currency as CurrencyEnum;
 use Pixidos\GPWebPay\Factory\RequestFactory;
@@ -10,10 +11,9 @@ use Pixidos\GPWebPay\Param\IParam;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
 use Pixidos\GPWebPay\Provider;
-use Pixidos\GPWebPay\Settings\SettingsFactory;
 use Pixidos\GPWebPay\Signer\SignerFactory;
 
-$settings = SettingsFactory::create(
+$settings = ConfigFactory::create(
     __DIR__ . '/_certs/test.pem', // path to private certificate
     '1234567', // password for private certificate
     __DIR__ . '/_certs/test-pub.pem', // public certificate by GPWebPay

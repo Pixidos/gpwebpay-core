@@ -14,5 +14,5 @@ parameters:
 
     ignoreErrors:
         -
-            message: '#Parameter \#1 $amount of class Pixidos\\GPWebPay\\Param\\Amount constructor expects float|int, string given\.#'
-            path: tests/Param/AmountTest.php
+            message: '#Parameter \#1 $arr1 of function array_intersect_key expects array, array|null given.#'
+            path: src/Param/Utils/Sorter.php

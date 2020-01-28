@@ -18,9 +18,9 @@ use Throwable;
 class GPWebPayResultException extends GPWebPayException
 {
     /**
-     * @var string|null $resulttext
+     * @var string|null $resultText
      */
-    private $resulttext;
+    private $resultText;
     /**
      * @var ResponseError
      */
@@ -30,23 +30,23 @@ class GPWebPayResultException extends GPWebPayException
      * GPWebPayResultException constructor.
      *
      * @param string         $message
-     * @param int            $prcode
-     * @param int            $srcode
-     * @param string|null    $resulttext
+     * @param int            $prCode
+     * @param int            $srCode
+     * @param string|null    $resultText
      * @param int            $code
      * @param Throwable|null $previous
      */
     public function __construct(
         string $message,
-        int $prcode,
-        int $srcode,
-        ?string $resulttext = null,
+        int $prCode,
+        int $srCode,
+        ?string $resultText = null,
         int $code = 0,
         Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
-        $this->resulttext = $resulttext;
-        $this->error = new ResponseError($prcode, $srcode);
+        $this->resultText = $resultText;
+        $this->error = new ResponseError($prCode, $srCode);
     }
 
     /**
@@ -70,7 +70,7 @@ class GPWebPayResultException extends GPWebPayException
      */
     public function getResultText(): ?string
     {
-        return $this->resulttext;
+        return $this->resultText;
     }
 
     /**
