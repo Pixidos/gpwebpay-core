@@ -91,7 +91,7 @@ class ConfigFactory implements ConfigFactoryInterface
         $paymentConfigProvider->setDefaultGateway($defaultGateway);
         $signerConfigProvider = new SignerConfigProvider();
 
-        return new Config($paymentConfigProvider, $signerConfigProvider, $defaultGateway);
+        return new Config($paymentConfigProvider, $signerConfigProvider);
     }
 
     /**

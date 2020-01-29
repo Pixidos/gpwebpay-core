@@ -26,7 +26,7 @@ class ConfigFactoryTest extends TestCase
     public function testSuccessCreateSettingsFromSingleParams(): void
     {
         $configFactory = new ConfigFactory(new PaymentConfigFactory());
-        $settings = $configFactory->create(
+        $config = $configFactory->create(
             [
                 ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/test.pem',
                 ConfigFactory::PRIVATE_KEY_PASSWORD => '1234567',
@@ -38,15 +38,14 @@ class ConfigFactoryTest extends TestCase
             self::CZK
         );
 
-        self::assertSame(self::CZK, $settings->getDefaultGateway());
 
-        $configProvider = $settings->getPaymentConfigProvider();
+        $configProvider = $config->getPaymentConfigProvider();
 
         self::assertSame('https://test.3dsecure.gpwebpay.com/unicredit/order.do', $configProvider->getUrl(self::CZK));
         self::assertSame('123456789', (string)$configProvider->getMerchantNumber(self::CZK));
         self::assertSame('1', (string)$configProvider->getDepositFlag(self::CZK));
 
-        $signerConfig = $settings->getSignerConfigProvider()->getConfig(self::CZK);
+        $signerConfig = $config->getSignerConfigProvider()->getConfig(self::CZK);
 
         self::assertSame(__DIR__ . '/_certs/test.pem', $signerConfig->getPrivateKey());
         self::assertSame('1234567', $signerConfig->getPrivateKeyPassword());
@@ -56,7 +55,7 @@ class ConfigFactoryTest extends TestCase
     public function testSuccessCreateSettingsFromArray(): void
     {
         $configFactory = new ConfigFactory(new PaymentConfigFactory());
-        $settings = $configFactory->create(
+        $config = $configFactory->create(
             [
                 'czk' => [
                     ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/test.pem',
@@ -78,8 +77,7 @@ class ConfigFactoryTest extends TestCase
             self::CZK
         );
 
-        self::assertSame(self::CZK, $settings->getDefaultGateway());
-        $configProvider = $settings->getPaymentConfigProvider();
+        $configProvider = $config->getPaymentConfigProvider();
 
         self::assertSame('https://test.3dsecure.gpwebpay.com/unicredit/order.do', $configProvider->getUrl(self::CZK));
         self::assertSame('123456789', (string)$configProvider->getMerchantNumber(self::CZK));
@@ -88,13 +86,13 @@ class ConfigFactoryTest extends TestCase
         self::assertSame('123456780', (string)$configProvider->getMerchantNumber(self::EUR));
         self::assertSame('0', (string)$configProvider->getDepositFlag(self::EUR));
 
-        $signerConfigCzk = $settings->getSignerConfigProvider()->getConfig(self::CZK);
+        $signerConfigCzk = $config->getSignerConfigProvider()->getConfig(self::CZK);
 
         self::assertSame(__DIR__ . '/_certs/test.pem', $signerConfigCzk->getPrivateKey());
         self::assertSame('1234567', $signerConfigCzk->getPrivateKeyPassword());
         self::assertSame(__DIR__ . '/_certs/test-pub.pem', $signerConfigCzk->getPublicKey());
 
-        $signerConfigEur = $settings->getSignerConfigProvider()->getConfig(self::EUR);
+        $signerConfigEur = $config->getSignerConfigProvider()->getConfig(self::EUR);
 
         self::assertSame(__DIR__ . '/_certs/test2.pem', $signerConfigEur->getPrivateKey());
         self::assertSame('12345678', $signerConfigEur->getPrivateKeyPassword());
