@@ -5,13 +5,15 @@
 ![](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)
 [![Code coverage](https://codecov.io/gh/Pixidos/gpwebpay-core/branch/master/graph/badge.svg)](https://codecov.io/gh/Pixidos/gpwebpay-core)
 [![Documentation Status](https://readthedocs.org/projects/gpwebpay-core/badge/?version=latest)](https://gpwebpay-core.readthedocs.io/en/latest/?badge=latest)
-GPWebPay Core is library for http api of [GPWebPay service](http://www.gpwebpay.cz/ )
+
+
+GPWebPay Core is library for [GPWebPay service](http://www.gpwebpay.cz/ ) HTTP API
 
 
 Requirements
 ------------
 
-Pixidos/Gpwebpay-core 1.x requires PHP 7.1 or higher
+Pixidos/Gpwebpay-core requires PHP 7.1 or higher and ext-ssl
 
 
 
@@ -26,7 +28,7 @@ $ composer require pixidos/gpwebpay-core
 
 
 Documentation
-------------
+-------------
 
 Learn more in the [documentation](https://gpwebpay-core.readthedocs.io/en/latest/).
 

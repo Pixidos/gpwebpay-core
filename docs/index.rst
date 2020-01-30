@@ -19,4 +19,5 @@ Contents:
 	services
 	request
 	response
+	changelog
 
