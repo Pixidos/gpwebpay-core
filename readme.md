@@ -4,7 +4,7 @@
 [![Latest stable](https://img.shields.io/packagist/v/pixidos/gpwebpay-core.svg)](https://packagist.org/packages/pixidos/gpwebpay-core)
 ![](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)
 [![Code coverage](https://codecov.io/gh/Pixidos/gpwebpay-core/branch/master/graph/badge.svg)](https://codecov.io/gh/Pixidos/gpwebpay-core)
-
+[![Documentation Status](https://readthedocs.org/projects/gpwebpay-core/badge/?version=latest)](https://gpwebpay-core.readthedocs.io/en/latest/?badge=latest)
 GPWebPay Core is library for http api of [GPWebPay service](http://www.gpwebpay.cz/ )
 
 
