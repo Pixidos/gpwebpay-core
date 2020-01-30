@@ -168,7 +168,7 @@ class Response implements ResponseInterface
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getResultText(): string
     {

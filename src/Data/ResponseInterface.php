@@ -85,7 +85,7 @@ interface ResponseInterface
     public function getPrcode(): int;
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getResultText(): string;
 
