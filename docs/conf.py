@@ -130,9 +130,9 @@ html_theme_options = {
 html_context = {
     "display_github": True,
     "github_user": "Pixidos",
-    "github_repo": "gpwebpay-core-doc",
+    "github_repo": "gpwebpay-core",
     "github_version": version,
-    "conf_py_path": "/src/",
+    "conf_py_path": "/docs/",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

@@ -158,7 +158,7 @@ Hash numbers of the payment card. Hash is a unique value for each and every card
 Md
 --
 
-Hash numbers of the payment card. Hash is a unique value for each and every card and merchant – that is if the payment is made by the same card at the same merchant, the resulting hash is identical, if the same card is used at another merchant, there is another hash.
+Any merchant’s data returned to the merchant in the response in the unchanged form – only “whitespace” characters are removed from both sides. The field is used to satisfy various demands of the e-shops. The field may only contain ASCII characters ranging from 0x20 to 0x7E.
 
 .. note:: GPWebPay core use this field to store information about used gateway.
 
