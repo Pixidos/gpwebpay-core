@@ -17,12 +17,11 @@ $configFactory = new ConfigFactory(new PaymentConfigFactory());
 $config = $configFactory->create(
     [
         ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/test.pem',
-        ConfigFactory::PRIVATE_KEY_PASSWORD => '1234567',
+        ConfigFactory::PRIVATE_KEY_PASSPHRASE => '1234567',
         ConfigFactory::PUBLIC_KEY => __DIR__ . '/_certs/test-pub.pem',
         ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/unicredit/order.do',
         ConfigFactory::MERCHANT_NUMBER => '123456789',
         ConfigFactory::DEPOSIT_FLAG => 1,
         ConfigFactory::RESPONSE_URL => 'http://example.com/proccess-gpw-response'
-        // optional, you can set here or in operation
     ]
 );

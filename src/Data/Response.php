@@ -80,11 +80,8 @@ class Response implements ResponseInterface
         }
         $this->addParam(new ResponseParam((string)$prcode, self::PRCODE));
         $this->addParam(new ResponseParam((string)$srcode, self::SRCODE));
+        $this->addParam(new ResponseParam($resulttext, self::RESULTTEXT));
 
-
-        if ($resulttext !== '') {
-            $this->addParam(new ResponseParam($resulttext, self::RESULTTEXT));
-        }
 
         $this->digest = $digest;
         $this->digest1 = $digest1;
@@ -173,9 +170,9 @@ class Response implements ResponseInterface
     /**
      * @return string|null
      */
-    public function getResultText(): ?string
+    public function getResultText(): string
     {
-        return isset($this->params[self::RESULTTEXT]) ? $this->params[self::RESULTTEXT]->getValue() : null;
+        return  (string)$this->params[self::RESULTTEXT]->getValue();
     }
 
     /**

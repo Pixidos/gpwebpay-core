@@ -19,7 +19,6 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
-use Pixidos\GPWebPay\Signer\SignerProvider;
 use Pixidos\GPWebPay\Signer\SignerProviderInterface;
 
 class ResponseProvider implements ResponseProviderInterface
@@ -104,14 +103,14 @@ class ResponseProvider implements ResponseProviderInterface
         return !($verify === false || $verify1 === false);
     }
 
-    public function addOnSuccess(Closure $closure): self
+    public function addOnSuccess(Closure $closure): ResponseProviderInterface
     {
         $this->onSuccess[] = $closure;
 
         return $this;
     }
 
-    public function addOnError(Closure $closure): self
+    public function addOnError(Closure $closure): ResponseProviderInterface
     {
         $this->onError[] = $closure;
 

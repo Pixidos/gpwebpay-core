@@ -87,7 +87,7 @@ interface ResponseInterface
     /**
      * @return string|null
      */
-    public function getResultText(): ?string;
+    public function getResultText(): string;
 
     /**
      * @return string|null

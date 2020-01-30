@@ -24,7 +24,7 @@ class ConfigFactory implements ConfigFactoryInterface
     public const URL = 'url';
     public const MERCHANT_NUMBER = 'merchantNumber';
     public const DEPOSIT_FLAG = 'depositFlag';
-    public const PRIVATE_KEY_PASSWORD = 'privateKeyPassword';
+    public const PRIVATE_KEY_PASSPHRASE = 'privateKeyPassphrase';
     public const PUBLIC_KEY = 'publicKey';
     public const RESPONSE_URL = 'responseUrl';
 
@@ -115,7 +115,7 @@ class ConfigFactory implements ConfigFactoryInterface
             $signerConfig->addConfig(
                 new SignerConfig(
                     (string)$this->getValue(self::PRIVATE_KEY, $data, $gateway),
-                    (string)$this->getValue(self::PRIVATE_KEY_PASSWORD, $data, $gateway),
+                    (string)$this->getValue(self::PRIVATE_KEY_PASSPHRASE, $data, $gateway),
                     (string)$this->getValue(self::PUBLIC_KEY, $data, $gateway)
                 ),
                 $gateway

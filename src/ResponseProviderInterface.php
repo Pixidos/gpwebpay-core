@@ -12,6 +12,7 @@
 
 namespace Pixidos\GPWebPay;
 
+use Closure;
 use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Exceptions\GPWebPayException;
 use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
@@ -33,4 +34,17 @@ interface ResponseProviderInterface
      * @throws GPWebPayResultException
      */
     public function verifyPaymentResponse(ResponseInterface $response): bool;
+
+    /**
+     * @param Closure $closure signature: function(GPWebPayException $exception, ResponseInterface $response)
+     * @return $this
+     */
+    public function addOnError(Closure $closure): self;
+
+    /**
+     * @param Closure $closure signature: function(ResponseInterface $response)
+     * @return $this
+     */
+    public function addOnSuccess(Closure $closure): self;
+
 }

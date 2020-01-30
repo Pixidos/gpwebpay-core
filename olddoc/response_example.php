@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 /**
  * This file is part of the Pixidos package.
  *
@@ -31,11 +32,17 @@ $response = $responseFactory->create($params);
 // now you have two variants of processing response
 // you can add callbacks for onSuccess and onError events
 // success callbacks
-$provider->addOnSuccess(
-    static function (ResponseInterface $response) {
-        // here is you code for processing response
-    }
-);
+$provider
+    ->addOnSuccess(
+        static function (ResponseInterface $response) {
+            // here is you code for processing response
+        }
+    )
+    ->addOnSuccess(
+        static function (ResponseInterface $response) {
+            // here is you code for processing response
+        }
+    );
 
 // error callback
 $provider->addOnError(
