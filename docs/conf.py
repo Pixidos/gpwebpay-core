@@ -113,7 +113,7 @@ if not on_rtd:
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_theme_options = {
-    'analytics_id': 'UA-XXXXXXX-1',  # Provided by Google in your dashboard
+    'analytics_id': 'UA-157707836-1',  # Provided by Google in your dashboard
     'logo_only': False,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
