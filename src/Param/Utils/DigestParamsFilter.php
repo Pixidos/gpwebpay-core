@@ -39,6 +39,7 @@ final class DigestParamsFilter
         Param::REFERENCENUMBER,
         Param::ADDINFO,
         Param::TOKEN,
+        Param::FAST_TOKEN,
         Param::USERPARAM,
         Param::FASTPAYID,
         Response::RESULTTEXT,
