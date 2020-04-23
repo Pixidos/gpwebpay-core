@@ -75,6 +75,7 @@ class DigestParamsFilterTest extends TestCase
             Param::REFERENCENUMBER,
             Param::ADDINFO,
             Param::TOKEN,
+            Param::FAST_TOKEN
         ];
     }
 }
