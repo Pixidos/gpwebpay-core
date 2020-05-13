@@ -48,7 +48,7 @@ class Sorter
     public const RESPONSE_PARAM_ORDER = [
         Param::OPERATION,
         Param::ORDERNUMBER,
-        Param::MERCHANTNUMBER,
+        Param::MERORDERNUM,
         Param::MD,
         Response::PRCODE,
         Response::SRCODE,
