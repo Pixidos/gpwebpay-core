@@ -57,7 +57,7 @@ class SorterTest extends TestCase
     public function testSortResponseParams(): void
     {
         $params = [
-            Param::MERCHANTNUMBER => new FakeParam('someparam'),
+            Param::MERORDERNUM => new FakeParam('someparam'),
             Param::ORDERNUMBER => new FakeParam('someparam'),
             Response::PRCODE => new FakeParam('someparam'),
             Response::SRCODE => new FakeParam('someparam'),
