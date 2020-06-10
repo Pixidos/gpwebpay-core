@@ -72,6 +72,7 @@ class SorterTest extends TestCase
             Response::ACCODE => new FakeParam('someparam'),
             Response::DIGEST1 => new FakeParam('someparam'),
             Param::PANPATTERN => new FakeParam('someparam'),
+            Param::MERORDERNUM => new FakeParam('someparam'),
             Response::DAYTOCAPTURE => new FakeParam('someparam'),
             Response::TOKENREGSTATUS => new FakeParam('someparam'),
             Param::DIGEST => new FakeParam('someparam'),
