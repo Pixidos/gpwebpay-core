@@ -14,7 +14,7 @@ GPWebPay Core is library for [GPWebPay service](http://www.gpwebpay.cz/ ) HTTP A
 Requirements
 ------------
 
-Pixidos/Gpwebpay-core requires PHP ^7.1 | ^PHP 8.0 and ext-ssl
+Pixidos/Gpwebpay-core requires PHP ^7.2 | ^PHP 8.0 and ext-ssl
 
 
 
