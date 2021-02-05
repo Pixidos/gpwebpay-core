@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Param;
 
@@ -58,7 +60,10 @@ class PayMethodsTest extends TestCase
         $payMethod->addMethod(PM::MASTERCARD_MOBILE());
         $payMethod->addMethod(PM::CARD()); //will not added
 
-        self::assertEquals([PM::CARD(), PM::MASTERPASS(), PM::GOOGLE_PAY(), PM::MASTERCARD_MOBILE()], $payMethod->getValue());
+        self::assertEquals(
+            [PM::CARD(), PM::MASTERPASS(), PM::GOOGLE_PAY(), PM::MASTERCARD_MOBILE()],
+            $payMethod->getValue()
+        );
         self::assertSame('CRD,MPS,GPAY,MCM', (string)$payMethod);
     }
 }

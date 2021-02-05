@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,12 +10,14 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay;
 
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 /**
- * @param mixed $value
+ * @param mixed  $value
  * @param string $name
  *
  * @throws InvalidArgumentException
@@ -23,17 +25,19 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 function assertIsInteger($value, string $name): void
 {
     if (!is_numeric($value)) {
-        throw new InvalidArgumentException(sprintf('%s must be numeric scalar type "%s" given.', $name, gettype($value)));
+        throw new InvalidArgumentException(
+            sprintf('%s must be numeric scalar type "%s" given.', $name, gettype($value))
+        );
     }
 
-    if ((bool)preg_match('#^[1-9]\d*$#', (string)$value) === false) {
+    if (false === (bool)preg_match('#^[1-9]\d*$#', (string)$value)) {
         throw new InvalidArgumentException(sprintf('%s must be integer "%s" given.', $name, $value));
     }
 }
 
 /**
- * @param mixed $value
- * @param int $length
+ * @param mixed  $value
+ * @param int    $length
  * @param string $name
  *
  * @throws InvalidArgumentException
@@ -47,8 +51,8 @@ function assertMaxLenght($value, int $length, string $name): void
 }
 
 /**
- * @param mixed $value
- * @param int $length
+ * @param mixed  $value
+ * @param int    $length
  * @param string $name
  *
  * @throws InvalidArgumentException
@@ -81,7 +85,7 @@ function assertIsEmail(string $value): void
         $value
     );
 
-    if ($result === false) {
+    if (false === $result) {
         throw new InvalidArgumentException(sprintf('EMAIL is not valid! "%s" given.', $value));
     }
 }
@@ -93,7 +97,7 @@ function assertIsEmail(string $value): void
  */
 function assertUrl(string $url): void
 {
-    if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+    if (false === filter_var($url, FILTER_VALIDATE_URL)) {
         throw new InvalidArgumentException('URL is Invalid.');
     }
 }

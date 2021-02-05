@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests;
 
@@ -42,26 +44,33 @@ class TestHelpers
     public const HASH_2 = 'hash2';
     public const GATEWAY = 'czk';
     public const RESPONSE_URL = 'http://test.com';
-
     public const CZK = 'czk';
     public const EUR = 'eur';
 
     /**
      * @var string|null
      */
-    private static $longText300;
-    private static $longText3000;
+    private static $longText300 = null;
+    /**
+     * @var string|null
+     */
+    private static $longText3000 = null;
     /**
      * @var string
      */
-    private static $longText30000;
+    private static $longText30000 = null;
     /**
-     * @var Config
+     * @var Config|null
      */
-    private static $config;
-
-    private static $operation;
-    private static $responseFactory;
+    private static $config = null;
+    /**
+     * @var Operation|null
+     */
+    private static $operation = null;
+    /**
+     * @var ResponseFactory|null
+     */
+    private static $responseFactory = null;
 
     /**
      * @return Operation
@@ -70,7 +79,7 @@ class TestHelpers
      */
     public static function createOperation(): Operation
     {
-        if (self::$operation !== null) {
+        if (null !== self::$operation) {
             return self::$operation;
         }
 
@@ -84,7 +93,7 @@ class TestHelpers
     }
 
     /**
-     * @param array $params
+     * @param array<string, string> $params
      * @return ResponseInterface
      */
     public static function createResponse(array $params): ResponseInterface
@@ -97,7 +106,7 @@ class TestHelpers
      */
     public static function createResponseFactory(): ResponseFactory
     {
-        if (self::$responseFactory !== null) {
+        if (null !== self::$responseFactory) {
             return self::$responseFactory;
         }
         $config = self::createConfig();
@@ -106,6 +115,9 @@ class TestHelpers
     }
 
 
+    /**
+     * @return array<string, string>
+     */
     public static function getTestParams(): array
     {
         return [
@@ -128,7 +140,7 @@ class TestHelpers
      */
     public static function createConfig(): Config
     {
-        if (self::$config !== null) {
+        if (null !== self::$config) {
             return self::$config;
         }
 
@@ -159,7 +171,7 @@ class TestHelpers
 
     public static function getLongText300(): string
     {
-        if (self::$longText300 === null) {
+        if (null === self::$longText300) {
             self::$longText300 = trim((string)file_get_contents(__DIR__ . '/_data/_300_long_string.txt'), "\n");
         }
 
@@ -168,7 +180,7 @@ class TestHelpers
 
     public static function getLongText3000(): string
     {
-        if (self::$longText3000 === null) {
+        if (null === self::$longText3000) {
             self::$longText3000 = trim((string)file_get_contents(__DIR__ . '/_data/_3000_long_string.txt'), "\n");
         }
 
@@ -177,7 +189,7 @@ class TestHelpers
 
     public static function getLongText30000(): string
     {
-        if (self::$longText30000 === null) {
+        if (null === self::$longText30000) {
             self::$longText30000 = trim((string)file_get_contents(__DIR__ . '/_data/_30000_long_string.txt'), "\n");
         }
 

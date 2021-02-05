@@ -6,3 +6,4 @@ coverage.xml
 .idea/
 gpwebpay-core.iml
 /docs/_build
+/.phpunit.result.cache

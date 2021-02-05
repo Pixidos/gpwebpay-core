@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,16 +10,19 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Enum;
 
 use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
+use Stringable;
 
 /**
  * @method static DepositFlag YES()
  * @method static DepositFlag NO()
  */
-final class DepositFlag extends Enum
+final class DepositFlag extends Enum implements Stringable
 {
     use AutoInstances;
 

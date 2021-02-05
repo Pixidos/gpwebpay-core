@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,6 +10,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Param\IParam;
@@ -18,7 +20,7 @@ interface RequestInterface
 {
     /**
      * Return all parameters
-     * @return array
+     * @return array<string, string>
      */
     public function getParams(): array;
 
@@ -29,7 +31,7 @@ interface RequestInterface
 
     /**
      * Return only parameters what are included in digest
-     * @return array
+     * @return array<string, string>
      */
     public function getDigestParams(): array;
 

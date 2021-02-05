@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,11 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Tests\Param\Utils;
 
+use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\Utils\DigestParamsFilter;
-use PHPUnit\Framework\TestCase;
 
 class DigestParamsFilterTest extends TestCase
 {
@@ -53,6 +55,9 @@ class DigestParamsFilterTest extends TestCase
         self::assertSame($this->getExpectedKeys(), array_keys($filtered));
     }
 
+    /**
+     * @return string[]
+     */
     private function getExpectedKeys(): array
     {
         return [
@@ -75,7 +80,7 @@ class DigestParamsFilterTest extends TestCase
             Param::REFERENCENUMBER,
             Param::ADDINFO,
             Param::TOKEN,
-            Param::FAST_TOKEN
+            Param::FAST_TOKEN,
         ];
     }
 }

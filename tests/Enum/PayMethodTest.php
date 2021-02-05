@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Enum;
 
@@ -28,7 +30,7 @@ class PayMethodTest extends TestCase
         self::assertSame('CRD', $payMethod->toScalar());
     }
 
-    public function testGOOGLE_PAY(): void
+    public function testGooglePay(): void
     {
         $payMethod = PayMethod::GOOGLE_PAY();
 
@@ -37,7 +39,7 @@ class PayMethodTest extends TestCase
     }
 
     /**
-     * @dataProvider getCurrency
+     * @dataProvider getPayMethod
      *
      * @param string $value
      *
@@ -53,15 +55,17 @@ class PayMethodTest extends TestCase
     public function testCreateFailWithUnknownCurrency(): void
     {
         $this->expectException(MissingValueDeclarationException::class);
-        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\PayMethod' and scalar value 'CARD'.");
+        $this->expectExceptionMessage(
+            "There is no value for enum 'Pixidos\GPWebPay\Enum\PayMethod' and scalar value 'CARD'."
+        );
 
         PayMethod::fromScalar('CARD');
     }
 
     /**
-     * @return Generator
+     * @return Generator<array<int, string>>
      */
-    public function getCurrency(): Generator
+    public function getPayMethod(): Generator
     {
         yield [PayMethod::CARD];
         yield [PayMethod::MASTERCARD_MOBILE];

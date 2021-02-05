@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Param;
 
@@ -51,6 +53,4 @@ class ResponseParam implements IParam
     {
         return $this->name;
     }
-
-
 }

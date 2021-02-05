@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Data;
 
@@ -27,14 +29,11 @@ class Request implements RequestInterface
      */
     private $operation;
     /**
-     * @var string|null $url
-     */
-    /**
-     * @var array $params
+     * @var array<string, string> $params
      */
     private $params;
     /**
-     * @var string
+     * @var string $url
      */
     private $url;
 
@@ -62,7 +61,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getParams(): array
     {
@@ -77,7 +76,7 @@ class Request implements RequestInterface
 
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getDigestParams(): array
     {

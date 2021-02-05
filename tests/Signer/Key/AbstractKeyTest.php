@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Signer\Key;
 
@@ -23,7 +25,7 @@ class AbstractKeyTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new class('misssing_file') extends AbstractKey {
+        new class ('misssing_file') extends AbstractKey {
 
             /**
              * @return resource|void

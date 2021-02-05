@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Config\Factory;
 
@@ -28,9 +30,15 @@ class PaymentConfigFactory
      * @param string $responseUrl
      * @return PaymentConfig
      */
-    public function create(string $url, string $merchantNumber, int $depositFlag, string $gateway, string $responseUrl): PaymentConfig
-    {
-        $target = $responseUrl !== '' ? new ResponseUrl($responseUrl) : null;
+    public function create(
+        string $url,
+        string $merchantNumber,
+        int $depositFlag,
+        string $gateway,
+        string $responseUrl
+    ): PaymentConfig {
+        $target = '' !== $responseUrl ? new ResponseUrl($responseUrl) : null;
+
         return new PaymentConfig(
             $url,
             new MerchantNumber($merchantNumber),
@@ -39,5 +47,4 @@ class PaymentConfigFactory
             $target
         );
     }
-
 }

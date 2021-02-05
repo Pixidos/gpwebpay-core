@@ -15,8 +15,7 @@ $xml = file_get_contents('https://www.currency-iso.org/dam/downloads/lists/list_
 $dom = simplexml_load_string($xml);
 
 $header = <<<HEADER
-<?php declare(strict_types=1);
-
+<?php
 /**
  * This file is part of the Pixidos package.
  *
@@ -26,11 +25,14 @@ $header = <<<HEADER
  *  file that was distributed with this source code.
  *
  */
- 
+
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Enum;
 
 use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
+use Stringable;
 
 
 HEADER;
@@ -42,7 +44,7 @@ DOCBLOC;
 
 
 $classDeffinition = <<<CDEF
-final class Currency extends Enum
+final class Currency extends Enum implements Stringable
 {
 
 use AutoInstances;

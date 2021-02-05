@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,6 +10,8 @@
  *
  */
 
+declare(strict_types=1);
+
 /**
  * Test: Pixidos\GPWebPay\Data\Response
  * @testCase PixidosTests\GPWebPay\ResponseTest
@@ -18,8 +20,8 @@
 namespace Pixidos\GPWebPay\Tests\Data;
 
 use PHPUnit\Framework\TestCase;
-use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Data\Response;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\Token;
 use Pixidos\GPWebPay\Param\UserParam;

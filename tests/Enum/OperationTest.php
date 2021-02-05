@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Enum;
 
@@ -31,9 +33,10 @@ class OperationTest extends TestCase
     public function testCreateFailWithUnknownCurrency(): void
     {
         $this->expectException(MissingValueDeclarationException::class);
-        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\Operation' and scalar value '10'.");
+        $this->expectExceptionMessage(
+            "There is no value for enum 'Pixidos\GPWebPay\Enum\Operation' and scalar value '10'."
+        );
 
         Operation::fromScalar(10);
     }
-
 }

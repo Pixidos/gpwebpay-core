@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,11 +10,14 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Signer;
 
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Signer\Key\PrivateKey;
 use Pixidos\GPWebPay\Signer\Key\PublicKey;
+use Stringable;
 
 class Signer implements SignerInterface
 {
@@ -43,7 +46,7 @@ class Signer implements SignerInterface
     }
 
     /**
-     * @param array $params
+     * @param array<string, string|Stringable> $params
      *
      * @return string
      * @throws SignerException
@@ -58,8 +61,8 @@ class Signer implements SignerInterface
     }
 
     /**
-     * @param array  $params
-     * @param string $digest
+     * @param array<string, string|Stringable> $params
+     * @param string                           $digest
      *
      * @return bool
      * @throws SignerException
@@ -70,7 +73,6 @@ class Signer implements SignerInterface
         $decode = (string)base64_decode($digest, true);
         $ok = openssl_verify($data, $decode, $this->publicKey->getKey());
 
-        return $ok === 1;
+        return 1 === $ok;
     }
-
 }

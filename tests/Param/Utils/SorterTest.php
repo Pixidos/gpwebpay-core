@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,12 +10,14 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Tests\Param\Utils;
 
 use PHPUnit\Framework\TestCase;
+use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
-use Pixidos\GPWebPay\Data\Response;
 
 class SorterTest extends TestCase
 {
@@ -81,6 +83,4 @@ class SorterTest extends TestCase
 
         self::assertSame(Sorter::RESPONSE_PARAM_ORDER, array_keys($sorted));
     }
-
-
 }

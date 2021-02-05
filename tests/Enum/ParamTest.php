@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,6 +10,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Tests\Enum;
 
 use Generator;
@@ -20,7 +22,7 @@ use Pixidos\GPWebPay\Enum\Param;
 class ParamTest extends TestCase
 {
 
-    public function testUSERPARAM(): void
+    public function testUserParam1(): void
     {
         $param = Param::USERPARAM();
 
@@ -28,7 +30,7 @@ class ParamTest extends TestCase
         self::assertSame('USERPARAM1', $param->toScalar());
     }
 
-    public function testRESPONSE_URL(): void
+    public function testResponseUrl(): void
     {
         $param = Param::RESPONSE_URL();
 
@@ -54,13 +56,15 @@ class ParamTest extends TestCase
     public function testCreateFailWithUnknownCurrency(): void
     {
         $this->expectException(MissingValueDeclarationException::class);
-        $this->expectExceptionMessage("There is no value for enum 'Pixidos\GPWebPay\Enum\Param' and scalar value 'CARD'.");
+        $this->expectExceptionMessage(
+            "There is no value for enum 'Pixidos\GPWebPay\Enum\Param' and scalar value 'CARD'."
+        );
 
         Param::fromScalar('CARD');
     }
 
     /**
-     * @return Generator
+     * @return Generator<array<int, string>>
      */
     public function getParams(): Generator
     {

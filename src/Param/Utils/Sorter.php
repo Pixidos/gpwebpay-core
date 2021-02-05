@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,11 +10,12 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Param\Utils;
 
 use Pixidos\GPWebPay\Data\Response;
 use Pixidos\GPWebPay\Enum\Param;
-use Pixidos\GPWebPay\Param\IParam;
 
 class Sorter
 {
@@ -42,7 +43,7 @@ class Sorter
         Param::TOKEN,
         Param::FAST_TOKEN,
         Param::DIGEST,
-        Param::LANG
+        Param::LANG,
     ];
 
     public const RESPONSE_PARAM_ORDER = [
@@ -63,13 +64,14 @@ class Sorter
         Response::DAYTOCAPTURE,
         Response::TOKENREGSTATUS,
         Param::DIGEST,
-        'DIGEST1'
+        'DIGEST1',
     ];
 
 
     /**
-     * @param array<string,IParam> $params
-     * @return array<string,IParam>
+     * @template T
+     * @param array<T> $params
+     * @return array<T>
      */
     public static function sortRequestParams(array $params): array
     {
@@ -79,8 +81,9 @@ class Sorter
     }
 
     /**
-     * @param array<string,IParam> $params
-     * @return array<string,IParam>
+     * @template T
+     * @param array<T> $params
+     * @return array<T>
      */
     public static function sortResponseParams(array $params): array
     {
@@ -90,9 +93,10 @@ class Sorter
     }
 
     /**
-     * @param array<string,IParam> $params
-     * @param array<string,int>    $order
-     * @return array<string,IParam>
+     * @template T
+     * @param array<T>           $params
+     * @param array<string, int> $order
+     * @return array<T>
      */
     private static function sort(array $params, array $order): array
     {

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,11 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Tests\Param;
 
+use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\PayMethod;
-use PHPUnit\Framework\TestCase;
 
 class PayMethodTest extends TestCase
 {
