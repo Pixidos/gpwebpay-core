@@ -1,18 +1,11 @@
 includes:
-    - vendor/pixidos/coding-standards/phpstan.neon
+    - vendor/pixidos/coding-standards/src/phpstan.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
-    autoload_files:
-        - vendor/autoload.php
     paths:
         - src
         - tests
     level: max
     inferPrivatePropertyTypeFromConstructor: true
-
-    ignoreErrors:
-        -
-            message: '#Parameter \#1 $arr1 of function array_intersect_key expects array, array|null given.#'
-            path: src/Param/Utils/Sorter.php

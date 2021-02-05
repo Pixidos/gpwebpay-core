@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Param;
 
@@ -70,6 +72,9 @@ class OrderNumberTest extends TestCase
         new OrderNumber('FAU1');
     }
 
+    /**
+     * @return Generator<mixed>
+     */
     public function getInvalidValue(): Generator
     {
         yield ['1.0'];

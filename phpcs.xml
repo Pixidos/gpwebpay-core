@@ -2,11 +2,11 @@
 <ruleset name="Pixidos ruleset">
     <file>src</file>
     <file>tests</file>
-    <exclude-pattern>src/depracated.php</exclude-pattern>
+    <exclude-pattern>src/stubs.php</exclude-pattern>
 
     <arg name="basepath" value="."/>
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="extensions" value="php"/>
 
-    <rule ref="vendor/pixidos/coding-standards/phpcs.xml"/>
+    <rule ref="vendor/pixidos/coding-standards/src/phpcs.xml"/>
 </ruleset>

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Config;
 
@@ -28,13 +30,6 @@ class PaymentConfigProvider
      * @var PaymentConfig[]
      */
     private $paymentConfigs = [];
-
-
-
-    public function setDefaultGateway(string $gateway): void
-    {
-        $this->defaultGateway = $gateway;
-    }
 
     public function addPaymentConfig(PaymentConfig $paymentConfig): void
     {
@@ -76,12 +71,18 @@ class PaymentConfigProvider
      */
     public function getDefaultGateway(): string
     {
-        if ($this->defaultGateway === '') {
+        if ('' === $this->defaultGateway) {
             throw new LogicException(
                 sprintf('You need first set default key by %s::setDefaultGateway', self::class)
             );
         }
+
         return $this->defaultGateway;
+    }
+
+    public function setDefaultGateway(string $gateway): void
+    {
+        $this->defaultGateway = $gateway;
     }
 
     /**
@@ -91,7 +92,7 @@ class PaymentConfigProvider
      */
     public function getGateway(?string $gateway = null): string
     {
-        if ($gateway === null) {
+        if (null === $gateway) {
             $gateway = $this->getDefaultGateway();
         }
 
@@ -116,5 +117,4 @@ class PaymentConfigProvider
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getResponseUrl();
     }
-
 }

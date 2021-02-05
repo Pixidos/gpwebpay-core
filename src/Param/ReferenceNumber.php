@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Param;
 
@@ -57,7 +59,8 @@ class ReferenceNumber implements IParam
     }
 
     /**
-     * Interní ID u obchodníka Podporované ASCII znaky: x20(space), x23(#), x24($), x2A-x3B(*+,-./0-9:;), x3D(=), x40-x5A(@A-Z), x5E(^), x5F(_), x61-x7A(a-z)
+     * Interní ID u obchodníka Podporované ASCII znaky: x20(space), x23(#), x24($), x2A-x3B(*+,-./0-9:;), x3D(=),
+     * x40-x5A(@A-Z), x5E(^), x5F(_), x61-x7A(a-z)
      *
      * @param string $value
      *
@@ -65,11 +68,13 @@ class ReferenceNumber implements IParam
      */
     protected function validate(string $value): void
     {
-        if ((bool)preg_match(self::PATTERN, $value) === false) {
+        if (false === (bool)preg_match(self::PATTERN, $value)) {
             throw new InvalidArgumentException(
-                sprintf('%s has invalid lenght(max 20) or containt invalid char. Alowed chars are(0-9A-Za-z(space)#*+,-./:;=@^_).', $this->getParamName())
+                sprintf(
+                    '%s has invalid lenght(max 20) or containt invalid char. Alowed chars are(0-9A-Za-z(space)#*+,-./:;=@^_).',
+                    $this->getParamName()
+                )
             );
         }
     }
-
 }

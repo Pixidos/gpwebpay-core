@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,10 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Param;
 
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
+
 use function Pixidos\GPWebPay\assertIsInteger;
 
 class Amount implements IParam
@@ -27,7 +30,7 @@ class Amount implements IParam
      * Amount constructor.
      *
      * @param float $amount
-     * @param bool $converToPennies
+     * @param bool  $converToPennies
      *
      * @throws InvalidArgumentException
      */
@@ -68,5 +71,4 @@ class Amount implements IParam
     {
         return (string)$this->amount;
     }
-
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Data;
 
@@ -71,11 +73,11 @@ class Response implements ResponseInterface
         );
         $this->addParam(new OrderNumber($ordernumber));
 
-        if ($merordernum !== '') {
+        if ('' !== $merordernum) {
             $this->addParam(new MerOrderNum($merordernum));
         }
 
-        if ($md !== '') {
+        if ('' !== $md) {
             $this->addParam(new Md($md));
         }
         $this->addParam(new ResponseParam((string)$prcode, self::PRCODE));
@@ -130,7 +132,7 @@ class Response implements ResponseInterface
         if (!isset($this->params[Param::MD])) {
             return null;
         }
-        $explode = explode('|', $this->params[Param::MD]->getValue(), 2);
+        $explode = explode('|', (string)$this->params[Param::MD], 2);
 
         return $explode[1] ?? null;
     }
@@ -148,7 +150,7 @@ class Response implements ResponseInterface
      */
     public function getOrderNumber(): string
     {
-        return $this->params[Param::ORDERNUMBER]->getValue();
+        return (string)$this->params[Param::ORDERNUMBER];
     }
 
     /**
@@ -156,7 +158,7 @@ class Response implements ResponseInterface
      */
     public function getSrcode(): int
     {
-        return (int)$this->params[self::SRCODE]->getValue();
+        return (int)$this->params[self::SRCODE]->__toString();
     }
 
     /**
@@ -164,7 +166,7 @@ class Response implements ResponseInterface
      */
     public function getPrcode(): int
     {
-        return (int)$this->params[self::PRCODE]->getValue();
+        return (int)$this->params[self::PRCODE]->__toString();
     }
 
     /**
@@ -172,7 +174,7 @@ class Response implements ResponseInterface
      */
     public function getResultText(): string
     {
-        return  (string)$this->params[self::RESULTTEXT]->getValue();
+        return (string)$this->params[self::RESULTTEXT];
     }
 
     /**
@@ -180,7 +182,7 @@ class Response implements ResponseInterface
      */
     public function getUserParam1(): ?string
     {
-        return isset($this->params[Param::USERPARAM]) ? $this->params[Param::USERPARAM]->getValue() : null;
+        return isset($this->params[Param::USERPARAM]) ? (string)$this->params[Param::USERPARAM] : null;
     }
 
 
@@ -195,7 +197,7 @@ class Response implements ResponseInterface
     }
 
     /**
-     * @return array<IParam>
+     * @return IParam[]
      */
     public function getParams(): array
     {

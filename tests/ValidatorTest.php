@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,11 +10,14 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Tests;
 
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
+
 use function Pixidos\GPWebPay\assertIsInteger;
 
 class ValidatorTest extends TestCase
@@ -45,10 +48,12 @@ class ValidatorTest extends TestCase
         $this->expectExceptionMessage(sprintf('TEST must be integer "%s" given.', $value));
 
         assertIsInteger($value, 'TEST');
-
     }
 
 
+    /**
+     * @return Generator<mixed>
+     */
     public function getIsIntegerValue(): Generator
     {
         yield [10];
@@ -56,6 +61,9 @@ class ValidatorTest extends TestCase
         yield [(float)10000];
     }
 
+    /**
+     * @return Generator<mixed>
+     */
     public function getIsIntegerInvalidValue(): Generator
     {
         yield ['10.0'];

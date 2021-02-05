@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,17 +10,20 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Enum;
 
 use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
+use Stringable;
 
 /**
  * @method static Operation CREATE_ORDER()
  * @method static Operation CARD_VERIFICATION()
  * @method static Operation FINALIZE_ORDER()
  */
-final class Operation extends Enum
+final class Operation extends Enum implements Stringable
 {
     use AutoInstances;
 

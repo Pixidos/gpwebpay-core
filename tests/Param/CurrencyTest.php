@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Param;
 
@@ -27,8 +29,5 @@ class CurrencyTest extends TestCase
         self::assertSame('203', (string)$currency);
         self::assertEquals(\Pixidos\GPWebPay\Enum\Currency::CZK(), $currency->getValue());
         self::assertSame(Param::CURRENCY, $currency->getParamName());
-
     }
-
-
 }

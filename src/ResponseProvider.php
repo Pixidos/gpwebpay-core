@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay;
 
@@ -100,7 +102,7 @@ class ResponseProvider implements ResponseProviderInterface
         $params[Param::MERCHANTNUMBER] = $this->settings->getMerchantNumber($response->getGatewayKey());
         $verify1 = $signer->verify($params, $response->getDigest1());
 
-        return !($verify === false || $verify1 === false);
+        return !(false === $verify || false === $verify1);
     }
 
     public function addOnSuccess(Closure $closure): ResponseProviderInterface
@@ -130,7 +132,7 @@ class ResponseProvider implements ResponseProviderInterface
      */
     private function onError(GPWebPayException $exception, ResponseInterface $response): void
     {
-        if (count($this->onError) === 0) {
+        if (0 === count($this->onError)) {
             throw $exception;
         }
 
@@ -138,5 +140,4 @@ class ResponseProvider implements ResponseProviderInterface
             $callback($exception, $response);
         }
     }
-
 }

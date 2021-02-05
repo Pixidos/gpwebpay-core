@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Data;
 
@@ -56,5 +58,4 @@ class OperationTest extends TestCase
         self::assertSame('http://response.com/proccess-gpw-response', $responseUrl->getValue());
         self::assertSame('czk|someMd', (string)$operation->getParam(Param::MD()));
     }
-
 }

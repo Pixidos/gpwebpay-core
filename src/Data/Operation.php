@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Data;
 
@@ -61,13 +63,13 @@ class Operation implements OperationInterface
         $this->addParam($orderNumber);
         $this->addParam($currency);
 
-        if ($gateway !== null) {
+        if (null !== $gateway) {
             $gateway = strtolower($gateway);
             $this->gateway = $gateway;
             $this->addParam(new Md($gateway));
         }
 
-        if ($responseUrl !== null) {
+        if (null !== $responseUrl) {
             $this->addParam($responseUrl);
         }
     }

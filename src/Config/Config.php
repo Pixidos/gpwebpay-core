@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Config;
 
@@ -27,8 +29,10 @@ class Config
      */
     private $defaultGateway;
 
-    public function __construct(PaymentConfigProvider $paymentConfigProvider, SignerConfigProvider $signerConfigProvider)
-    {
+    public function __construct(
+        PaymentConfigProvider $paymentConfigProvider,
+        SignerConfigProvider $signerConfigProvider
+    ) {
         $this->paymentConfigProvider = $paymentConfigProvider;
         $this->signerConfigProvider = $signerConfigProvider;
     }
@@ -56,6 +60,4 @@ class Config
     {
         return $this->defaultGateway;
     }
-
-
 }

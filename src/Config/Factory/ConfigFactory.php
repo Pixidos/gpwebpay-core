@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Config\Factory;
 
@@ -40,8 +42,8 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param array  $params
-     * @param string $defaultGateway
+     * @param mixed[] $params
+     * @param string  $defaultGateway
      * @return Config
      */
     public function create(array $params, string $defaultGateway = 'default'): Config
@@ -64,9 +66,9 @@ class ConfigFactory implements ConfigFactoryInterface
 
 
     /**
-     * @param string $key
-     * @param array  $data
-     * @param string $gateway
+     * @param string                    $key
+     * @param array<string, int|string> $data
+     * @param string                    $gateway
      *
      * @return int|string
      * @throws InvalidArgumentException
@@ -95,8 +97,8 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param array  $params
-     * @param Config $config
+     * @param array<array<string, int|string>> $params
+     * @param Config                           $config
      */
     private function processParams(array $params, Config $config): void
     {

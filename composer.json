@@ -32,16 +32,17 @@
         "grifart/enum": "^0.2.0"
     },
     "require-dev": {
-        "pixidos/coding-standards": "^0.1.0",
-        "phpunit/phpunit": "^7.4",
-        "phpstan/phpstan-phpunit": "^0.11.2"
+        "phpunit/phpunit": "^8.5.0",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "pixidos/coding-standards": "^1.0.4"
     },
     "autoload": {
         "psr-4": {
             "Pixidos\\GPWebPay\\": "src/"
         },
         "files": [
-            "src/validators.php"
+            "src/validators.php",
+            "src/stubs.php"
         ]
     },
     "autoload-dev": {

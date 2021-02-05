@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,10 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Enum;
 
 use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
+use Stringable;
 
 /**
  * @method static Param MERCHANTNUMBER()
@@ -42,9 +45,8 @@ use Grifart\Enum\Enum;
  * @method static Param PANPATTERN()
  *
  */
-final class Param extends Enum
+final class Param extends Enum implements Stringable
 {
-
     use AutoInstances;
 
     public const MERCHANTNUMBER = 'MERCHANTNUMBER';
@@ -71,5 +73,4 @@ final class Param extends Enum
     public const FAST_TOKEN = 'FASTTOKEN';
     public const VRCODE = 'VRCODE';
     public const PANPATTERN = 'PANPATTERN';
-
 }

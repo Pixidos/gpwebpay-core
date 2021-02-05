@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,14 +10,14 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Param;
 
-interface IParam
+use Stringable;
+
+interface IParam extends Stringable
 {
-    /**
-     * @return string
-     */
-    public function __toString(): string;
 
     /**
      * @return string
@@ -25,7 +25,7 @@ interface IParam
     public function getParamName(): string;
 
     /**
-     * @return mixed
+     * @return int|float|string|Stringable|mixed[]
      */
     public function getValue();
 }

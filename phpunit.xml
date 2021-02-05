@@ -12,7 +12,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="GPWebPay">
+        <testsuite name="UnitTests">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>

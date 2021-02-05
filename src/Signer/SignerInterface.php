@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,20 +10,24 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Signer;
+
+use Stringable;
 
 interface SignerInterface
 {
     /**
-     * @param array $params
+     * @param array<string, string|Stringable> $params
      *
      * @return string
      */
     public function sign(array $params): string;
 
     /**
-     * @param array $params
-     * @param string $digest
+     * @param array<string, string|Stringable> $params
+     * @param string                           $digest
      *
      * @return bool
      */

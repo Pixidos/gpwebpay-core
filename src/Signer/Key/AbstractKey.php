@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Signer\Key;
 
@@ -34,6 +36,18 @@ abstract class AbstractKey
     }
 
     /**
+     * @return resource
+     */
+    public function getKey()
+    {
+        if (null !== $this->key) {
+            return $this->key;
+        }
+
+        return $this->key = $this->createKey();
+    }
+
+    /**
      * @param string $file
      *
      */
@@ -47,23 +61,11 @@ abstract class AbstractKey
     protected function getContent(): string
     {
         $content = file_get_contents($this->file);
-        if ($content === false) {
+        if (false === $content) {
             throw new SignerException(sprintf('Failed open file with key "%s"', $this->file));
         }
 
         return $content;
-    }
-
-    /**
-     * @return resource
-     */
-    public function getKey()
-    {
-        if ($this->key !== null) {
-            return $this->key;
-        }
-
-        return $this->key = $this->createKey();
     }
 
     /**

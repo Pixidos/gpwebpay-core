@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,6 +10,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Tests\Exceptions;
 
 use PHPUnit\Framework\TestCase;
@@ -18,7 +20,7 @@ use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 class GPWebPayResultExceptionTest extends TestCase
 {
 
-    public function testCreate():  void
+    public function testCreate(): void
     {
         $exception = new GPWebPayResultException('', 30, 1001, 'resulttext');
 

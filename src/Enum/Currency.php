@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,10 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Enum;
 
 use Grifart\Enum\AutoInstances;
 use Grifart\Enum\Enum;
+use Stringable;
 
 /**
  * @method static Currency AFN()
@@ -196,9 +199,8 @@ use Grifart\Enum\Enum;
  * @method static Currency XPT()
  * @method static Currency XAG()
  */
-final class Currency extends Enum
+final class Currency extends Enum implements Stringable
 {
-
     use AutoInstances;
 
     public const AFN = '971'; // Afghani
@@ -380,5 +382,4 @@ final class Currency extends Enum
     public const XPD = '964'; // Palladium
     public const XPT = '962'; // Platinum
     public const XAG = '961'; // Silver
-
 }

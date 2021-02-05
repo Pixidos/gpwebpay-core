@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,6 +10,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Config\Factory;
 
 use Pixidos\GPWebPay\Config\Config;
@@ -18,7 +20,7 @@ interface ConfigFactoryInterface
 {
 
     /**
-     * @param array  $params
+     * @param mixed[]  $params
      * @param string $defaultGateway
      * @return Config
      */

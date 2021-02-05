@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Factory;
 
@@ -53,7 +55,9 @@ class ResponseFactoryTest extends TestCase
         self::assertTrue($response->hasError());
     }
 
-
+    /**
+     * @return array<string, string>
+     */
     private function getFullParams(): array
     {
         return [
@@ -70,18 +74,20 @@ class ResponseFactoryTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getErrorParams(): array
     {
         return [
             Param::OPERATION => 'CREATE_ORDER',
             Param::ORDERNUMBER => TestHelpers::ORDER_NUMBER,
             Param::MD => 'czk',
-            ResponseInterface::PRCODE => 14,
-            ResponseInterface::SRCODE => 0,
+            ResponseInterface::PRCODE => '14',
+            ResponseInterface::SRCODE => '0',
             ResponseInterface::RESULTTEXT => 'Duplicate order number',
             Param::DIGEST => TestHelpers::HASH_1,
             ResponseInterface::DIGEST1 => TestHelpers::HASH_2,
         ];
     }
-
 }

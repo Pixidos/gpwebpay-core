@@ -1,6 +1,4 @@
-<?php declare(strict_types=1);
-
-namespace Pixidos\GPWebPay\Data;
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -11,6 +9,11 @@ namespace Pixidos\GPWebPay\Data;
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
+
+namespace Pixidos\GPWebPay\Data;
+
 final class ResponseError
 {
 
@@ -87,14 +90,10 @@ final class ResponseError
      */
     public function getMessage(string $lang): string
     {
-        $default = $lang === 'cz' ? 'Technický problém v systému, kontaktujete obchodníka'
+        $default = 'cz' === $lang ? 'Technický problém v systému, kontaktujete obchodníka'
             : 'Technical problem in system, contact the merchant.';
 
-        if (isset(self::CODES[$lang][$this->prcode][$this->srcode])) {
-            return self::CODES[$lang][$this->prcode][$this->srcode];
-        }
-
-        return $default;
+        return self::CODES[$lang][$this->prcode][$this->srcode] ?? $default;
     }
 
 

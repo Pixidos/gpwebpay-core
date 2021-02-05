@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,11 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Factory;
 
 use Pixidos\GPWebPay\Config\PaymentConfigProvider;
-use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Data\Response;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\ResponseParam;
 use ReflectionClass;
@@ -35,12 +37,16 @@ class ResponseFactory
         $this->configProvider = $configProvider;
     }
 
+    /**
+     * @param array<string, string> $params
+     * @return ResponseInterface
+     */
     public function create(array $params): ResponseInterface
     {
         $md = $this->getStringValue(Param::MD, $params);
         $gateway = $this->configProvider->getDefaultGateway();
 
-        if ($md !== '') {
+        if ('' !== $md) {
             $key = explode('|', $md, 2);
             $gateway = $key[0];
         }
@@ -73,7 +79,12 @@ class ResponseFactory
         return $response;
     }
 
-
+    /**
+     * @param string                $name
+     * @param array<string, string> $params
+     * @param string                $defaultValue
+     * @return string
+     */
     private function getStringValue(string $name, array &$params, string $defaultValue = ''): string
     {
         $value = $defaultValue;
@@ -85,6 +96,12 @@ class ResponseFactory
         return (string)$value;
     }
 
+    /**
+     * @param string                $name
+     * @param array<string, string> $params
+     * @param int                   $defaultValue
+     * @return int
+     */
     private function getIntValue(string $name, array &$params, int $defaultValue = 0): int
     {
         $value = $defaultValue;

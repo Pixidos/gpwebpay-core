@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -10,10 +10,13 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Pixidos\GPWebPay\Param;
 
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
+
 use function Pixidos\GPWebPay\assertIsInteger;
 use function Pixidos\GPWebPay\assertMaxLenght;
 
@@ -63,5 +66,4 @@ class OrderNumber implements IParam
         assertIsInteger($value, $this->getParamName());
         assertMaxLenght($value, 15, $this->getParamName());
     }
-
 }

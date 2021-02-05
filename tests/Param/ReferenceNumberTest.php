@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Param;
 
@@ -21,7 +23,7 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
 /**
  * Class ReferenceNumberTest
  * @package Pixidos\GPWebPay\Tests\Param
- * @author Ondra Votava <ondra@votava.dev>
+ * @author  Ondra Votava <ondra@votava.dev>
  */
 class ReferenceNumberTest extends TestCase
 {
@@ -45,7 +47,9 @@ class ReferenceNumberTest extends TestCase
     public function testFailedCreateWithLongText(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('REFERENCENUMBER has invalid lenght(max 20) or containt invalid char. Alowed chars are(0-9A-Za-z(space)#*+,-./:;=@^_).');
+        $this->expectExceptionMessage(
+            'REFERENCENUMBER has invalid lenght(max 20) or containt invalid char. Alowed chars are(0-9A-Za-z(space)#*+,-./:;=@^_).'
+        );
 
         new ReferenceNumber(TestHelpers::getLongText300());
     }

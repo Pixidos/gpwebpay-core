@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the Pixidos package.
@@ -9,6 +9,8 @@
  *  file that was distributed with this source code.
  *
  */
+
+declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Factory;
 
@@ -56,9 +58,9 @@ class RequestFactory
     public function create(OperationInterface $operation): Request
     {
         $key = $this->config->getGateway($operation->getGateway());
-        if ($operation->getParam(Param::RESPONSE_URL()) === null) {
+        if (null === $operation->getParam(Param::RESPONSE_URL())) {
             $responseUrl = $this->config->getResponseUrl();
-            if ($responseUrl === null) {
+            if (null === $responseUrl) {
                 throw new LogicException('You are forgot setup response url');
             }
             $operation->addParam($responseUrl);
