@@ -1,0 +1,40 @@
+# GitHub Action see https://github.com/shivammathur/setup-php
+name: Testing GPWebPay
+on: [push, pull_request]
+jobs:
+    unit_tests:
+        name: GPWebPay-core (PHP ${{ matrix.php-versions }})
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                php-versions: ['7.2', '7.3', '7.4', '8.0']
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Setup PHP, with composer and extensions
+              uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: openssl
+                  coverage: xdebug #optional
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+            - name: Cache composer dependencies
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  # Use composer.json for key, if composer.lock is not committed.
+                  # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                  restore-keys: ${{ runner.os }}-composer-
+            -
+                if: "matrix.php <= 7.3"
+                run: composer update  --no-progress --ansi --prefer-lowest
+            -
+                if: "matrix.php >= 7.4"
+                uses: "ramsey/composer-install@v2"
+
+            - name: Run Tests
+              run: php bin/phpunit --coverage-text
