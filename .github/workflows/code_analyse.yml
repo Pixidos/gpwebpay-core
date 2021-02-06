@@ -22,7 +22,7 @@ jobs:
               uses: "ramsey/composer-install@v1"
 
             - name: Run Codestyle chceck
-              run: php vendor/bin/phpcs
+              run: php vendor/bin/phpcs -p
 
             - name: Run PHPStan
               run: php vendor/bin/phpstan analyse
