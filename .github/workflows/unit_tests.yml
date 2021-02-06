@@ -26,4 +26,4 @@ jobs:
                 uses: "ramsey/composer-install@v1"
 
             - name: Run Tests
-              run: php bin/phpunit --coverage-text
+              run: php vendor/bin/phpunit --coverage-text
