@@ -20,8 +20,7 @@ use Pixidos\GPWebPay\Enum\Param;
 final class DigestParamsFilter
 {
     /**
-     *
-     * @var array DIGEST_PARAMS_KEYS
+     * @var string[] DIGEST_PARAMS_KEYS
      */
     public const DIGEST_PARAMS_KEYS = [
         Param::MERCHANTNUMBER,
