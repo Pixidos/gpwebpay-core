@@ -34,7 +34,7 @@
     "require-dev": {
         "phpunit/phpunit": "^8.5.0",
         "phpstan/phpstan-phpunit": "^0.12",
-        "pixidos/coding-standards": "^1.0.5"
+        "pixidos/coding-standards": "dev-master#70033f3"
     },
     "autoload": {
         "psr-4": {
