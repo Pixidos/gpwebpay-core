@@ -19,7 +19,7 @@ use Pixidos\GPWebPay\Exceptions\SignerException;
 class PublicKey extends AbstractKey
 {
     /**
-     * @return resource
+     * @return resource on PHP 8 return OpenSSLAsymmetricKey
      * @throws SignerException
      */
     protected function createKey()

@@ -37,7 +37,7 @@ final class PrivateKey extends AbstractKey
 
 
     /**
-     * @return resource
+     * @return resource on PHP 8 return OpenSSLAsymmetricKey
      * @throws SignerException
      */
     protected function createKey()

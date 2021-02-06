@@ -25,7 +25,7 @@ abstract class AbstractKey
     protected $file;
 
     /**
-     * @var resource|null
+     * @var resource|null on PHP 8 OpenSSLAsymmetricKey|null
      */
     protected $key;
 
@@ -36,7 +36,7 @@ abstract class AbstractKey
     }
 
     /**
-     * @return resource
+     * @return resource on PHP 8 return OpenSSLAsymmetricKey
      */
     public function getKey()
     {
@@ -69,7 +69,7 @@ abstract class AbstractKey
     }
 
     /**
-     * @return resource
+     * @return resource on PHP 8 return OpenSSLAsymmetricKey
      */
     abstract protected function createKey();
 }
