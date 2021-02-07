@@ -27,11 +27,9 @@ class AbstractKeyTest extends TestCase
 
         new class ('misssing_file') extends AbstractKey {
 
-            /**
-             * @return resource|void
-             */
             protected function createKey()
             {
+                //@phpstan-ignore-next-line
                 return;
             }
         };

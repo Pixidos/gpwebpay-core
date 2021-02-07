@@ -77,7 +77,7 @@ class ResponseProviderTest extends TestCase
 
         $called = false;
         $provider->addOnError(
-            static function (GPWebPayException $exception, ResponseInterface $response) use (&$called) {
+            static function (GPWebPayException $exception, ResponseInterface $response) use (&$called): void {
                 $called = true;
             }
         );
@@ -93,7 +93,7 @@ class ResponseProviderTest extends TestCase
 
         $called = false;
         $provider->addOnSuccess(
-            static function (ResponseInterface $response) use (&$called) {
+            static function (ResponseInterface $response) use (&$called): void {
                 $called = true;
             }
         );

@@ -39,7 +39,7 @@ class OrderNumber implements IParam
     }
 
     /**
-     * @return mixed
+     * @return int|float|string
      */
     public function getValue()
     {

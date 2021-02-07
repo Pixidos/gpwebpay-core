@@ -93,7 +93,7 @@ class ResponseFactory
             unset($params[$name]);
         }
 
-        return (string)$value;
+        return $value;
     }
 
     /**
