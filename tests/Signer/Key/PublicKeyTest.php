@@ -47,7 +47,7 @@ class PublicKeyTest extends TestCase
 
         $publicKey = $this->getMockBuilder(PublicKey::class)
             ->setConstructorArgs([$file])
-            ->setMethods(['getContent'])
+            ->onlyMethods(['getContent'])
             ->getMock();
         $publicKey->expects(self::once())->method('getContent')->willReturn('');
 
