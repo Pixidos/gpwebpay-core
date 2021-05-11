@@ -36,6 +36,7 @@ use Stringable;
  * @method static PayMethod BANK_RB()
  * @method static PayMethod BANK_MBANK()
  * @method static PayMethod BANK_SBERBANK()
+ * @method static PayMethod APPLE_PAY()
  */
 final class PayMethod extends Enum implements Stringable
 {
@@ -58,4 +59,5 @@ final class PayMethod extends Enum implements Stringable
     public const BANK_RB = 'BTN360CS-5500'; // Platba z účtu – Raiffeisenbank a.s.
     public const BANK_MBANK = 'BTN360CS-6210'; // Platba z účtu – mBank S.A.
     public const BANK_SBERBANK = 'BTN360CS-6800'; // Platba z účtu – Sberbank CZ, a.s.
+    public const APPLE_PAY = 'APAY';
 }
