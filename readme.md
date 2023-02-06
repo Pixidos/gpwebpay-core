@@ -9,7 +9,7 @@
 
 [![Donwloads](https://poser.pugx.org/pixidos/gpwebpay-core/downloads)](https://packagist.org/packages/pixidos/gpwebpay-core)
 [![Latest stable](https://img.shields.io/packagist/v/pixidos/gpwebpay-core.svg)](https://packagist.org/packages/pixidos/gpwebpay-core)
-![](https://img.shields.io/badge/php-7.2%20to%208.0-777bb3.svg?logo=php&logoColor=white&labelColor=555555%22)
+![](https://img.shields.io/badge/php-7.4%20to%208.2-777bb3.svg?logo=php&logoColor=white&labelColor=555555%22)
 
 GPWebPay Core is library for [GPWebPay service](http://www.gpwebpay.cz/ ) HTTP API
 
@@ -17,7 +17,7 @@ GPWebPay Core is library for [GPWebPay service](http://www.gpwebpay.cz/ ) HTTP A
 Requirements
 ------------
 
-Pixidos/Gpwebpay-core requires PHP ^7.2 | ^PHP 8.0 and ext-ssl
+Pixidos/Gpwebpay-core requires PHP ^7.4 | ^PHP 8.0 and ext-ssl
 
 
 
