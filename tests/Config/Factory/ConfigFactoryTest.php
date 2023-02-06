@@ -14,13 +14,12 @@ declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Config\Factory;
 
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Config\Factory\ConfigFactory;
 use Pixidos\GPWebPay\Config\Factory\PaymentConfigFactory;
 
 class ConfigFactoryTest extends TestCase
 {
-
     private const CZK = 'czk';
     private const EUR = 'eur';
 

@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class ResponseUrlTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

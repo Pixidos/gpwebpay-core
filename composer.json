@@ -27,14 +27,14 @@
         "issues": "https://github.com/Pixidos/gpwebpay-core/issues"
     },
     "require": {
-        "php": "~7.2 || ~8.0",
+        "php": "^7.4 || ^8.0",
         "ext-openssl": "*",
         "grifart/enum": "^0.2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5.0",
-        "phpstan/phpstan-phpunit": "^0.12",
-        "pixidos/coding-standards": "1.1.*"
+        "phpunit/phpunit": "^9.6.3",
+        "phpstan/phpstan-phpunit": "^1.3.3",
+        "pixidos/coding-standards": "1.2.*"
     },
     "autoload": {
         "psr-4": {
@@ -48,6 +48,11 @@
     "autoload-dev": {
         "psr-4": {
             "Pixidos\\GPWebPay\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }

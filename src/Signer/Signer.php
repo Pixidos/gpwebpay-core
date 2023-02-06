@@ -21,7 +21,6 @@ use Stringable;
 
 class Signer implements SignerInterface
 {
-
     /**
      * @var PrivateKey
      */

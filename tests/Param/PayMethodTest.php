@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Param\PayMethod;
 
 class PayMethodTest extends TestCase
 {
-
     public function testCreate(): void
     {
         $payMethod = new PayMethod(\Pixidos\GPWebPay\Enum\PayMethod::CARD());

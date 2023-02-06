@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Param\Utils\Sorter;
 
 class SorterTest extends TestCase
 {
-
     public function testSortRequestParams(): void
     {
         $params = [

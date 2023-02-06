@@ -19,7 +19,6 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 class ReferenceNumber implements IParam
 {
-
     private const PATTERN = '#(^[\dA-Za-z \#\$\*\+,\-.\/:;=\^_@]{1,20}$)#';
 
     /**

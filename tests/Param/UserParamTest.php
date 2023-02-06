@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class UserParamTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

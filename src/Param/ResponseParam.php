@@ -16,7 +16,6 @@ namespace Pixidos\GPWebPay\Param;
 
 class ResponseParam implements IParam
 {
-
     /**
      * @var string
      */

@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Enum\Currency;
 
 class CurrencyTest extends TestCase
 {
-
     public function testCZK(): void
     {
         $currency = Currency::CZK();

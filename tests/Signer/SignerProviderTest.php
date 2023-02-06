@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
 
 class SignerProviderTest extends TestCase
 {
-
     public function testSuccessCreateSigner(): void
     {
         $provider = new SignerProvider(new SignerFactory(), TestHelpers::createConfig()->getSignerConfigProvider());

@@ -19,6 +19,7 @@ use Pixidos\GPWebPay\Enum\Param as ParamEnum;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\Amount;
 use Pixidos\GPWebPay\Param\Currency;
+use Pixidos\GPWebPay\Param\IAmount;
 use Pixidos\GPWebPay\Param\IParam;
 use Pixidos\GPWebPay\Param\Md;
 use Pixidos\GPWebPay\Param\Operation as OperationParam;
@@ -32,28 +33,17 @@ use Pixidos\GPWebPay\Param\ResponseUrl;
  */
 class Operation implements OperationInterface
 {
-    /**
-     * @var string|null $gateway
-     */
-    private $gateway;
+    private ?string $gateway = null;
 
     /**
      * @var IParam[]
      */
-    private $params = [];
+    private array $params = [];
 
 
-    /**
-     * Operation constructor.
-     * @param OrderNumber      $orderNumber
-     * @param Amount           $amount
-     * @param Currency         $currency
-     * @param string|null      $gateway
-     * @param ResponseUrl|null $responseUrl
-     */
     public function __construct(
         OrderNumber $orderNumber,
-        Amount $amount,
+        IAmount $amount,
         Currency $currency,
         ?string $gateway = null,
         ?ResponseUrl $responseUrl = null
@@ -74,9 +64,6 @@ class Operation implements OperationInterface
         }
     }
 
-    /**
-     * @return null|string
-     */
     public function getGateway(): ?string
     {
         return $this->gateway;

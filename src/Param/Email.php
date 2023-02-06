@@ -22,7 +22,6 @@ use function Pixidos\GPWebPay\assertMaxLenght;
 
 class Email implements IParam
 {
-
     /**
      * @var string
      */

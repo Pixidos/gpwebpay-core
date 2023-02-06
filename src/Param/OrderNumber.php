@@ -22,7 +22,6 @@ use function Pixidos\GPWebPay\assertMaxLenght;
 
 class OrderNumber implements IParam
 {
-
     private $value;
 
     /**

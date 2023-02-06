@@ -18,7 +18,6 @@ use Stringable;
 
 interface IParam extends Stringable
 {
-
     /**
      * @return string
      */

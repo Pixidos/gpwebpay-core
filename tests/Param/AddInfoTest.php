@@ -21,8 +21,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
 
 class AddInfoTest extends TestCase
 {
-
-
     /**
      * @throws InvalidArgumentException
      */

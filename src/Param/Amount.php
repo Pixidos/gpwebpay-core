@@ -19,14 +19,12 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 use function Pixidos\GPWebPay\assertIsInteger;
 
-class Amount implements IParam
+class Amount implements IAmount
 {
-    /**
-     * @var int
-     */
-    private $amount;
+    private int $amount;
 
     /**
+     * @deprecated use \Pixidos\GPWebPay\Param\AmountInPennies instead
      * Amount constructor.
      *
      * @param float $amount

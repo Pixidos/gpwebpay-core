@@ -16,5 +16,4 @@ namespace Pixidos\GPWebPay\Exceptions;
 
 class InvalidArgumentException extends LogicException
 {
-
 }

@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 class SignerConfigProviderTest extends TestCase
 {
-
     public function testAddConfig(): void
     {
         $provider = new SignerConfigProvider();

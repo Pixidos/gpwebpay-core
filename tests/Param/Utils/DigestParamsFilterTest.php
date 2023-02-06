@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Param\Utils\DigestParamsFilter;
 
 class DigestParamsFilterTest extends TestCase
 {
-
     public function testFilter(): void
     {
         $params =

@@ -25,8 +25,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
 
 class RequestTest extends TestCase
 {
-
-
     public function testSortParams(): void
     {
         $operation = TestHelpers::createOperation();

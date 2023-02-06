@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Param\PayMethods;
 
 class PayMethodsTest extends TestCase
 {
-
     public function testCreate(): void
     {
         $payMethod = new PayMethods(PM::CARD(), PM::MASTERPASS(), PM::GOOGLE_PAY());

@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class EmailTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

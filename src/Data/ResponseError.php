@@ -16,7 +16,6 @@ namespace Pixidos\GPWebPay\Data;
 
 final class ResponseError
 {
-
     private const CODES = [
         'cz' => [
             28 => [

@@ -20,6 +20,7 @@ use Pixidos\GPWebPay\Enum\Currency as CurrencyEnum;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\Amount;
+use Pixidos\GPWebPay\Param\AmountInPennies;
 use Pixidos\GPWebPay\Param\Currency;
 use Pixidos\GPWebPay\Param\Md;
 use Pixidos\GPWebPay\Param\OrderNumber;
@@ -32,7 +33,6 @@ use UnexpectedValueException;
  */
 class OperationTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      * @throws UnexpectedValueException
@@ -41,7 +41,7 @@ class OperationTest extends TestCase
     {
         $operation = new Operation(
             new OrderNumber('123456'),
-            new Amount(1000.00),
+            new AmountInPennies(100000),
             new Currency(CurrencyEnum::CZK()),
             'CZK',
             new ResponseUrl('http://response.com/proccess-gpw-response')

@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class ReferenceNumberTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

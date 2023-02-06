@@ -19,7 +19,6 @@ use Pixidos\GPWebPay\Data\ResponseError;
 
 class ResponseErrorTest extends TestCase
 {
-
     /**
      * @dataProvider dataProvider
      * @param int    $prcode
@@ -36,7 +35,7 @@ class ResponseErrorTest extends TestCase
 
 
     /**
-     * @return array[]
+     * @return array<string, array<int, int|string>>
      */
     public function dataProvider(): array
     {

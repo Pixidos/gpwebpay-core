@@ -21,8 +21,6 @@ use Pixidos\GPWebPay\Param\DepositFlag;
 
 class DepositFlagTest extends TestCase
 {
-
-
     public function testSuccessCreate(): void
     {
         $depositFlag = new DepositFlag(DepositFlagEnum::YES());

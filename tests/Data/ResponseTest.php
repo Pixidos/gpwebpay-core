@@ -34,7 +34,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class ResponseTest extends TestCase
 {
-
     public function testCreateGPWebPayResponse(): void
     {
         $params = TestHelpers::getTestParams();

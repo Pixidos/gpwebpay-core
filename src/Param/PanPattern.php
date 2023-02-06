@@ -21,7 +21,6 @@ use function Pixidos\GPWebPay\assertMaxLenght;
 
 class PanPattern implements IParam
 {
-
     /**
      * @var string
      */

@@ -22,7 +22,6 @@ use ReflectionException;
 
 class PrivateKeyTest extends TestCase
 {
-
     public function testCreate(): void
     {
         new PrivateKey(__DIR__ . '/../../_certs/test.pem', '1234567');

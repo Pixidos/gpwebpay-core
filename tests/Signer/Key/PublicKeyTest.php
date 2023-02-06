@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Signer\Key\PublicKey;
 
 class PublicKeyTest extends TestCase
 {
-
     public function testCreate(): void
     {
         new PublicKey(__DIR__ . '/../../_certs/test-pub.pem');

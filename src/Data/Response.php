@@ -26,23 +26,22 @@ use Pixidos\GPWebPay\Param\Utils\Sorter;
 
 class Response implements ResponseInterface
 {
-
     /**
      * @var IParam[] $params
      */
-    private $params;
+    private array $params;
     /**
      * @var string digest
      */
-    private $digest;
+    private string $digest;
     /**
      * @var string digest1
      */
-    private $digest1;
+    private string $digest1;
     /**
      * @var string gatewayKey
      */
-    private $gatewayKey;
+    private string $gatewayKey;
 
     /**
      * @param string $operation

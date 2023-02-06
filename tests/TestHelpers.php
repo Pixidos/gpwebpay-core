@@ -17,12 +17,12 @@ namespace Pixidos\GPWebPay\Tests;
 use Pixidos\GPWebPay\Config\Config;
 use Pixidos\GPWebPay\Config\Factory\ConfigFactory;
 use Pixidos\GPWebPay\Config\Factory\PaymentConfigFactory;
-use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Data\Operation;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Factory\ResponseFactory;
-use Pixidos\GPWebPay\Param\Amount;
+use Pixidos\GPWebPay\Param\AmountInPennies;
 use Pixidos\GPWebPay\Param\Currency;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
@@ -85,7 +85,7 @@ class TestHelpers
 
         return self::$operation = new Operation(
             new OrderNumber(self::ORDER_NUMBER),
-            new Amount(1000),
+            new AmountInPennies(100000),
             new Currency(\Pixidos\GPWebPay\Enum\Currency::CZK()),
             self::GATEWAY,
             new ResponseUrl(self::RESPONSE_URL)

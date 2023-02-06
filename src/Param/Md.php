@@ -21,7 +21,6 @@ use function Pixidos\GPWebPay\assertMaxLenght;
 
 class Md implements IParam
 {
-
     /**
      * @var string
      */

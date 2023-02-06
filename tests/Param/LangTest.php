@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Param\Lang;
 
 class LangTest extends TestCase
 {
-
     public function testSuccessCreate(): void
     {
         $lang = new Lang('cs');

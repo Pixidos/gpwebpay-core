@@ -16,7 +16,6 @@ namespace Pixidos\GPWebPay\Config;
 
 class SignerConfig
 {
-
     /**
      * @var string
      */

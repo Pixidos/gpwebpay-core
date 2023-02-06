@@ -22,7 +22,6 @@ use Pixidos\GPWebPay\Signer\Signer;
 
 class SignerTest extends TestCase
 {
-
     /**
      * @throws SignerException
      */

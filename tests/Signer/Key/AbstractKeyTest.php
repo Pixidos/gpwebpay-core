@@ -20,13 +20,11 @@ use Pixidos\GPWebPay\Signer\Key\AbstractKey;
 
 class AbstractKeyTest extends TestCase
 {
-
     public function testNotExistFileThrowException(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
         new class ('misssing_file') extends AbstractKey {
-
             protected function createKey()
             {
                 //@phpstan-ignore-next-line

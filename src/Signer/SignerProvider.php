@@ -18,7 +18,6 @@ use Pixidos\GPWebPay\Config\SignerConfigProvider;
 
 final class SignerProvider implements SignerProviderInterface
 {
-
     /**
      * @var SignerFactoryInterface
      */

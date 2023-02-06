@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class VRCodeTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

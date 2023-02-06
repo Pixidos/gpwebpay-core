@@ -21,7 +21,6 @@ use function Pixidos\GPWebPay\assertMaxLenght;
 
 class FastToken implements IParam
 {
-
     /**
      * @var string
      */

@@ -22,7 +22,6 @@ use Pixidos\GPWebPay\Param\ResponseUrl;
 
 class PaymentConfigTest extends TestCase
 {
-
     public function testCreate(): void
     {
         $merchantNumber = new MerchantNumber('1234567890');

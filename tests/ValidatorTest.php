@@ -22,7 +22,6 @@ use function Pixidos\GPWebPay\assertIsInteger;
 
 class ValidatorTest extends TestCase
 {
-
     /**
      * @param mixed $value
      *
@@ -37,7 +36,7 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * @param mixed $value
+     * @param string|int|float $value
      *
      * @throws InvalidArgumentException
      * @dataProvider getIsIntegerInvalidValue

@@ -15,17 +15,19 @@ declare(strict_types=1);
 namespace Pixidos\GPWebPay\Tests\Param;
 
 use PHPUnit\Framework\TestCase;
-use Pixidos\GPWebPay\Enum\Param;
-use Pixidos\GPWebPay\Param\Currency;
+use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
+use Pixidos\GPWebPay\Param\AmountInPennies;
 
-class CurrencyTest extends TestCase
+class AmountInTest extends TestCase
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function testSuccessCreate(): void
     {
-        $currency = new Currency(\Pixidos\GPWebPay\Enum\Currency::CZK());
+        $amount = new AmountInPennies(100000);
 
-        self::assertSame('203', (string)$currency);
-        self::assertEquals(\Pixidos\GPWebPay\Enum\Currency::CZK(), $currency->getValue());
-        self::assertSame(Param::CURRENCY, $currency->getParamName());
+        self::assertSame(100000, $amount->getValue());
+        self::assertSame('100000', (string)$amount);
     }
 }

@@ -16,5 +16,4 @@ namespace Pixidos\GPWebPay\Exceptions;
 
 class SignerException extends GPWebPayException
 {
-
 }

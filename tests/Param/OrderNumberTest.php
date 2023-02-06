@@ -22,7 +22,6 @@ use Pixidos\GPWebPay\Param\OrderNumber;
 
 class OrderNumberTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */
@@ -37,7 +36,7 @@ class OrderNumberTest extends TestCase
 
 
     /**
-     * @param mixed $value
+     * @param string|int|float $value
      *
      * @throws InvalidArgumentException
      * @dataProvider getInvalidValue

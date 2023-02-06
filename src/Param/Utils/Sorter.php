@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Param\Utils;
 
-use Pixidos\GPWebPay\Data\Response;
+use Pixidos\GPWebPay\Data\ResponseInterface;
 use Pixidos\GPWebPay\Enum\Param;
 
 class Sorter
@@ -51,18 +51,18 @@ class Sorter
         Param::ORDERNUMBER,
         Param::MERORDERNUM,
         Param::MD,
-        Response::PRCODE,
-        Response::SRCODE,
-        Response::RESULTTEXT,
+        ResponseInterface::PRCODE,
+        ResponseInterface::SRCODE,
+        ResponseInterface::RESULTTEXT,
         Param::USERPARAM,
         Param::ADDINFO,
         Param::TOKEN,
-        Response::EXPIRY,
-        Response::ACSRES,
-        Response::ACCODE,
+        ResponseInterface::EXPIRY,
+        ResponseInterface::ACSRES,
+        ResponseInterface::ACCODE,
         Param::PANPATTERN,
-        Response::DAYTOCAPTURE,
-        Response::TOKENREGSTATUS,
+        ResponseInterface::DAYTOCAPTURE,
+        ResponseInterface::TOKENREGSTATUS,
         Param::DIGEST,
         'DIGEST1',
     ];
@@ -70,8 +70,8 @@ class Sorter
 
     /**
      * @template T
-     * @param array<T> $params
-     * @return array<T>
+     * @param array<string, T> $params
+     * @return array<string, T>
      */
     public static function sortRequestParams(array $params): array
     {
@@ -82,8 +82,8 @@ class Sorter
 
     /**
      * @template T
-     * @param array<T> $params
-     * @return array<T>
+     * @param array<string, T> $params
+     * @return array<string, T>
      */
     public static function sortResponseParams(array $params): array
     {
@@ -94,14 +94,17 @@ class Sorter
 
     /**
      * @template T
-     * @param array<T>           $params
-     * @param array<string, int> $order
-     * @return array<T>
+     * @param array<string, T> $params
+     * @param array<string, int>    $order
+     * @return array<string, T>
      */
     private static function sort(array $params, array $order): array
     {
         $sort = array_replace($order, $params);
 
+        /**
+         * @phpstan-ignore-next-line
+         */
         return array_intersect_key($sort, $params);
     }
 }

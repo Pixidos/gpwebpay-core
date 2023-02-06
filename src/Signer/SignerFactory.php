@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Signer\Key\PublicKey;
 
 final class SignerFactory implements SignerFactoryInterface
 {
-
     /**
      * @param SignerConfig $config
      * @return SignerInterface

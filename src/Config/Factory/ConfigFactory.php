@@ -30,11 +30,7 @@ class ConfigFactory implements ConfigFactoryInterface
     public const PUBLIC_KEY = 'publicKey';
     public const RESPONSE_URL = 'responseUrl';
 
-
-    /**
-     * @var PaymentConfigFactory
-     */
-    private $paymentConfigFactory;
+    private PaymentConfigFactory $paymentConfigFactory;
 
     public function __construct(PaymentConfigFactory $paymentConfigFactory)
     {
@@ -42,26 +38,44 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param mixed[] $params
+     * @param array<string, mixed> $params
      * @param string  $defaultGateway
      * @return Config
+     * @phpstan-ignore-next-line
      */
     public function create(array $params, string $defaultGateway = 'default'): Config
     {
-        $defaultGateway = strtolower($defaultGateway);
-        $data = [];
-        if (array_key_exists(self::PRIVATE_KEY, $params)) {
-            //not multiple config
-            $data[$defaultGateway] = $params;
-        } else {
-            $data = $params;
-        }
-
-
+        $data = $this->normalizeParams($params, $defaultGateway);
         $config = $this->createConfig($defaultGateway);
         $this->processParams($data, $config);
 
         return $config;
+    }
+
+    /**
+     * @param array<string, mixed>  $params
+     * @param string $defaultGateway
+     * @return array<string, array<string, string|int>>
+     */
+    private function normalizeParams(array $params, string $defaultGateway): array
+    {
+        $defaultGateway = strtolower($defaultGateway);
+
+        if (!array_key_exists(self::PRIVATE_KEY, $params)) {
+            //not multiple config
+
+            /**
+             * @phpstan-ignore-next-line
+             */
+            return $params;
+        }
+        $data = [];
+        $data[$defaultGateway] = $params;
+
+        /**
+         * @phpstan-ignore-next-line
+         */
+        return $data;
     }
 
 

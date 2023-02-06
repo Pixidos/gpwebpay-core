@@ -104,6 +104,19 @@ You are have two ways how specify this.
 	// or create the conversion by yourself
 	$amount = new Amount(100000, false);
 
+.. warning::
+
+    It will be deprecated in next major version. Please replace for :ref:`request.params.amount_in_pennies`
+
+.. _request.params.amount_in_pennies:
+
+AmountInPennies
+-----------------
+Amount of order
+
+.. code-block:: php
+
+	$amount = new AmountInPennies(100000); // represent 1000.00 Kč|Euro
 
 
 .. _request.params.currency:

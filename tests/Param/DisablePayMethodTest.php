@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Param\DisablePayMethod;
 
 class DisablePayMethodTest extends TestCase
 {
-
     public function testCreate(): void
     {
         $payMethod = new DisablePayMethod(PayMethod::CARD());

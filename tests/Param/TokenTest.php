@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class TokenTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

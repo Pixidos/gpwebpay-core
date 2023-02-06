@@ -22,7 +22,6 @@ use Pixidos\GPWebPay\Param\FastPayId;
 
 class FastPayIdTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */
@@ -37,7 +36,7 @@ class FastPayIdTest extends TestCase
 
 
     /**
-     * @param mixed $value
+     * @param string|int|float $value
      *
      * @throws InvalidArgumentException
      * @dataProvider getInvalidValue

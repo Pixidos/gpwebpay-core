@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
 
 class ResponseFactoryTest extends TestCase
 {
-
     /***/
     public function testCreateResponse(): void
     {

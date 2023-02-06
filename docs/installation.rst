@@ -9,7 +9,7 @@ Installing GPWebPay Core
 Requirements
 ############
 
-GPWebPay Core |version| requires PHP 7.1 using the latest version of PHP is highly
+GPWebPay Core |version| requires PHP ^7.4 or ^8.0 using the latest version of PHP is highly
 recommended.
 
 GPWebPay Core requires the `ext-openssl <http://php.net/manual/en/openssl.setup.php>`_

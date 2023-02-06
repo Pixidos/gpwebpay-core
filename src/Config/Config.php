@@ -16,18 +16,9 @@ namespace Pixidos\GPWebPay\Config;
 
 class Config
 {
-    /**
-     * @var PaymentConfigProvider
-     */
-    private $paymentConfigProvider;
-    /**
-     * @var SignerConfigProvider
-     */
-    private $signerConfigProvider;
-    /**
-     * @var string
-     */
-    private $defaultGateway;
+    private PaymentConfigProvider $paymentConfigProvider;
+    private SignerConfigProvider $signerConfigProvider;
+
 
     public function __construct(
         PaymentConfigProvider $paymentConfigProvider,
@@ -37,27 +28,13 @@ class Config
         $this->signerConfigProvider = $signerConfigProvider;
     }
 
-    /**
-     * @return PaymentConfigProvider
-     */
     public function getPaymentConfigProvider(): PaymentConfigProvider
     {
         return $this->paymentConfigProvider;
     }
 
-    /**
-     * @return SignerConfigProvider
-     */
     public function getSignerConfigProvider(): SignerConfigProvider
     {
         return $this->signerConfigProvider;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDefaultGateway(): string
-    {
-        return $this->defaultGateway;
     }
 }

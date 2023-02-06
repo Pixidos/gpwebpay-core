@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Param\Amount;
 
 class AmountTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

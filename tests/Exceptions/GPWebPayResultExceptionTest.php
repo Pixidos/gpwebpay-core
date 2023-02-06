@@ -19,7 +19,6 @@ use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 
 class GPWebPayResultExceptionTest extends TestCase
 {
-
     public function testCreate(): void
     {
         $exception = new GPWebPayResultException('', 30, 1001, 'resulttext');

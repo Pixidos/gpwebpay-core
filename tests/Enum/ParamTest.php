@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Enum\Param;
 
 class ParamTest extends TestCase
 {
-
     public function testUserParam1(): void
     {
         $param = Param::USERPARAM();

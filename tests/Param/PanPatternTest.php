@@ -27,7 +27,6 @@ use Pixidos\GPWebPay\Tests\TestHelpers;
  */
 class PanPatternTest extends TestCase
 {
-
     /**
      * @throws InvalidArgumentException
      */

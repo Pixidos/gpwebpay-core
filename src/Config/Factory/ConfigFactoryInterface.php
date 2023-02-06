@@ -18,7 +18,6 @@ use Pixidos\GPWebPay\Config\Config;
 
 interface ConfigFactoryInterface
 {
-
     /**
      * @param mixed[]  $params
      * @param string $defaultGateway

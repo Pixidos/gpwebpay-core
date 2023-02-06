@@ -21,7 +21,6 @@ use Pixidos\GPWebPay\Enum\PayMethod;
 
 class PayMethodTest extends TestCase
 {
-
     public function testCard(): void
     {
         $payMethod = PayMethod::CARD();

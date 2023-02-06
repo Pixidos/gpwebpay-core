@@ -33,8 +33,6 @@ use UnexpectedValueException;
  */
 class ResponseProviderTest extends TestCase
 {
-
-
     public function testSuccessVerifyResponse(): void
     {
         $provider = $this->createProvider();

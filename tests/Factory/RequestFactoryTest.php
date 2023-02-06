@@ -23,7 +23,7 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Exceptions\LogicException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Factory\RequestFactory;
-use Pixidos\GPWebPay\Param\Amount;
+use Pixidos\GPWebPay\Param\AmountInPennies;
 use Pixidos\GPWebPay\Param\Currency;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Signer\SignerFactory;
@@ -33,7 +33,6 @@ use UnexpectedValueException;
 
 class RequestFactoryTest extends TestCase
 {
-
     /**
      * @throws Exception
      * @throws InvalidArgumentException
@@ -78,7 +77,7 @@ class RequestFactoryTest extends TestCase
 
         $operation = new Operation(
             new OrderNumber('1234'),
-            new Amount(1000),
+            new AmountInPennies(100000),
             new Currency(\Pixidos\GPWebPay\Enum\Currency::CZK())
         );
 

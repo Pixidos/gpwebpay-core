@@ -21,8 +21,6 @@ use Pixidos\GPWebPay\Param\Operation;
 
 class OperationTest extends TestCase
 {
-
-
     public function testSuccessCreate(): void
     {
         $operation = new Operation(OperationEnum::CREATE_ORDER());

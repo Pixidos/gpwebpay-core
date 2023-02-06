@@ -22,7 +22,6 @@ use function Pixidos\GPWebPay\assertUrl;
 
 class ResponseUrl implements IParam
 {
-
     /**
      * @var string
      */

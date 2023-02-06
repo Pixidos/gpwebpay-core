@@ -12,8 +12,8 @@
 
 declare(strict_types=1);
 
-namespace Pixidos\GPWebPay\Exceptions;
+namespace Pixidos\GPWebPay\Param;
 
-class LogicException extends \LogicException
+interface IAmount extends IParam
 {
 }

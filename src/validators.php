@@ -36,7 +36,7 @@ function assertIsInteger($value, string $name): void
 }
 
 /**
- * @param mixed  $value
+ * @param string|int|float  $value
  * @param int    $length
  * @param string $name
  *
@@ -51,7 +51,7 @@ function assertMaxLenght($value, int $length, string $name): void
 }
 
 /**
- * @param mixed  $value
+ * @param string|int|float  $value
  * @param int    $length
  * @param string $name
  *
