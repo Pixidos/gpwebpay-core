@@ -31,9 +31,9 @@ class Signer implements SignerInterface
      */
     private PublicKey $publicKey;
     /**
-* @var int|string
+     * @var int|string
      */
-    private  $algorithm;
+    private $algorithm;
 
 
     /**
