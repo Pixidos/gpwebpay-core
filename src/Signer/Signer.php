@@ -24,24 +24,29 @@ class Signer implements SignerInterface
     /**
      * @var PrivateKey
      */
-    private $privateKey;
+    private PrivateKey $privateKey;
 
     /**
      * @var PublicKey
      */
-    private $publicKey;
+    private PublicKey $publicKey;
+    /**
+* @var int|string
+     */
+    private  $algorithm;
 
 
     /**
      * Signer constructor.
      * @param PrivateKey $privateKey
-     * @param PublicKey  $publicKey
-     * @throws SignerException
+     * @param PublicKey $publicKey
+     * @param int|string $algorithm - ssl algorithm default OPENSSL_ALGO_SHA1
      */
-    public function __construct(PrivateKey $privateKey, PublicKey $publicKey)
+    public function __construct(PrivateKey $privateKey, PublicKey $publicKey, /** string|int */$algorithm = OPENSSL_ALGO_SHA1)
     {
         $this->privateKey = $privateKey;
         $this->publicKey = $publicKey;
+        $this->algorithm = $algorithm;
     }
 
     /**
@@ -53,7 +58,7 @@ class Signer implements SignerInterface
     public function sign(array $params): string
     {
         $digestText = implode('|', $params);
-        openssl_sign($digestText, $digest, $this->privateKey->getKey());
+        openssl_sign($digestText, $digest, $this->privateKey->getKey(), $this->algorithm);
         $digest = base64_encode($digest);
 
         return $digest;
@@ -70,7 +75,7 @@ class Signer implements SignerInterface
     {
         $data = implode('|', $params);
         $decode = (string)base64_decode($digest, true);
-        $ok = openssl_verify($data, $decode, $this->publicKey->getKey());
+        $ok = openssl_verify($data, $decode, $this->publicKey->getKey(), $this->algorithm);
 
         return 1 === $ok;
     }
