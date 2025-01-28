@@ -16,51 +16,23 @@ namespace Pixidos\GPWebPay\Config;
 
 class SignerConfig
 {
-    /**
-     * @var string
-     */
-    private $privateKey;
-    /**
-     * @var string
-     */
-    private $privateKeyPassword;
-    /**
-     * @var string
-     */
-    private $publicKey;
-
-    /**
-     * Config constructor.
-     * @param string $privateKey
-     * @param string $privateKeyPassword
-     * @param string $publicKey
-     */
-    public function __construct(string $privateKey, string $privateKeyPassword, string $publicKey)
-    {
-        $this->privateKey = $privateKey;
-        $this->privateKeyPassword = $privateKeyPassword;
-        $this->publicKey = $publicKey;
+    public function __construct(
+            private readonly string $privateKey,
+            private readonly string $privateKeyPassword,
+            private readonly string $publicKey
+    ) {
     }
 
-    /**
-     * @return string
-     */
     public function getPrivateKey(): string
     {
         return $this->privateKey;
     }
 
-    /**
-     * @return string
-     */
     public function getPrivateKeyPassword(): string
     {
         return $this->privateKeyPassword;
     }
 
-    /**
-     * @return string
-     */
     public function getPublicKey(): string
     {
         return $this->publicKey;

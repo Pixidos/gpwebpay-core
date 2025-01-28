@@ -18,7 +18,7 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 use function Pixidos\GPWebPay\assertIsInteger;
-use function Pixidos\GPWebPay\assertMaxLenght;
+use function Pixidos\GPWebPay\assertMaxLength;
 
 class FastPayId implements IParam
 {
@@ -36,7 +36,7 @@ class FastPayId implements IParam
     public function __construct($fastPayId)
     {
         assertIsInteger($fastPayId, $this->getParamName());
-        assertMaxLenght($fastPayId, 15, $this->getParamName());
+        assertMaxLength($fastPayId, 15, $this->getParamName());
         $this->value = $fastPayId;
     }
 

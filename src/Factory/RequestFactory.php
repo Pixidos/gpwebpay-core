@@ -27,24 +27,11 @@ use UnexpectedValueException;
 
 class RequestFactory
 {
-    /**
-     * @var PaymentConfigProvider
-     */
-    private $config;
-    /**
-     * @var SignerProviderInterface
-     */
-    private $signerProvider;
 
-    /**
-     * RequestFactory constructor.
-     * @param PaymentConfigProvider   $config
-     * @param SignerProviderInterface $signerProvider
-     */
-    public function __construct(PaymentConfigProvider $config, SignerProviderInterface $signerProvider)
-    {
-        $this->config = $config;
-        $this->signerProvider = $signerProvider;
+    public function __construct(
+            private readonly PaymentConfigProvider $config,
+            private readonly SignerProviderInterface $signerProvider
+    ) {
     }
 
     /**
@@ -66,10 +53,10 @@ class RequestFactory
             $operation->addParam($responseUrl);
         }
         $request = new  Request(
-            $operation,
-            $this->config->getMerchantNumber($key),
-            $this->config->getDepositFlag($key),
-            $this->config->getUrl($key)
+                $operation,
+                $this->config->getMerchantNumber($key),
+                $this->config->getDepositFlag($key),
+                $this->config->getUrl($key)
         );
 
         $signer = $this->signerProvider->get($key);

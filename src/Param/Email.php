@@ -18,7 +18,7 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 use function Pixidos\GPWebPay\assertIsEmail;
-use function Pixidos\GPWebPay\assertMaxLenght;
+use function Pixidos\GPWebPay\assertMaxLength;
 
 class Email implements IParam
 {
@@ -64,6 +64,6 @@ class Email implements IParam
     protected function validate(string $value): void
     {
         assertIsEmail($value);
-        assertMaxLenght($value, 255, 'EMAIL');
+        assertMaxLength($value, 255, 'EMAIL');
     }
 }

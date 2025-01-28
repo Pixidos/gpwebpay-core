@@ -20,28 +20,18 @@ use Pixidos\GPWebPay\Param\IParam;
 
 interface OperationInterface
 {
-    /**
-     * @return null|string
-     */
+
     public function getGateway(): ?string;
 
     /**
-     * @param IParam $param
-     *
-     * @return OperationInterface
      * @throws InvalidArgumentException
      */
     public function addParam(IParam $param): OperationInterface;
 
-    /**
-     * @param Param $param
-     *
-     * @return IParam|null
-     */
     public function getParam(Param $param): ?IParam;
 
     /**
-     * @return IParam[]
+     * @return array<IParam>
      */
     public function getParams(): array;
 }

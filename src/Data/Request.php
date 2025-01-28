@@ -24,18 +24,13 @@ use UnexpectedValueException;
 
 class Request implements RequestInterface
 {
-    /**
-     * @var  OperationInterface $operation
-     */
-    private $operation;
+    private OperationInterface $operation;
     /**
      * @var array<string, string> $params
      */
-    private $params;
-    /**
-     * @var string $url
-     */
-    private $url;
+    private array $params = [];
+
+    private string $url;
 
     /**
      * @param OperationInterface $operation

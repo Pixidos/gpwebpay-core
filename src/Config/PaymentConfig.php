@@ -20,86 +20,36 @@ use Pixidos\GPWebPay\Param\ResponseUrl;
 
 class PaymentConfig
 {
-    /**
-     * @var string
-     */
-    private $url;
-    /**
-     * @var MerchantNumber
-     */
-    private $merchantNumber;
-    /**
-     * @var DepositFlag
-     */
-    private $depositFlag;
-    /**
-     * @var string
-     */
-    private $gateway;
-    /**
-     * @var ResponseUrl|null
-     */
-    private $responseUrl;
 
-    /**
-     * Settings constructor.
-     * @TODO: url as object
-     * @param string           $url
-     * @param MerchantNumber   $merchantNumber
-     * @param DepositFlag      $depositFlag
-     * @param string           $gateway
-     * @param ResponseUrl|null $responseUrl
-     */
     public function __construct(
-        string $url,
-        MerchantNumber $merchantNumber,
-        DepositFlag $depositFlag,
-        string $gateway,
-        ?ResponseUrl $responseUrl = null
+            private readonly string $url,
+            private readonly MerchantNumber $merchantNumber,
+            private readonly DepositFlag $depositFlag,
+            private readonly string $gateway,
+            private readonly ResponseUrl|null $responseUrl = null
     ) {
-        $this->url = $url;
-        $this->merchantNumber = $merchantNumber;
-        $this->depositFlag = $depositFlag;
-        $this->gateway = $gateway;
-        $this->responseUrl = $responseUrl;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return MerchantNumber
-     */
     public function getMerchantNumber(): MerchantNumber
     {
         return $this->merchantNumber;
     }
 
-    /**
-     * @return DepositFlag
-     */
     public function getDepositFlag(): DepositFlag
     {
         return $this->depositFlag;
     }
 
-    /**
-     * @return ResponseUrl|null
-     */
     public function getResponseUrl(): ?ResponseUrl
     {
         return $this->responseUrl;
     }
 
-
-    /**
-     * @return string
-     */
     public function getGateway(): string
     {
         return $this->gateway;

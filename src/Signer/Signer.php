@@ -21,32 +21,11 @@ use Stringable;
 
 class Signer implements SignerInterface
 {
-    /**
-     * @var PrivateKey
-     */
-    private PrivateKey $privateKey;
-
-    /**
-     * @var PublicKey
-     */
-    private PublicKey $publicKey;
-    /**
-     * @var int|string
-     */
-    private $algorithm;
-
-
-    /**
-     * Signer constructor.
-     * @param PrivateKey $privateKey
-     * @param PublicKey $publicKey
-     * @param int|string $algorithm - ssl algorithm default OPENSSL_ALGO_SHA1
-     */
-    public function __construct(PrivateKey $privateKey, PublicKey $publicKey, /** string|int */$algorithm = OPENSSL_ALGO_SHA1)
+    public function __construct(
+            private readonly PrivateKey $privateKey,
+            private readonly PublicKey $publicKey,
+            private readonly string|int $algorithm = OPENSSL_ALGO_SHA1)
     {
-        $this->privateKey = $privateKey;
-        $this->publicKey = $publicKey;
-        $this->algorithm = $algorithm;
     }
 
     /**
@@ -59,9 +38,8 @@ class Signer implements SignerInterface
     {
         $digestText = implode('|', $params);
         openssl_sign($digestText, $digest, $this->privateKey->getKey(), $this->algorithm);
-        $digest = base64_encode($digest);
 
-        return $digest;
+        return base64_encode($digest);
     }
 
     /**

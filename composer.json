@@ -27,7 +27,7 @@
         "issues": "https://github.com/Pixidos/gpwebpay-core/issues"
     },
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-openssl": "*",
         "grifart/enum": "^0.2.0"
     },
@@ -41,8 +41,7 @@
             "Pixidos\\GPWebPay\\": "src/"
         },
         "files": [
-            "src/validators.php",
-            "src/stubs.php"
+            "src/validators.php"
         ]
     },
     "autoload-dev": {

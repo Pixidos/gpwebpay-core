@@ -17,7 +17,7 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
-use function Pixidos\GPWebPay\assertMaxLenght;
+use function Pixidos\GPWebPay\assertMaxLength;
 
 class PanPattern implements IParam
 {
@@ -33,7 +33,7 @@ class PanPattern implements IParam
      */
     public function __construct(string $value)
     {
-        assertMaxLenght($value, 255, $this->getParamName());
+        assertMaxLength($value, 255, $this->getParamName());
 
         $this->value = $value;
     }

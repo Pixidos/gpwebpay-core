@@ -17,7 +17,7 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
-use function Pixidos\GPWebPay\assertMaxLenght;
+use function Pixidos\GPWebPay\assertMaxLength;
 
 class Description implements IParam
 {
@@ -61,6 +61,6 @@ class Description implements IParam
      */
     protected function validate(string $value): void
     {
-        assertMaxLenght($value, 255, Param::DESCRIPTION);
+        assertMaxLength($value, 255, Param::DESCRIPTION);
     }
 }

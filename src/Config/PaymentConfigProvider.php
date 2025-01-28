@@ -25,50 +25,33 @@ class PaymentConfigProvider
     /**
      * @var string defaultGatewayKey
      */
-    private $defaultGateway = '';
+    private string $defaultGateway = '';
     /**
-     * @var PaymentConfig[]
+     * @var array<PaymentConfig>
      */
-    private $paymentConfigs = [];
+    private array $paymentConfigs = [];
 
     public function addPaymentConfig(PaymentConfig $paymentConfig): void
     {
         $this->paymentConfigs[$paymentConfig->getGateway()] = $paymentConfig;
     }
 
-    /**
-     * @param string $gateway
-     *
-     * @return string
-     */
+
     public function getUrl(string $gateway): string
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getUrl();
     }
 
-    /**
-     * @param string $gateway
-     *
-     * @return MerchantNumber
-     */
     public function getMerchantNumber(string $gateway): MerchantNumber
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getMerchantNumber();
     }
 
-    /**
-     * @param string $gateway
-     *
-     * @return DepositFlag
-     */
     public function getDepositFlag(string $gateway): DepositFlag
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getDepositFlag();
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultGateway(): string
     {
         if ('' === $this->defaultGateway) {
@@ -85,11 +68,6 @@ class PaymentConfigProvider
         $this->defaultGateway = $gateway;
     }
 
-    /**
-     * @param null|string $gateway
-     *
-     * @return string
-     */
     public function getGateway(?string $gateway = null): string
     {
         if (null === $gateway) {
@@ -109,10 +87,6 @@ class PaymentConfigProvider
         return $gateway;
     }
 
-    /**
-     * @param string|null $gateway
-     * @return ResponseUrl|null
-     */
     public function getResponseUrl(?string $gateway = null): ?ResponseUrl
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getResponseUrl();

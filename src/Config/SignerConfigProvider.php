@@ -21,21 +21,14 @@ class SignerConfigProvider
     /**
      * @var array<SignerConfig>
      */
-    private $configs = [];
+    private array $configs = [];
 
-    /**
-     * @param SignerConfig $config
-     * @param string       $gateway
-     */
+
     public function addConfig(SignerConfig $config, string $gateway): void
     {
         $this->configs[$gateway] = $config;
     }
 
-    /**
-     * @param string $gateway
-     * @return SignerConfig
-     */
     public function getConfig(string $gateway): SignerConfig
     {
         if (array_key_exists($gateway, $this->configs)) {

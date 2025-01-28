@@ -26,7 +26,7 @@ function assertIsInteger($value, string $name): void
 {
     if (!is_numeric($value)) {
         throw new InvalidArgumentException(
-            sprintf('%s must be numeric scalar type "%s" given.', $name, gettype($value))
+                sprintf('%s must be numeric scalar type "%s" given.', $name, gettype($value))
         );
     }
 
@@ -36,13 +36,9 @@ function assertIsInteger($value, string $name): void
 }
 
 /**
- * @param string|int|float  $value
- * @param int    $length
- * @param string $name
- *
  * @throws InvalidArgumentException
  */
-function assertMaxLenght($value, int $length, string $name): void
+function assertMaxLength(string|int|float $value, int $length, string $name): void
 {
     $strlen = strlen((string)$value);
     if ($strlen > $length) {
@@ -51,13 +47,9 @@ function assertMaxLenght($value, int $length, string $name): void
 }
 
 /**
- * @param string|int|float  $value
- * @param int    $length
- * @param string $name
- *
  * @throws InvalidArgumentException
  */
-function assertLenght($value, int $length, string $name): void
+function assertLenght(string|int|float $value, int $length, string $name): void
 {
     $strlen = strlen((string)$value);
     if ($strlen !== $length) {
@@ -66,8 +58,6 @@ function assertLenght($value, int $length, string $name): void
 }
 
 /**
- * @param string $value
- *
  * @throws InvalidArgumentException
  */
 function assertIsEmail(string $value): void
@@ -76,13 +66,13 @@ function assertIsEmail(string $value): void
     $alpha = "a-z\x80-\xFF"; // superset of IDN
 
     $result = (bool)preg_match(
-        "(^
+            "(^
             (\"([ !#-[\\]-~]*|\\\\[ -~])+\"|$atom+(\\.$atom+)*)  # quoted or unquoted
             @
             ([0-9$alpha]([-0-9$alpha]{0,61}[0-9$alpha])?\\.)+    # domain - RFC 1034
             [$alpha]([-0-9$alpha]{0,17}[$alpha])?                # top domain
             \\z)ix",
-        $value
+            $value
     );
 
     if (false === $result) {
@@ -91,8 +81,6 @@ function assertIsEmail(string $value): void
 }
 
 /**
- * @param string $url
- *
  * @throws InvalidArgumentException
  */
 function assertUrl(string $url): void

@@ -22,13 +22,6 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 class ConfigFactory implements ConfigFactoryInterface
 {
-    public const PRIVATE_KEY = 'privateKey';
-    public const URL = 'url';
-    public const MERCHANT_NUMBER = 'merchantNumber';
-    public const DEPOSIT_FLAG = 'depositFlag';
-    public const PRIVATE_KEY_PASSPHRASE = 'privateKeyPassphrase';
-    public const PUBLIC_KEY = 'publicKey';
-    public const RESPONSE_URL = 'responseUrl';
 
     private PaymentConfigFactory $paymentConfigFactory;
 
@@ -37,12 +30,6 @@ class ConfigFactory implements ConfigFactoryInterface
         $this->paymentConfigFactory = $paymentConfigFactory;
     }
 
-    /**
-     * @param array<string, mixed> $params
-     * @param string  $defaultGateway
-     * @return Config
-     * @phpstan-ignore-next-line
-     */
     public function create(array $params, string $defaultGateway = 'default'): Config
     {
         $data = $this->normalizeParams($params, $defaultGateway);
@@ -87,7 +74,7 @@ class ConfigFactory implements ConfigFactoryInterface
      * @return int|string
      * @throws InvalidArgumentException
      */
-    private function getValue(string $key, array $data, string $gateway)
+    private function getValue(string $key, array $data, string $gateway): int|string
     {
         if (!array_key_exists($key, $data)) {
             throw new InvalidArgumentException(sprintf('Missing key:"%s" in %s configuration', $key, $gateway));

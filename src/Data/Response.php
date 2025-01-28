@@ -43,18 +43,7 @@ class Response implements ResponseInterface
      */
     private string $gatewayKey;
 
-    /**
-     * @param string $operation
-     * @param string $ordernumber
-     * @param string $merordernum
-     * @param string $md
-     * @param int    $prcode
-     * @param int    $srcode
-     * @param string $resulttext
-     * @param string $digest
-     * @param string $digest1
-     * @param string $gatewayKey
-     */
+
     public function __construct(
         string $operation,
         string $ordernumber,

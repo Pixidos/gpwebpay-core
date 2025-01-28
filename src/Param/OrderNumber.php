@@ -18,7 +18,7 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 use function Pixidos\GPWebPay\assertIsInteger;
-use function Pixidos\GPWebPay\assertMaxLenght;
+use function Pixidos\GPWebPay\assertMaxLength;
 
 class OrderNumber implements IParam
 {
@@ -63,6 +63,6 @@ class OrderNumber implements IParam
     protected function validate($value): void
     {
         assertIsInteger($value, $this->getParamName());
-        assertMaxLenght($value, 15, $this->getParamName());
+        assertMaxLength($value, 15, $this->getParamName());
     }
 }

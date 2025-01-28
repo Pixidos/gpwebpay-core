@@ -17,7 +17,7 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
-use function Pixidos\GPWebPay\assertMaxLenght;
+use function Pixidos\GPWebPay\assertMaxLength;
 
 class FastToken implements IParam
 {
@@ -35,7 +35,7 @@ class FastToken implements IParam
      */
     public function __construct(string $token)
     {
-        assertMaxLenght($token, 64, $this->getParamName());
+        assertMaxLength($token, 64, $this->getParamName());
         $this->token = $token;
     }
 
