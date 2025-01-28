@@ -20,7 +20,6 @@ use Pixidos\GPWebPay\Param\IParam;
 
 interface OperationInterface
 {
-
     public function getGateway(): ?string;
 
     /**

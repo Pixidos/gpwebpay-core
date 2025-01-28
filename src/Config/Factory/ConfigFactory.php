@@ -22,7 +22,6 @@ use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 class ConfigFactory implements ConfigFactoryInterface
 {
-
     private PaymentConfigFactory $paymentConfigFactory;
 
     public function __construct(PaymentConfigFactory $paymentConfigFactory)

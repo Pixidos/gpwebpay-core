@@ -26,7 +26,7 @@ function assertIsInteger($value, string $name): void
 {
     if (!is_numeric($value)) {
         throw new InvalidArgumentException(
-                sprintf('%s must be numeric scalar type "%s" given.', $name, gettype($value))
+            sprintf('%s must be numeric scalar type "%s" given.', $name, gettype($value))
         );
     }
 
@@ -66,13 +66,13 @@ function assertIsEmail(string $value): void
     $alpha = "a-z\x80-\xFF"; // superset of IDN
 
     $result = (bool)preg_match(
-            "(^
+        "(^
             (\"([ !#-[\\]-~]*|\\\\[ -~])+\"|$atom+(\\.$atom+)*)  # quoted or unquoted
             @
             ([0-9$alpha]([-0-9$alpha]{0,61}[0-9$alpha])?\\.)+    # domain - RFC 1034
             [$alpha]([-0-9$alpha]{0,17}[$alpha])?                # top domain
             \\z)ix",
-            $value
+        $value
     );
 
     if (false === $result) {

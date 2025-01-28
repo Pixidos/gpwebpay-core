@@ -20,13 +20,12 @@ use Pixidos\GPWebPay\Param\ResponseUrl;
 
 class PaymentConfig
 {
-
     public function __construct(
-            private readonly string $url,
-            private readonly MerchantNumber $merchantNumber,
-            private readonly DepositFlag $depositFlag,
-            private readonly string $gateway,
-            private readonly ResponseUrl|null $responseUrl = null
+        private readonly string $url,
+        private readonly MerchantNumber $merchantNumber,
+        private readonly DepositFlag $depositFlag,
+        private readonly string $gateway,
+        private readonly ResponseUrl|null $responseUrl = null
     ) {
     }
 

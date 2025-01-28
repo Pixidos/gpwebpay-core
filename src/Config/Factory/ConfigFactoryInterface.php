@@ -22,7 +22,6 @@ use Pixidos\GPWebPay\Config\Config;
  */
 interface ConfigFactoryInterface
 {
-
     public const PRIVATE_KEY = 'privateKey';
     public const URL = 'url';
     public const MERCHANT_NUMBER = 'merchantNumber';

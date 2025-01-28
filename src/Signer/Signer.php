@@ -22,10 +22,10 @@ use Stringable;
 class Signer implements SignerInterface
 {
     public function __construct(
-            private readonly PrivateKey $privateKey,
-            private readonly PublicKey $publicKey,
-            private readonly string|int $algorithm = OPENSSL_ALGO_SHA1)
-    {
+        private readonly PrivateKey $privateKey,
+        private readonly PublicKey $publicKey,
+        private readonly string|int $algorithm = OPENSSL_ALGO_SHA1
+    ) {
     }
 
     /**

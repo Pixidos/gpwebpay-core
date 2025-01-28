@@ -17,9 +17,9 @@ namespace Pixidos\GPWebPay\Config;
 class SignerConfig
 {
     public function __construct(
-            private readonly string $privateKey,
-            private readonly string $privateKeyPassword,
-            private readonly string $publicKey
+        private readonly string $privateKey,
+        private readonly string $privateKeyPassword,
+        private readonly string $publicKey
     ) {
     }
 

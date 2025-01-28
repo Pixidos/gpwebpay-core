@@ -23,9 +23,8 @@ use ReflectionClass;
 
 class ResponseFactory
 {
-
     public function __construct(
-            private readonly PaymentConfigProvider $configProvider
+        private readonly PaymentConfigProvider $configProvider
     ) {
     }
 
@@ -44,16 +43,16 @@ class ResponseFactory
         }
 
         $response = new Response(
-                $this->getStringValue(Param::OPERATION, $params),
-                $this->getStringValue(Param::ORDERNUMBER, $params),
-                $this->getStringValue(Param::MERORDERNUM, $params),
-                $md,
-                $this->getIntValue(Response::PRCODE, $params, 1000),
-                $this->getIntValue(Response::SRCODE, $params, 0),
-                $this->getStringValue(Response::RESULTTEXT, $params),
-                $this->getStringValue(Param::DIGEST, $params),
-                $this->getStringValue(Response::DIGEST1, $params),
-                $gateway
+            $this->getStringValue(Param::OPERATION, $params),
+            $this->getStringValue(Param::ORDERNUMBER, $params),
+            $this->getStringValue(Param::MERORDERNUM, $params),
+            $md,
+            $this->getIntValue(Response::PRCODE, $params, 1000),
+            $this->getIntValue(Response::SRCODE, $params, 0),
+            $this->getStringValue(Response::RESULTTEXT, $params),
+            $this->getStringValue(Param::DIGEST, $params),
+            $this->getStringValue(Response::DIGEST1, $params),
+            $gateway
         );
 
         $paramsKeys = array_keys((new ReflectionClass(Param::class))->getConstants());

@@ -19,7 +19,6 @@ use Throwable;
 
 class GPWebPayResultException extends GPWebPayException
 {
-
     private string|null $resultText;
     private ResponseError $error;
 
