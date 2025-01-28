@@ -1,2 +1,2 @@
-Sphinx==1.8.5
-sphinx_rtd_theme==0.4.3
+sphinx>=7.0.0,<8.0.0  # nebo aktuální stabilní verze
+sphinx_rtd_theme>=1.0.0
