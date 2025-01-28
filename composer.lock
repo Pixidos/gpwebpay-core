@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c40402f42e0166fb993281dd3f735bab",
+    "content-hash": "eca41e991910b924bca2031cbcb09adb",
     "packages": [
         {
             "name": "grifart/enum",
@@ -1194,22 +1194,22 @@
         },
         {
             "name": "pixidos/coding-standards",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Pixidos/coding-standards.git",
-                "reference": "7268b127921d81f012762669ecb2a3316b57176a"
+                "reference": "b7fde08b3866859eb1ae9df636f10f823055c5f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Pixidos/coding-standards/zipball/7268b127921d81f012762669ecb2a3316b57176a",
-                "reference": "7268b127921d81f012762669ecb2a3316b57176a",
+                "url": "https://api.github.com/repos/Pixidos/coding-standards/zipball/b7fde08b3866859eb1ae9df636f10f823055c5f6",
+                "reference": "b7fde08b3866859eb1ae9df636f10f823055c5f6",
                 "shasum": ""
             },
             "require": {
-                "ergebnis/phpstan-rules": "^1.0.0",
+                "ergebnis/phpstan-rules": "^1.",
                 "phpstan/phpstan": "^1.9.14",
-                "phpstan/phpstan-deprecation-rules": "^1.1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.2",
                 "phpstan/phpstan-strict-rules": "^1.4.5",
                 "slevomat/coding-standard": "^8.8",
                 "spaze/phpstan-disallowed-calls": "^v2.11.5",
@@ -1229,9 +1229,9 @@
             "description": "Pixidos coding standards",
             "support": {
                 "issues": "https://github.com/Pixidos/coding-standards/issues",
-                "source": "https://github.com/Pixidos/coding-standards/tree/1.2.2"
+                "source": "https://github.com/Pixidos/coding-standards/tree/1.2.3"
             },
-            "time": "2023-02-06T13:26:02+00:00"
+            "time": "2025-01-28T11:10:03+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -2469,7 +2469,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-openssl": "*"
     },
     "platform-dev": {},
