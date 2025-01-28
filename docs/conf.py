@@ -27,7 +27,7 @@ def get_version():
     if os.environ.get('READTHEDOCS') == 'True':
         return os.environ.get('READTHEDOCS_VERSION')
 
-    pipe = Popen('git branch | grep \*', stdout=PIPE, shell=True, universal_newlines=True)
+    pipe = Popen('git branch | grep "*"', stdout=PIPE, shell=True, universal_newlines=True)
     version = pipe.stdout.read()
 
     if version:
@@ -65,7 +65,11 @@ release = version
 # ones.
 extensions = [
     'sphinx_rtd_theme',
+    'sphinxcontrib.googleanalytics',
 ]
+
+googleanalytics_id = 'UA-157707836-1'
+googleanalytics_enabled = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -84,7 +88,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -113,7 +117,6 @@ if not on_rtd:
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_theme_options = {
-    'analytics_id': 'UA-157707836-1',  # Provided by Google in your dashboard
     'logo_only': False,
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
