@@ -14,15 +14,15 @@ declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Signer\Key;
 
+use OpenSSLAsymmetricKey;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 
 class PublicKey extends AbstractKey
 {
     /**
-     * @return resource on PHP 8 return OpenSSLAsymmetricKey
      * @throws SignerException
      */
-    protected function createKey()
+    protected function createKey(): OpenSSLAsymmetricKey
     {
         $key = openssl_pkey_get_public($this->getContent());
         if (false === $key) {

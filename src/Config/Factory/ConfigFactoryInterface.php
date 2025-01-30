@@ -31,7 +31,7 @@ interface ConfigFactoryInterface
     public const RESPONSE_URL = 'responseUrl';
 
     /**
-     * @param ConfigParams  $params
+     * @param ConfigParams $params
      * @param string $defaultGateway
      * @return Config
      */

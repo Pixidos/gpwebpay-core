@@ -20,16 +20,11 @@ interface SignerInterface
 {
     /**
      * @param array<string, string|Stringable> $params
-     *
-     * @return string
      */
     public function sign(array $params): string;
 
     /**
      * @param array<string, string|Stringable> $params
-     * @param string                           $digest
-     *
-     * @return bool
      */
     public function verify(array $params, string $digest): bool;
 }

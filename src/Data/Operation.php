@@ -17,7 +17,6 @@ namespace Pixidos\GPWebPay\Data;
 use Pixidos\GPWebPay\Enum\Operation as OperationEnum;
 use Pixidos\GPWebPay\Enum\Param as ParamEnum;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
-use Pixidos\GPWebPay\Param\Amount;
 use Pixidos\GPWebPay\Param\Currency;
 use Pixidos\GPWebPay\Param\IAmount;
 use Pixidos\GPWebPay\Param\IParam;

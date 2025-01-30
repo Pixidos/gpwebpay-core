@@ -19,22 +19,14 @@ use Pixidos\GPWebPay\Config\SignerConfigProvider;
 final class SignerProvider implements SignerProviderInterface
 {
     /**
-     * @var SignerFactoryInterface
+     * @var array<SignerInterface>
      */
-    private $signerFactory;
-    /**
-     * @var SignerConfigProvider
-     */
-    private $configs;
-    /**
-     * @var SignerInterface[]
-     */
-    private $signers = [];
+    private array $signers = [];
 
-    public function __construct(SignerFactoryInterface $signerFactory, SignerConfigProvider $configs)
-    {
-        $this->signerFactory = $signerFactory;
-        $this->configs = $configs;
+    public function __construct(
+        private readonly SignerFactoryInterface $signerFactory,
+        private readonly SignerConfigProvider $configs
+    ) {
     }
 
     /**

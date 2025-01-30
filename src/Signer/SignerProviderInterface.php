@@ -16,9 +16,5 @@ namespace Pixidos\GPWebPay\Signer;
 
 interface SignerProviderInterface
 {
-    /**
-     * @param string $gateway
-     * @return SignerInterface
-     */
     public function get(string $gateway): SignerInterface;
 }

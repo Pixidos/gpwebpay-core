@@ -20,51 +20,51 @@ use Pixidos\GPWebPay\Enum\Param;
 class Sorter
 {
     public const REQUEST_PARAM_ORDER = [
-        Param::MERCHANTNUMBER,
-        Param::OPERATION,
-        Param::ORDERNUMBER,
-        Param::AMOUNT,
-        Param::CURRENCY,
-        Param::DEPOSITFLAG,
-        Param::MERORDERNUM,
-        Param::RESPONSE_URL,
-        Param::DESCRIPTION,
-        Param::MD,
-        Param::USERPARAM,
-        Param::VRCODE,
-        Param::FASTPAYID,
-        Param::PAYMETHOD,
-        Param::DISABLEPAYMETHOD,
-        Param::PAYMETHODS,
-        Param::EMAIL,
-        Param::REFERENCENUMBER,
-        Param::ADDINFO,
-        Param::PANPATTERN,
-        Param::TOKEN,
-        Param::FAST_TOKEN,
-        Param::DIGEST,
-        Param::LANG,
+            Param::MERCHANTNUMBER,
+            Param::OPERATION,
+            Param::ORDERNUMBER,
+            Param::AMOUNT,
+            Param::CURRENCY,
+            Param::DEPOSITFLAG,
+            Param::MERORDERNUM,
+            Param::RESPONSE_URL,
+            Param::DESCRIPTION,
+            Param::MD,
+            Param::USERPARAM,
+            Param::VRCODE,
+            Param::FASTPAYID,
+            Param::PAYMETHOD,
+            Param::DISABLEPAYMETHOD,
+            Param::PAYMETHODS,
+            Param::EMAIL,
+            Param::REFERENCENUMBER,
+            Param::ADDINFO,
+            Param::PANPATTERN,
+            Param::TOKEN,
+            Param::FAST_TOKEN,
+            Param::DIGEST,
+            Param::LANG,
     ];
 
     public const RESPONSE_PARAM_ORDER = [
-        Param::OPERATION,
-        Param::ORDERNUMBER,
-        Param::MERORDERNUM,
-        Param::MD,
-        ResponseInterface::PRCODE,
-        ResponseInterface::SRCODE,
-        ResponseInterface::RESULTTEXT,
-        Param::USERPARAM,
-        Param::ADDINFO,
-        Param::TOKEN,
-        ResponseInterface::EXPIRY,
-        ResponseInterface::ACSRES,
-        ResponseInterface::ACCODE,
-        Param::PANPATTERN,
-        ResponseInterface::DAYTOCAPTURE,
-        ResponseInterface::TOKENREGSTATUS,
-        Param::DIGEST,
-        'DIGEST1',
+            Param::OPERATION,
+            Param::ORDERNUMBER,
+            Param::MERORDERNUM,
+            Param::MD,
+            ResponseInterface::PRCODE,
+            ResponseInterface::SRCODE,
+            ResponseInterface::RESULTTEXT,
+            Param::USERPARAM,
+            Param::ADDINFO,
+            Param::TOKEN,
+            ResponseInterface::EXPIRY,
+            ResponseInterface::ACSRES,
+            ResponseInterface::ACCODE,
+            Param::PANPATTERN,
+            ResponseInterface::DAYTOCAPTURE,
+            ResponseInterface::TOKENREGSTATUS,
+            Param::DIGEST,
+            'DIGEST1',
     ];
 
 
@@ -94,8 +94,8 @@ class Sorter
 
     /**
      * @template T
-     * @param array<string, T> $params
-     * @param array<string, int>    $order
+     * @param array<string, T>   $params
+     * @param array<string, int> $order
      * @return array<string, T>
      */
     private static function sort(array $params, array $order): array

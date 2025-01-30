@@ -34,9 +34,6 @@ class RequestFactory
     }
 
     /**
-     * @param OperationInterface $operation
-     *
-     * @return Request
      * @throws InvalidArgumentException
      * @throws SignerException
      * @throws UnexpectedValueException

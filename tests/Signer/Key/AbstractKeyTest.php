@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Signer\Key;
 
+use OpenSSLAsymmetricKey;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Signer\Key\AbstractKey;
@@ -25,10 +26,9 @@ class AbstractKeyTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         new class ('misssing_file') extends AbstractKey {
-            protected function createKey()
+            protected function createKey(): OpenSSLAsymmetricKey
             {
-                //@phpstan-ignore-next-line
-                return;
+                throw new InvalidArgumentException();
             }
         };
     }

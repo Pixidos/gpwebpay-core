@@ -49,7 +49,7 @@ function assertMaxLength(string|int|float $value, int $length, string $name): vo
 /**
  * @throws InvalidArgumentException
  */
-function assertLenght(string|int|float $value, int $length, string $name): void
+function assertLength(string|int|float $value, int $length, string $name): void
 {
     $strlen = strlen((string)$value);
     if ($strlen !== $length) {

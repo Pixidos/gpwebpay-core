@@ -30,7 +30,6 @@ class ResponseFactory
 
     /**
      * @param array<string, string> $params
-     * @return ResponseInterface
      */
     public function create(array $params): ResponseInterface
     {
@@ -47,11 +46,11 @@ class ResponseFactory
             $this->getStringValue(Param::ORDERNUMBER, $params),
             $this->getStringValue(Param::MERORDERNUM, $params),
             $md,
-            $this->getIntValue(Response::PRCODE, $params, 1000),
-            $this->getIntValue(Response::SRCODE, $params, 0),
-            $this->getStringValue(Response::RESULTTEXT, $params),
+            $this->getIntValue(ResponseInterface::PRCODE, $params, 1000),
+            $this->getIntValue(ResponseInterface::SRCODE, $params, 0),
+            $this->getStringValue(ResponseInterface::RESULTTEXT, $params),
             $this->getStringValue(Param::DIGEST, $params),
-            $this->getStringValue(Response::DIGEST1, $params),
+            $this->getStringValue(ResponseInterface::DIGEST1, $params),
             $gateway
         );
 
@@ -71,10 +70,7 @@ class ResponseFactory
     }
 
     /**
-     * @param string                $name
      * @param array<string, string> $params
-     * @param string                $defaultValue
-     * @return string
      */
     private function getStringValue(string $name, array &$params, string $defaultValue = ''): string
     {
@@ -88,10 +84,7 @@ class ResponseFactory
     }
 
     /**
-     * @param string                $name
      * @param array<string, string> $params
-     * @param int                   $defaultValue
-     * @return int
      */
     private function getIntValue(string $name, array &$params, int $defaultValue = 0): int
     {

@@ -19,7 +19,7 @@ use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\IParam;
 use Pixidos\GPWebPay\Param\Md;
 use Pixidos\GPWebPay\Param\MerOrderNum;
-use Pixidos\GPWebPay\Param\Operation;
+use Pixidos\GPWebPay\Param\Operation as ParamOperation;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseParam;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
@@ -57,7 +57,7 @@ class Response implements ResponseInterface
         string $gatewayKey
     ) {
         $this->addParam(
-            new Operation(EnumOperation::fromScalar($operation))
+            new ParamOperation(EnumOperation::fromScalar($operation))
         );
         $this->addParam(new OrderNumber($ordernumber));
 

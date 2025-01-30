@@ -14,31 +14,22 @@ declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Signer\Key;
 
+use OpenSSLAsymmetricKey;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 
 abstract class AbstractKey
 {
-    /**
-     * @var string
-     */
-    protected $file;
+    protected OpenSSLAsymmetricKey|null $key = null;
 
-    /**
-     * @var resource|null on PHP 8 OpenSSLAsymmetricKey|null
-     */
-    protected $key;
-
-    public function __construct(string $file)
-    {
+    public function __construct(
+        protected readonly string $file
+    ) {
         $this->verifyFile($file);
-        $this->file = $file;
     }
 
-    /**
-     * @return resource on PHP 8 return OpenSSLAsymmetricKey
-     */
-    public function getKey()
+
+    public function getKey(): OpenSSLAsymmetricKey
     {
         if (null !== $this->key) {
             return $this->key;
@@ -68,8 +59,5 @@ abstract class AbstractKey
         return $content;
     }
 
-    /**
-     * @return resource on PHP 8 return OpenSSLAsymmetricKey
-     */
-    abstract protected function createKey();
+    abstract protected function createKey(): OpenSSLAsymmetricKey;
 }

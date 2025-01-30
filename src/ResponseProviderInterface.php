@@ -21,17 +21,9 @@ use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 
 interface ResponseProviderInterface
 {
-    /**
-     * @param ResponseInterface $response
-     * @return ResponseInterface
-     */
     public function provide(ResponseInterface $response): ResponseInterface;
 
-
     /**
-     * @param ResponseInterface $response
-     *
-     * @return bool
      * @throws GPWebPayException
      * @throws GPWebPayResultException
      */
@@ -39,13 +31,11 @@ interface ResponseProviderInterface
 
     /**
      * @param Closure $closure signature: function(GPWebPayException $exception, ResponseInterface $response)
-     * @return $this
      */
     public function addOnError(Closure $closure): self;
 
     /**
      * @param Closure $closure signature: function(ResponseInterface $response)
-     * @return $this
      */
     public function addOnSuccess(Closure $closure): self;
 }

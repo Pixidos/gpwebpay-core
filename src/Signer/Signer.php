@@ -28,12 +28,7 @@ class Signer implements SignerInterface
     ) {
     }
 
-    /**
-     * @param array<string, string|Stringable> $params
-     *
-     * @return string
-     * @throws SignerException
-     */
+
     public function sign(array $params): string
     {
         $digestText = implode('|', $params);
@@ -42,13 +37,7 @@ class Signer implements SignerInterface
         return base64_encode($digest);
     }
 
-    /**
-     * @param array<string, string|Stringable> $params
-     * @param string                           $digest
-     *
-     * @return bool
-     * @throws SignerException
-     */
+
     public function verify(array $params, string $digest): bool
     {
         $data = implode('|', $params);

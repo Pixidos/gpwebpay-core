@@ -62,31 +62,15 @@ final class ResponseError
         ],
     ];
 
-    /**
-     * @var int
-     */
-    private $srcode;
-    /**
-     * @var int
-     */
-    private $prcode;
 
-    /**
-     * ResponseError constructor.
-     * @param int $prcode
-     * @param int $srcode
-     */
-    public function __construct(int $prcode, int $srcode)
-    {
-        $this->prcode = $prcode;
-        $this->srcode = $srcode;
+
+    public function __construct(
+        private readonly int $prcode,
+        private readonly int $srcode
+    ) {
     }
 
-    /**
-     * @param string $lang
-     *
-     * @return string
-     */
+
     public function getMessage(string $lang): string
     {
         $default = 'cz' === $lang ? 'Technický problém v systému, kontaktujete obchodníka'
@@ -96,17 +80,11 @@ final class ResponseError
     }
 
 
-    /**
-     * @return int
-     */
     public function getPrcode(): int
     {
         return $this->prcode;
     }
 
-    /**
-     * @return int
-     */
     public function getSrcode(): int
     {
         return $this->srcode;

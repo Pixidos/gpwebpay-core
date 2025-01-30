@@ -20,6 +20,10 @@ use Pixidos\GPWebPay\Config\SignerConfig;
 use Pixidos\GPWebPay\Config\SignerConfigProvider;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
+/**
+ * @phpstan-import-type ConfigParams from ConfigFactoryInterface
+ * @phpstan-import-type GatewayConfig from ConfigFactoryInterface
+ */
 class ConfigFactory implements ConfigFactoryInterface
 {
     private PaymentConfigFactory $paymentConfigFactory;
@@ -39,47 +43,21 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param array<string, mixed>  $params
-     * @param string $defaultGateway
-     * @return array<string, array<string, string|int>>
+     * @param ConfigParams $params
+     * @return array<string, GatewayConfig>
      */
     private function normalizeParams(array $params, string $defaultGateway): array
     {
         $defaultGateway = strtolower($defaultGateway);
 
-        if (!array_key_exists(self::PRIVATE_KEY, $params)) {
-            //not multiple config
-
-            /**
-             * @phpstan-ignore-next-line
-             */
-            return $params;
-        }
-        $data = [];
-        $data[$defaultGateway] = $params;
-
-        /**
-         * @phpstan-ignore-next-line
-         */
-        return $data;
-    }
-
-
-    /**
-     * @param string                    $key
-     * @param array<string, int|string> $data
-     * @param string                    $gateway
-     *
-     * @return int|string
-     * @throws InvalidArgumentException
-     */
-    private function getValue(string $key, array $data, string $gateway): int|string
-    {
-        if (!array_key_exists($key, $data)) {
-            throw new InvalidArgumentException(sprintf('Missing key:"%s" in %s configuration', $key, $gateway));
+        // Pokud je to přímo GatewayConfig (ne array<string, GatewayConfig>)
+        if (array_key_exists(self::PRIVATE_KEY, $params)) {
+            /** @var GatewayConfig $params */
+            return [$defaultGateway => $params];
         }
 
-        return $data[$key];
+        /** @var array<string, GatewayConfig> $params */
+        return $params;
     }
 
 
@@ -97,8 +75,8 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param array<array<string, int|string>> $params
-     * @param Config                           $config
+     * @param array<string, GatewayConfig> $params
+     * @param Config                       $config
      */
     private function processParams(array $params, Config $config): void
     {
@@ -107,18 +85,18 @@ class ConfigFactory implements ConfigFactoryInterface
         foreach ($params as $gateway => $data) {
             $paymentConfig->addPaymentConfig(
                 $this->paymentConfigFactory->create(
-                    (string)$this->getValue(self::URL, $data, $gateway),
-                    (string)$this->getValue(self::MERCHANT_NUMBER, $data, $gateway),
-                    array_key_exists(self::DEPOSIT_FLAG, $data) ? (int)$data[self::DEPOSIT_FLAG] : 1,
+                    $data[self::URL],
+                    $data[self::MERCHANT_NUMBER],
+                    $data[self::DEPOSIT_FLAG],
                     $gateway,
                     (string)($data[self::RESPONSE_URL] ?? null)
                 )
             );
             $signerConfig->addConfig(
                 new SignerConfig(
-                    (string)$this->getValue(self::PRIVATE_KEY, $data, $gateway),
-                    (string)$this->getValue(self::PRIVATE_KEY_PASSPHRASE, $data, $gateway),
-                    (string)$this->getValue(self::PUBLIC_KEY, $data, $gateway)
+                    $data[self::PRIVATE_KEY],
+                    $data[self::PRIVATE_KEY_PASSPHRASE],
+                    $data[self::PUBLIC_KEY]
                 ),
                 $gateway
             );

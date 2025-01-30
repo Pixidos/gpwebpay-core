@@ -28,35 +28,18 @@ class ResponseProvider implements ResponseProviderInterface
     /**
      * @var array<callable>
      */
-    public $onSuccess = [];
+    public array $onSuccess = [];
 
     /**
      * @var array<callable>
      */
-    public $onError = [];
+    public array $onError = [];
 
-    /**
-     * @var SignerProviderInterface
-     */
-    private $signerProvider;
 
-    /**
-     * @var PaymentConfigProvider settings
-     */
-    private $settings;
-
-    /**
-     * Provider constructor.
-     *
-     * @param PaymentConfigProvider   $configProvider
-     * @param SignerProviderInterface $signerProvider
-     */
     public function __construct(
-        PaymentConfigProvider $configProvider,
-        SignerProviderInterface $signerProvider
+        private readonly PaymentConfigProvider $configProvider,
+        private readonly SignerProviderInterface $signerProvider
     ) {
-        $this->signerProvider = $signerProvider;
-        $this->settings = $configProvider;
     }
 
 
@@ -99,7 +82,7 @@ class ResponseProvider implements ResponseProviderInterface
 
         $params = $response->getParams();
         $verify = $signer->verify($params, $response->getDigest());
-        $params[Param::MERCHANTNUMBER] = $this->settings->getMerchantNumber($response->getGatewayKey());
+        $params[Param::MERCHANTNUMBER] = $this->configProvider->getMerchantNumber($response->getGatewayKey());
         $verify1 = $signer->verify($params, $response->getDigest1());
 
         return !(false === $verify || false === $verify1);

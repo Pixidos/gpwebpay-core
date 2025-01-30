@@ -17,7 +17,7 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
-use function Pixidos\GPWebPay\assertLenght;
+use function Pixidos\GPWebPay\assertLength;
 
 class Lang implements IParam
 {
@@ -35,7 +35,7 @@ class Lang implements IParam
      */
     public function __construct(string $value)
     {
-        assertLenght($value, 2, $this->getParamName());
+        assertLength($value, 2, $this->getParamName());
         $this->value = $value;
     }
 

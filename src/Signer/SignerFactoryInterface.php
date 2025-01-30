@@ -18,9 +18,5 @@ use Pixidos\GPWebPay\Config\SignerConfig;
 
 interface SignerFactoryInterface
 {
-    /**
-     * @param SignerConfig $config
-     * @return SignerInterface
-     */
     public function create(SignerConfig $config): SignerInterface;
 }

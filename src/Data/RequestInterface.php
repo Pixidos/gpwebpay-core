@@ -36,7 +36,7 @@ interface RequestInterface
     public function getDigestParams(): array;
 
     /**
-     * @param bool $asPost
+     * @param bool $asPost send with http POST method
      *
      * @return string
      */
