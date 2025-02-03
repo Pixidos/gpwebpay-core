@@ -1,0 +1,37 @@
+build:
+    environment:
+        php: 8.1.13
+        variables:
+            OPENSSL_CFLAGS: "-I/usr/include/openssl"
+            OPENSSL_LIBS: "-L/usr/lib/x86_64-linux-gnu -lssl -lcrypto"
+    dependencies:
+        before:
+            - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+            - bash miniconda.sh -b -p $HOME/miniconda
+            - export PATH="$HOME/miniconda/bin:$PATH"
+            - conda config --set always_yes yes
+            - conda update -q conda
+            - conda create -q -n py39 python=3.9
+            - source activate py39
+    nodes:
+        analysis:
+            project_setup:
+                override:
+                    - python --version  # ověření verze
+            tests:
+                override:
+                    - php-scrutinizer-run
+        tests: true
+
+filter:
+    excluded_paths:
+        - 'tests/*'
+checks:
+    php: true
+coding_style:
+    php:
+        spaces:
+            around_operators:
+                concatenation: true
+            other:
+                after_type_cast: false

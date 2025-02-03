@@ -18,7 +18,6 @@ use Pixidos\GPWebPay\Config\Config;
 use Pixidos\GPWebPay\Config\PaymentConfigProvider;
 use Pixidos\GPWebPay\Config\SignerConfig;
 use Pixidos\GPWebPay\Config\SignerConfigProvider;
-use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 /**
  * @phpstan-import-type ConfigParams from ConfigFactoryInterface
@@ -43,7 +42,7 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param ConfigParams $params
+     * @phpstan-param ConfigParams $params
      * @return array<string, GatewayConfig>
      */
     private function normalizeParams(array $params, string $defaultGateway): array
@@ -56,15 +55,10 @@ class ConfigFactory implements ConfigFactoryInterface
             return [$defaultGateway => $params];
         }
 
-        /** @var array<string, GatewayConfig> $params */
+        /** @phpstan-var array<string, GatewayConfig> $params */
         return $params;
     }
 
-
-    /**
-     * @param string $defaultGateway
-     * @return Config
-     */
     private function createConfig(string $defaultGateway): Config
     {
         $paymentConfigProvider = new PaymentConfigProvider();
@@ -75,8 +69,7 @@ class ConfigFactory implements ConfigFactoryInterface
     }
 
     /**
-     * @param array<string, GatewayConfig> $params
-     * @param Config                       $config
+     * @phpstan-param array<string, GatewayConfig> $params
      */
     private function processParams(array $params, Config $config): void
     {

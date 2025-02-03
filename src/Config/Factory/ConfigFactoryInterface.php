@@ -31,9 +31,7 @@ interface ConfigFactoryInterface
     public const RESPONSE_URL = 'responseUrl';
 
     /**
-     * @param ConfigParams $params
-     * @param string $defaultGateway
-     * @return Config
+     * @phpstan-param ConfigParams $params
      */
     public function create(array $params, string $defaultGateway = 'default'): Config;
 }
