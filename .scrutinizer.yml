@@ -26,6 +26,7 @@ build:
 filter:
     excluded_paths:
         - 'tests/*'
+        - 'example/*'
 checks:
     php: true
 coding_style:
