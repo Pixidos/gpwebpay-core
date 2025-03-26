@@ -1,3 +1,4 @@
-sphinx>=7.0.0,<8.0.0  # nebo aktuální stabilní verze
+sphinx==8.2.3
 sphinx_rtd_theme>=1.0.0
 sphinxcontrib-googleanalytics>=0.3.1
+sphinx-design>=0.4.1

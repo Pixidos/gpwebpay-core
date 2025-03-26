@@ -15,3 +15,6 @@ testPhpUnit:
 	vendor/bin/phpunit
 
 test: testPhpCs testPhpStan testPhpUnit
+
+html:
+	sphinx-build -b html docs docs/_build/html

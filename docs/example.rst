@@ -6,6 +6,7 @@ Example of use
 
 
 .. _example.request:
+
 Create Request and Rendering
 #############################
 
@@ -69,8 +70,8 @@ Simple example how create request
     echo sprintf('<a href="%s">This is pay link</a>', $request->getRequestUrl());
 
 
-
 .. _example.response:
+
 Handle Response from GPWP
 #############################
 
@@ -137,3 +138,4 @@ Simple example how handle response
 .. note::
 
     For more examples you can study **tests/WorkflowTest.php**
+
