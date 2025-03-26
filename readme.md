@@ -5,6 +5,7 @@
 [![Code coverage](https://codecov.io/gh/Pixidos/gpwebpay-core/branch/master/graph/badge.svg)](https://codecov.io/gh/Pixidos/gpwebpay-core)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Build Status](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/build-status/master)
 [![Documentation Status](https://readthedocs.org/projects/gpwebpay-core/badge/?version=latest)](https://gpwebpay-core.readthedocs.io/en/latest/?badge=latest)
 
 [![Donwloads](https://poser.pugx.org/pixidos/gpwebpay-core/downloads)](https://packagist.org/packages/pixidos/gpwebpay-core)
