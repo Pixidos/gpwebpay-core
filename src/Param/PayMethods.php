@@ -20,13 +20,13 @@ use Pixidos\GPWebPay\Enum\PayMethod as PayMethodEnum;
 class PayMethods implements IParam
 {
     /**
-     * @var PayMethodEnum[]
+     * @var array<PayMethodEnum>
      */
-    private $methods;
+    private array $methods;
     /**
      * @var string
      */
-    private $string;
+    private string $string;
 
 
     /**
@@ -57,7 +57,7 @@ class PayMethods implements IParam
     }
 
     /**
-     * @return PayMethodEnum[]
+     * @return array<PayMethodEnum>
      */
     public function getValue(): array
     {

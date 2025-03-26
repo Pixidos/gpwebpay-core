@@ -23,20 +23,34 @@ class SignerConfigProvider
      */
     private array $configs = [];
 
+    private string $defaultGateway = 'default';
 
-    public function addConfig(SignerConfig $config, string $gateway): void
+    public function addConfig(SignerConfig $config, string $gateway = 'default'): void
     {
         $this->configs[$gateway] = $config;
     }
 
-    public function getConfig(string $gateway): SignerConfig
+    public function getConfig(string|null $gateway = null): SignerConfig
     {
+        if (null === $gateway) {
+            $gateway = $this->defaultGateway;
+        }
         if (array_key_exists($gateway, $this->configs)) {
             return $this->configs[$gateway];
         }
 
         throw new InvalidArgumentException(
-            sprintf('Config for gateway "%s" does not exist. You are probably forgot added.', $gateway)
+            sprintf('Config for gateway "%s" does not exist. You are probably forgot added or you wrong set default config.', $gateway)
         );
+    }
+
+    public function setDefaultGateway(string $gateway): void
+    {
+        $this->defaultGateway = $gateway;
+    }
+
+    public function getDefaultGateway(): string
+    {
+        return $this->defaultGateway;
     }
 }

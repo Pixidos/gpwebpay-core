@@ -24,7 +24,7 @@ use Pixidos\GPWebPay\Param\MerchantNumber;
 
 class PaymentConfigProviderTest extends TestCase
 {
-    public function test(): void
+    public function testCreateConfig(): void
     {
         $merchantNumber1 = new MerchantNumber('1234567890');
         $depositFlag1 = new DepositFlag(\Pixidos\GPWebPay\Enum\DepositFlag::YES());
@@ -46,8 +46,7 @@ class PaymentConfigProviderTest extends TestCase
             'eur'
         );
 
-        $configProvider = new PaymentConfigProvider();
-        $configProvider->setDefaultGateway('czk');
+        $configProvider = new PaymentConfigProvider('czk');
         $configProvider->addPaymentConfig($setting1);
         $configProvider->addPaymentConfig($setting2);
 
@@ -66,19 +65,6 @@ class PaymentConfigProviderTest extends TestCase
         self::assertSame($merchantNumber2, $configProvider->getMerchantNumber('eur'));
         self::assertSame($depositFlag2, $configProvider->getDepositFlag('eur'));
     }
-
-
-    public function testGetDefaultGatewayForgotSettingThrowException(): void
-    {
-        $this->expectException(LogicException::class);
-        $this->expectExceptionMessage(
-            'You need first set default key by Pixidos\GPWebPay\Config\PaymentConfigProvider::setDefaultGateway'
-        );
-
-        $configProvider = new PaymentConfigProvider();
-        $configProvider->getDefaultGateway();
-    }
-
 
     public function testGetNonExistGatewayThrowException(): void
     {

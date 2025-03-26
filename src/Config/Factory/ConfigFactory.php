@@ -18,6 +18,7 @@ use Pixidos\GPWebPay\Config\Config;
 use Pixidos\GPWebPay\Config\PaymentConfigProvider;
 use Pixidos\GPWebPay\Config\SignerConfig;
 use Pixidos\GPWebPay\Config\SignerConfigProvider;
+use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
 /**
  * @phpstan-import-type ConfigParams from ConfigFactoryInterface
@@ -55,15 +56,25 @@ class ConfigFactory implements ConfigFactoryInterface
             return [$defaultGateway => $params];
         }
 
+        if (!array_key_exists($defaultGateway, $params)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'The key for defautlGateway: "%s" is not included in the configuration parameters. Keys in the parameters "%s"',
+                    $defaultGateway,
+                    implode(', ', array_keys($params))
+                )
+            );
+        }
+
         /** @phpstan-var array<string, GatewayConfig> $params */
         return $params;
     }
 
     private function createConfig(string $defaultGateway): Config
     {
-        $paymentConfigProvider = new PaymentConfigProvider();
-        $paymentConfigProvider->setDefaultGateway($defaultGateway);
+        $paymentConfigProvider = new PaymentConfigProvider($defaultGateway);
         $signerConfigProvider = new SignerConfigProvider();
+        $signerConfigProvider->setDefaultGateway($defaultGateway);
 
         return new Config($paymentConfigProvider, $signerConfigProvider);
     }

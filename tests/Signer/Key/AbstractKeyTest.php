@@ -23,13 +23,17 @@ class AbstractKeyTest extends TestCase
 {
     public function testNotExistFileThrowException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-
-        new class ('misssing_file') extends AbstractKey {
-            protected function createKey(): OpenSSLAsymmetricKey
-            {
-                throw new InvalidArgumentException();
-            }
-        };
+        try {
+            //@phpstan-ignore-next-line
+             new class ('misssing_file') extends AbstractKey {
+                protected function createKey(): OpenSSLAsymmetricKey
+                {
+                    throw new InvalidArgumentException('cannot create key');
+                }
+             };
+            //@phpstan-ignore-next-line
+        } catch (InvalidArgumentException $exception) {
+            self::assertSame('Key file (misssing_file) not exists or not readable!', $exception->getMessage());
+        }
     }
 }

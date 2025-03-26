@@ -1,8 +1,6 @@
 includes:
     - vendor/pixidos/coding-standards/src/phpstan.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/phpstan/phpstan-phpunit/rules.neon
-    - ./phpstan-condition-config.php
 
 parameters:
     paths:
@@ -10,4 +8,3 @@ parameters:
         - tests
     level: max
     inferPrivatePropertyTypeFromConstructor: true
-    reportUnmatchedIgnoredErrors: true

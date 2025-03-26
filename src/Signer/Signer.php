@@ -32,7 +32,13 @@ class Signer implements SignerInterface
     public function sign(array $params): string
     {
         $digestText = implode('|', $params);
+
         openssl_sign($digestText, $digest, $this->privateKey->getKey(), $this->algorithm);
+        // @codeCoverageIgnoreStart
+        if (!is_string($digest)) {
+            throw new SignerException('Unable to sign data');
+        }
+        // @codeCoverageIgnoreEnd
 
         return base64_encode($digest);
     }

@@ -24,7 +24,7 @@ interface IParam extends Stringable
     public function getParamName(): string;
 
     /**
-     * @return int|float|string|Stringable|mixed[]
+     * @return int|float|string|Stringable|array<string|Stringable>
      */
     public function getValue();
 }
