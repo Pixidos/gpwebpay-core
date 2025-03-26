@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\AmountInPennies;
 
-class AmountInTest extends TestCase
+class AmountInPenniesTest extends TestCase
 {
     /**
      * @throws InvalidArgumentException

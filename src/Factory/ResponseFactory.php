@@ -38,7 +38,9 @@ class ResponseFactory
 
         if ('' !== $md) {
             $key = explode('|', $md, 2);
-            $gateway = $key[0];
+            if ('' !== $key[0]) {
+                $gateway = $key[0];
+            }
         }
 
         $response = new Response(
@@ -60,7 +62,7 @@ class ResponseFactory
 
         foreach ($params as $key => $value) {
             if (in_array($key, $paramsKeys, true)) {
-                $response->addParam(new ResponseParam((string)$value, $key));
+                $response->addParam(new ResponseParam($value, $key));
             }
         }
 

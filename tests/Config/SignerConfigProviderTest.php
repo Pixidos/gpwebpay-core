@@ -33,15 +33,34 @@ class SignerConfigProviderTest extends TestCase
             $config,
             'czk'
         );
+        $provider->setDefaultGateway('czk');
 
         self::assertSame($config, $provider->getConfig('czk'));
+        self::assertSame($config, $provider->getConfig());
     }
+
+    public function testAddDefaultConfig(): void
+    {
+        $provider = new SignerConfigProvider();
+        $config = new SignerConfig(
+            __DIR__ . '/../_certs/test.pem',
+            '1234567',
+            __DIR__ . '/../_certs/test-pub.pem'
+        );
+        $provider->addConfig(
+            $config,
+            $provider->getDefaultGateway()
+        );
+
+        self::assertSame($config, $provider->getConfig());
+    }
+
 
 
     public function testNotExistingConfigThrowException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Config for gateway "czk" does not exist. You are probably forgot added.');
+        $this->expectExceptionMessage('Config for gateway "czk" does not exist. You are probably forgot added or you wrong set default config.');
 
         $provider = new SignerConfigProvider();
         $provider->getConfig('czk');

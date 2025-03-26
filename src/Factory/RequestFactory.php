@@ -56,7 +56,8 @@ class RequestFactory
         );
 
         $signer = $this->signerProvider->get($key);
-        $request->setParam(new Digest($signer->sign($request->getDigestParams())));
+        $digestParams = $request->getDigestParams();
+        $request->setParam(new Digest($signer->sign($digestParams)));
         $request->sortParams();
 
         return $request;

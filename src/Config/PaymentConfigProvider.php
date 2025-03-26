@@ -25,11 +25,16 @@ class PaymentConfigProvider
     /**
      * @var string defaultGatewayKey
      */
-    private string $defaultGateway = '';
+    private string $defaultGateway;
     /**
      * @var array<PaymentConfig>
      */
     private array $paymentConfigs = [];
+
+    public function __construct(string $defaultGateway = 'default')
+    {
+        $this->defaultGateway = $defaultGateway;
+    }
 
     public function addPaymentConfig(PaymentConfig $paymentConfig): void
     {
@@ -37,29 +42,23 @@ class PaymentConfigProvider
     }
 
 
-    public function getUrl(string $gateway): string
+    public function getUrl(string|null $gateway = null): string
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getUrl();
     }
 
-    public function getMerchantNumber(string $gateway): MerchantNumber
+    public function getMerchantNumber(string|null $gateway = null): MerchantNumber
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getMerchantNumber();
     }
 
-    public function getDepositFlag(string $gateway): DepositFlag
+    public function getDepositFlag(string|null $gateway = null): DepositFlag
     {
         return $this->paymentConfigs[$this->getGateway($gateway)]->getDepositFlag();
     }
 
     public function getDefaultGateway(): string
     {
-        if ('' === $this->defaultGateway) {
-            throw new LogicException(
-                sprintf('You need first set default key by %s::setDefaultGateway', self::class)
-            );
-        }
-
         return $this->defaultGateway;
     }
 

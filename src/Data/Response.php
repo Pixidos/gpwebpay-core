@@ -27,7 +27,7 @@ use Pixidos\GPWebPay\Param\Utils\Sorter;
 class Response implements ResponseInterface
 {
     /**
-     * @var IParam[] $params
+     * @var array<string, IParam> $params
      */
     private array $params;
     /**
@@ -185,7 +185,7 @@ class Response implements ResponseInterface
     }
 
     /**
-     * @return IParam[]
+     * @return array<string, IParam>
      */
     public function getParams(): array
     {

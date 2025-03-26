@@ -19,5 +19,6 @@ Contents:
 	services
 	request
 	response
+    example
 	changelog
 

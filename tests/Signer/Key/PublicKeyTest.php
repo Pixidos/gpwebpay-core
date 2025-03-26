@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Pixidos\GPWebPay\Tests\Signer\Key;
 
+use OpenSSLAsymmetricKey;
 use PHPUnit\Framework\TestCase;
+use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Exceptions\SignerException;
 use Pixidos\GPWebPay\Signer\Key\PublicKey;
 
@@ -22,9 +24,13 @@ class PublicKeyTest extends TestCase
 {
     public function testCreate(): void
     {
-        new PublicKey(__DIR__ . '/../../_certs/test-pub.pem');
+        try {
+            new PublicKey(__DIR__ . '/../../_certs/test-pub.pem');
 
-        $this->expectNotToPerformAssertions();
+            $this->expectNotToPerformAssertions();
+        } catch (InvalidArgumentException $exception) {
+            self::fail($exception->getMessage());
+        }
     }
 
     public function testReturnSameResource(): void

@@ -22,6 +22,10 @@ abstract class AbstractKey
 {
     protected OpenSSLAsymmetricKey|null $key = null;
 
+    /**
+     * @param string $file
+     * @throws InvalidArgumentException
+     */
     public function __construct(
         protected readonly string $file
     ) {
@@ -40,7 +44,7 @@ abstract class AbstractKey
 
     /**
      * @param string $file
-     *
+     * @throws InvalidArgumentException
      */
     protected function verifyFile(string $file): void
     {

@@ -37,7 +37,7 @@ interface ResponseInterface
     ];
 
     /**
-     * @return IParam[]
+     * @return array<string, IParam>
      */
     public function getParams(): array;
 

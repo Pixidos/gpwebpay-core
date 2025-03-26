@@ -28,12 +28,12 @@ class ResponseProvider implements ResponseProviderInterface
     /**
      * @var array<callable>
      */
-    public array $onSuccess = [];
+    private array $onSuccess = [];
 
     /**
      * @var array<callable>
      */
-    public array $onError = [];
+    private array $onError = [];
 
 
     public function __construct(
