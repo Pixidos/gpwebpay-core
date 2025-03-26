@@ -2,7 +2,7 @@
 name: Code Analyse
 on: [push, pull_request]
 jobs:
-    unit_tests:
+    code_quality:
         name: GPWebPay-core (PHP ${{ matrix.php-versions }})
         runs-on: ubuntu-latest
         strategy:

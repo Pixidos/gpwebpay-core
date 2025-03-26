@@ -75,7 +75,6 @@ class WorkflowTest extends TestCase
                 Param::MERORDERNUM => self::MER_ORDER_NUM,
                 ResponseInterface::PRCODE => '0',
                 ResponseInterface::SRCODE => '0',
-                ResponseInterface::RESULTTEXT => 'resulttext',
                 Param::TOKEN => 'XXXX',
             ];
 

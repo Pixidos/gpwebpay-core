@@ -45,7 +45,7 @@ lexers['php-annotations'] = PhpLexer(startinline=True)
 # -- Project information -----------------------------------------------------
 
 project = u'GPWebPay-Core'
-copyright = u'2020, Ondra Votava'
+copyright = '%Y, Ondra Votava'
 author = u'Ondra Votava'
 epub_author = u'Ondra Votava'
 
@@ -69,7 +69,7 @@ extensions = [
     'sphinx_design',
 ]
 
-googleanalytics_id = 'UA-157707836-1'
+googleanalytics_id = 'G-EWSS0JZ0BK'
 googleanalytics_enabled = True
 
 # Add any paths that contain templates here, relative to this directory.
@@ -121,8 +121,6 @@ html_theme_options = {
     'logo_only': False,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    #'style_nav_header_background': 'red',
-    # Toc options
     'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': 4,
