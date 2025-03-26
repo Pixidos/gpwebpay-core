@@ -1,5 +1,6 @@
 build:
     environment:
+        image: default-bionic
         php:
             version: 8.1.13
             pecl_extensions:
@@ -10,14 +11,6 @@ build:
             OPENSSL_LIBS: "-L/usr/lib/x86_64-linux-gnu -lssl -lcrypto"
     dependencies:
         before:
-#            - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-#            - bash miniconda.sh -b -p $HOME/miniconda
-#            - export PATH="$HOME/miniconda/bin:$PATH"
-#            - conda config --set always_yes yes
-#            - conda update -q conda
-#            - conda create -q -n py313 python=3.13
-#            - pip install --upgrade pip
-#            - source activate py313
             - curl -sS https://getcomposer.org/installer | php
             - php composer.phar require --dev phpunit/phpunit ^9
     nodes:
