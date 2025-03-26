@@ -22,9 +22,6 @@ build:
             - php composer.phar require --dev phpunit/phpunit ^9
     nodes:
         analysis:
-            project_setup:
-                override:
-                    - python --version  # ověření verze
             tests:
                 override:
                     - command: 'vendor/bin/phpunit --coverage-clover=clover.xml'
@@ -40,10 +37,4 @@ filter:
         - 'example/*'
 checks:
     php: true
-coding_style:
-    php:
-        spaces:
-            around_operators:
-                concatenation: true
-            other:
-                after_type_cast: false
+
