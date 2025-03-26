@@ -134,6 +134,6 @@ Simple example how handle response
     $responseProvider->provide($response);
 
 
-.. info::
+.. note::
 
     For more examples you can study **tests/WorkflowTest.php**

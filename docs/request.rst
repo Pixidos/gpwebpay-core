@@ -30,7 +30,7 @@ and :ref:`request.params.currency` objects with values of your payment order.
         responseUrl: new ResponseUrl('http://example.com/proccess-gpw-response') // optional when you setup in config
     );
 
-.. info::
+.. note::
     In case of multigateway setup, if you leave blank parameter **gateway:** the default gateway will be used. For a different gateway than the default, you must fill in.
 
 
