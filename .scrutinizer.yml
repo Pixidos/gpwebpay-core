@@ -1,6 +1,6 @@
 build:
+    image: default-bionic
     environment:
-        image: default-bionic
         php:
             version: 8.1.13
             pecl_extensions:
