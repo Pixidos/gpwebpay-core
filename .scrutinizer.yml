@@ -31,6 +31,7 @@ build:
                       coverage:
                         file: clover.xml
                         format: clover
+                    - php-scrutinizer-run
         tests: true
 
 filter:
