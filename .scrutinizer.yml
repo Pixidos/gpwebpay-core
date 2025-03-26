@@ -26,21 +26,22 @@ build:
                     - phpunit --coverage-clover=coverage.xml
         tests: true
 
-    filter:
-        excluded_paths:
-            - 'tests/*'
-            - 'example/*'
-    checks:
-        php: true
-    coding_style:
-        php:
-            spaces:
-                around_operators:
-                    concatenation: true
-                other:
-                    after_type_cast: false
     coverage:
         enabled: true
         driver:
             name: phpunit
             path: ./coverage.xml
+
+filter:
+    excluded_paths:
+        - 'tests/*'
+        - 'example/*'
+checks:
+    php: true
+coding_style:
+    php:
+        spaces:
+            around_operators:
+                concatenation: true
+            other:
+                after_type_cast: false
