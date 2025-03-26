@@ -23,14 +23,11 @@ build:
                     - python --version  # ověření verze
             tests:
                 override:
-                    - phpunit --coverage-clover=coverage.xml
+                    - command: 'vendor/bin/phpunit --coverage-clover=clover.xml'
+                      coverage:
+                        file: clover.xml
+                        format: clover
         tests: true
-
-    coverage:
-        enabled: true
-        driver:
-            name: phpunit
-            path: ./coverage.xml
 
 filter:
     excluded_paths:
