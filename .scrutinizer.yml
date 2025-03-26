@@ -14,6 +14,8 @@ build:
             - conda create -q -n py313 python=3.13
             - pip install --upgrade pip
             - source activate py313
+            - curl -sS https://getcomposer.org/installer | php
+            - php composer.phar require --dev phpunit/phpunit ^9
     nodes:
         analysis:
             project_setup:
@@ -21,7 +23,7 @@ build:
                     - python --version  # ověření verze
             tests:
                 override:
-                    - php-scrutinizer-run
+                    - phpunit --coverage-clover=coverage.xml
         tests: true
 
 filter:
@@ -37,3 +39,8 @@ coding_style:
                 concatenation: true
             other:
                 after_type_cast: false
+coverage:
+    enabled: true
+    driver:
+        name: phpunit
+        path: ./coverage.xml
