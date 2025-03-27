@@ -35,5 +35,5 @@ $ composer require pixidos/gpwebpay-core
 Documentation
 -------------
 
-Learn more in the [documentation](https://gpwebpay-core.readthedocs.io/en/latest/).
+Learn more in the [documentation](https://pixidos.github.io/gpwebpay-core).
 
