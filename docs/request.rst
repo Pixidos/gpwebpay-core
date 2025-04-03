@@ -17,6 +17,7 @@ and :ref:`request.params.currency` objects with values of your payment order.
 .. code-block:: php
 
     use Pixidos\GPWebPay\Data\Operation;
+    use Pixidos\GPWebPay\Enum\Operation as OperationEnum;
     use Pixidos\GPWebPay\Param\Currency;
     use Pixidos\GPWebPay\Enum\Currency as CurrencyEnum;
     use Pixidos\GPWebPay\Param\AmountInPennies;
@@ -27,7 +28,8 @@ and :ref:`request.params.currency` objects with values of your payment order.
         amount: new AmountInPennies(10000),
         currency: new Currency(CurrencyEnum::CZK()),
         gateway: 'czk', // optional, if you leave it blank, the default settings will be used (only since version ^2.4.0) for lower versions you have to set it.
-        responseUrl: new ResponseUrl('http://example.com/proccess-gpw-response') // optional when you setup in config
+        responseUrl: new ResponseUrl('http://example.com/proccess-gpw-response'), // optional when you setup in config
+        operation: OperationEnum::CREATE_ORDER() // optional CREATE_ORDER() is default, other options are CARD_VERIFICATION() or FINALIZE_ORDER()
     );
 
 .. note::
