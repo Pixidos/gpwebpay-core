@@ -45,9 +45,13 @@ class Operation implements OperationInterface
         IAmount $amount,
         Currency $currency,
         ?string $gateway = null,
-        ?ResponseUrl $responseUrl = null
+        ?ResponseUrl $responseUrl = null,
+        ?OperationEnum $operation = null
     ) {
-        $this->addParam(new OperationParam(OperationEnum::CREATE_ORDER()));
+        if ($operation === null) {
+            $operation = OperationEnum::CREATE_ORDER();
+        }
+        $this->addParam(new OperationParam($operation));
         $this->addParam($amount);
         $this->addParam($orderNumber);
         $this->addParam($currency);
