@@ -114,4 +114,27 @@ class ResponseTest extends TestCase
 
         self::assertTrue($response->hasError());
     }
+
+
+    public function testErrorWithoutResultText(): void
+    {
+        $params = TestHelpers::getTestParams();
+
+        $response = new Response(
+            $params[Param::OPERATION],
+            $params[Param::ORDERNUMBER],
+            $params[Param::MERORDERNUM],
+            $params[Param::MD],
+            30,
+            9500,
+            '',
+            $params[Param::DIGEST],
+            $params[ResponseInterface::DIGEST1],
+            $params['gatewayKey']
+        );
+
+        self::assertNull($response->getParam(ResponseInterface::RESULTTEXT));
+        self::assertSame('', $response->getResultText());
+        self::assertTrue($response->hasError());
+    }
 }
