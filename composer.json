@@ -27,7 +27,7 @@
         "issues": "https://github.com/Pixidos/gpwebpay-core/issues"
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-openssl": "*",
         "grifart/enum": "^0.2.0"
     },
