@@ -17,6 +17,10 @@ namespace Pixidos\GPWebPay\Param;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Enum\PayMethod as PayMethodEnum;
 
+/**
+ * @deprecated GP webpay removed DISABLEPAYMETHOD in HTTP API 1.16.
+ *             List the allowed methods with PayMethods (PAYMETHODS) instead.
+ */
 class DisablePayMethod implements IParam
 {
     /**

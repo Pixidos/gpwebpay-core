@@ -16,12 +16,13 @@ namespace Pixidos\GPWebPay\Data;
 
 use Pixidos\GPWebPay\Enum\Operation as EnumOperation;
 use Pixidos\GPWebPay\Enum\Param;
+use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 use Pixidos\GPWebPay\Param\IParam;
-use Pixidos\GPWebPay\Param\Md;
 use Pixidos\GPWebPay\Param\MerOrderNum;
 use Pixidos\GPWebPay\Param\Operation as ParamOperation;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseParam;
+use Pixidos\GPWebPay\Param\Utils\MdParser;
 use Pixidos\GPWebPay\Param\Utils\Sorter;
 
 class Response implements ResponseInterface
@@ -44,6 +45,14 @@ class Response implements ResponseInterface
     private string $gatewayKey;
 
 
+    /**
+     * @param string $md         MD exactly as received; it is signed and may be longer than 255 characters
+     *                           when GP webpay appends "#ID=…" or "#IDPP=…"
+     * @param string $gatewayKey configured gateway whose keys and merchant number verify this response
+     *
+     * @throws InvalidArgumentException when ORDERNUMBER or MERORDERNUM is not a valid number
+     * @throws \Grifart\Enum\MissingValueDeclarationException when OPERATION is unknown
+     */
     public function __construct(
         string $operation,
         string $ordernumber,
@@ -66,12 +75,12 @@ class Response implements ResponseInterface
         }
 
         if ('' !== $md) {
-            $this->addParam(new Md($md));
+            $this->addParam(new ResponseParam($md, Param::MD, false));
         }
         $this->addParam(new ResponseParam((string)$prcode, self::PRCODE));
         $this->addParam(new ResponseParam((string)$srcode, self::SRCODE));
         if ($resulttext !== '') {
-            $this->addParam(new ResponseParam($resulttext, self::RESULTTEXT));
+            $this->addParam(new ResponseParam($resulttext, self::RESULTTEXT, false));
         }
 
         $this->digest = $digest;
@@ -114,16 +123,24 @@ class Response implements ResponseInterface
     }
 
     /**
+     * Merchant data added to the request with the Md parameter, without the gateway prefix
+     * and without the "#ID=…" or "#IDPP=…" suffix appended by GP webpay.
+     *
      * @return string|null
      */
     public function getMd(): ?string
     {
-        if (!isset($this->params[Param::MD])) {
-            return null;
-        }
-        $explode = explode('|', (string)$this->params[Param::MD], 2);
+        $md = $this->getRawMd();
 
-        return $explode[1] ?? null;
+        return null === $md ? null : MdParser::getPayload($md);
+    }
+
+    /**
+     * MD exactly as received and signed, including the gateway prefix and any suffix appended by GP webpay.
+     */
+    public function getRawMd(): ?string
+    {
+        return isset($this->params[Param::MD]) ? (string)$this->params[Param::MD] : null;
     }
 
     /**

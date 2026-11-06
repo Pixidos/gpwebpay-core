@@ -24,6 +24,7 @@ use Pixidos\GPWebPay\Param\Md;
 use Pixidos\GPWebPay\Param\Operation as OperationParam;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
+use Pixidos\GPWebPay\Param\Utils\MdParser;
 
 /**
  * Class Operation
@@ -59,7 +60,8 @@ class Operation implements OperationInterface
         if (null !== $gateway) {
             $gateway = strtolower($gateway);
             $this->gateway = $gateway;
-            $this->addParam(new Md($gateway));
+            // gateway routing marker only; merchant data added later get the "<gateway>|" prefix
+            $this->params[ParamEnum::MD] = new Md($gateway);
         }
 
         if (null !== $responseUrl) {
@@ -73,6 +75,10 @@ class Operation implements OperationInterface
     }
 
     /**
+     * An Md parameter carries merchant data. It is sent as "<gateway>|<data>"
+     * (or "|<data>" without a gateway), so the response can be routed to the right gateway
+     * and ResponseInterface::getMd() returns exactly <data>, even when it equals the gateway name.
+     *
      * @param IParam $param
      *
      * @return $this
@@ -80,8 +86,8 @@ class Operation implements OperationInterface
      */
     public function addParam(IParam $param): OperationInterface
     {
-        if (($param instanceof Md) && $this->gateway !== (string)$param) {
-            $param = new Md($this->gateway . '|' . $param);
+        if ($param instanceof Md) {
+            $param = new Md($this->gateway . MdParser::GATEWAY_SEPARATOR . $param);
         }
 
         $this->params[$param->getParamName()] = $param;

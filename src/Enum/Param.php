@@ -59,10 +59,10 @@ final class Param extends Enum implements Stringable
     public const RESPONSE_URL = 'URL';
     public const DESCRIPTION = 'DESCRIPTION';
     public const MD = 'MD';
-    public const USERPARAM = 'USERPARAM1';
+    public const USERPARAM = 'USERPARAM1'; // request field; returned in responses only before HTTP API 1.17
     public const FASTPAYID = 'FASTPAYID';
     public const PAYMETHOD = 'PAYMETHOD';
-    public const DISABLEPAYMETHOD = 'DISABLEPAYMETHOD';
+    public const DISABLEPAYMETHOD = 'DISABLEPAYMETHOD'; // removed in HTTP API 1.16, use PAYMETHODS
     public const PAYMETHODS = 'PAYMETHODS';
     public const EMAIL = 'EMAIL';
     public const REFERENCENUMBER = 'REFERENCENUMBER';

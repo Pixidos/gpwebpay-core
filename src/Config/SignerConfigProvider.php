@@ -16,6 +16,9 @@ namespace Pixidos\GPWebPay\Config;
 
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
 
+/**
+ * Gateway keys are case-insensitive and stored in lowercase, like in PaymentConfigProvider.
+ */
 class SignerConfigProvider
 {
     /**
@@ -27,14 +30,15 @@ class SignerConfigProvider
 
     public function addConfig(SignerConfig $config, string $gateway = 'default'): void
     {
-        $this->configs[$gateway] = $config;
+        $this->configs[strtolower($gateway)] = $config;
     }
 
+    /**
+     * @throws InvalidArgumentException when the gateway is not configured
+     */
     public function getConfig(string|null $gateway = null): SignerConfig
     {
-        if (null === $gateway) {
-            $gateway = $this->defaultGateway;
-        }
+        $gateway = null === $gateway ? $this->defaultGateway : strtolower($gateway);
         if (array_key_exists($gateway, $this->configs)) {
             return $this->configs[$gateway];
         }
@@ -46,7 +50,7 @@ class SignerConfigProvider
 
     public function setDefaultGateway(string $gateway): void
     {
-        $this->defaultGateway = $gateway;
+        $this->defaultGateway = strtolower($gateway);
     }
 
     public function getDefaultGateway(): string

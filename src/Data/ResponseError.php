@@ -76,7 +76,13 @@ final class ResponseError
         $default = 'cz' === $lang ? 'Technický problém v systému, kontaktujete obchodníka'
             : 'Technical problem in system, contact the merchant.';
 
-        return self::CODES[$lang][$this->prcode][$this->srcode] ?? $default;
+        $messages = self::CODES[$lang][$this->prcode] ?? null;
+        if (is_string($messages)) {
+            // the primary code alone determines the message
+            return $messages;
+        }
+
+        return $messages[$this->srcode] ?? $default;
     }
 
 

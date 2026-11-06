@@ -19,6 +19,9 @@ use Pixidos\GPWebPay\Enum\Param;
 
 class Sorter
 {
+    /**
+     * Request fields in the order of the GP webpay HTTP API; all except DIGEST and LANG are signed.
+     */
     public const REQUEST_PARAM_ORDER = [
             Param::MERCHANTNUMBER,
             Param::OPERATION,
@@ -46,6 +49,10 @@ class Sorter
             Param::LANG,
     ];
 
+    /**
+     * Response fields in the order of the GP webpay HTTP API.
+     * USERPARAM1 is only returned by older API versions (replaced by TOKEN since 1.17).
+     */
     public const RESPONSE_PARAM_ORDER = [
             Param::OPERATION,
             Param::ORDERNUMBER,
@@ -63,8 +70,12 @@ class Sorter
             Param::PANPATTERN,
             ResponseInterface::DAYTOCAPTURE,
             ResponseInterface::TOKENREGSTATUS,
+            ResponseInterface::ACRC,
+            ResponseInterface::RRN,
+            ResponseInterface::PAR,
+            ResponseInterface::TRACEID,
             Param::DIGEST,
-            'DIGEST1',
+            ResponseInterface::DIGEST1,
     ];
 
 

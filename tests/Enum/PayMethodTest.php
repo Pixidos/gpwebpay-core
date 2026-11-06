@@ -62,24 +62,35 @@ class PayMethodTest extends TestCase
     }
 
     /**
+     * Current values (HTTP API 1.19, appendix 5) and legacy values kept for compatibility.
+     *
      * @return Generator<array<int, string>>
      */
     public function getPayMethod(): Generator
     {
-        yield [PayMethod::CARD];
-        yield [PayMethod::MASTERCARD_MOBILE];
-        yield [PayMethod::MASTERPASS];
-        yield [PayMethod::PLATBA24];
-        yield [PayMethod::BANK_ACCOUNT];
-        yield [PayMethod::BANK_KB];
-        yield [PayMethod::BANK_CSOB];
-        yield [PayMethod::BANK_CNB];
-        yield [PayMethod::BANK_CS];
-        yield [PayMethod::BANK_FIO];
-        yield [PayMethod::BANK_UCB];
-        yield [PayMethod::BANK_RB];
-        yield [PayMethod::BANK_MBANK];
-        yield [PayMethod::BANK_SBERBANK];
-        yield [PayMethod::BANK_AIRB];
+        $values = [
+            'CRD', 'GPAY', 'APAY', 'PAYPAL', 'CTP', 'APM-BTR',
+            'APM-BCCS', 'APM-BCKB', 'APM-BCOB', 'APM-BCRB', 'APM-BCMB', 'APM-BCFI', 'APM-BCMO', 'APM-BCAI', 'APM-BCQR',
+            'LCTD', 'LCTT', 'APM-BAEB',
+            'APM-BSSS', 'APM-BSTB', 'APM-BSVB', 'APM-BSOB', 'APM-BSPR', 'APM-BSQR',
+            'BTNCS', 'SOFORT', 'EPS', 'PAYSAFECARD', 'SEPADIRECTDEBIT', 'KLARNA',
+            // legacy
+            'MCM', 'MPS', 'BTN360CS', 'BTN360CS-0100', 'BTN360CS-0300', 'BTN360CS-0600', 'BTN360CS-0710',
+            'BTN360CS-0800', 'BTN360CS-2010', 'BTN360CS-2700', 'BTN360CS-3030', 'BTN360CS-5500', 'BTN360CS-6210',
+            'BTN360CS-6800',
+        ];
+        foreach ($values as $value) {
+            yield [$value];
+        }
+    }
+
+    public function testNewMethods(): void
+    {
+        self::assertSame('PAYPAL', (string)PayMethod::PAYPAL());
+        self::assertSame('CTP', (string)PayMethod::CLICK_TO_PAY());
+        self::assertSame('APM-BTR', (string)PayMethod::APM_ALL());
+        self::assertSame('LCTD', (string)PayMethod::TWISTO_PAY_IN_30_DAYS());
+        self::assertSame('LCTT', (string)PayMethod::TWISTO_PAY_IN_THIRDS());
+        self::assertSame('APM-BSQR', (string)PayMethod::APM_SK_QR());
     }
 }

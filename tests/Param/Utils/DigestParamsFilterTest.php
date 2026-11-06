@@ -17,6 +17,7 @@ namespace Pixidos\GPWebPay\Tests\Param\Utils;
 use PHPUnit\Framework\TestCase;
 use Pixidos\GPWebPay\Enum\Param;
 use Pixidos\GPWebPay\Param\Utils\DigestParamsFilter;
+use Pixidos\GPWebPay\Param\Utils\Sorter;
 
 class DigestParamsFilterTest extends TestCase
 {
@@ -54,6 +55,13 @@ class DigestParamsFilterTest extends TestCase
         self::assertSame($this->getExpectedKeys(), array_keys($filtered));
     }
 
+    public function testEveryRequestFieldExceptDigestAndLangIsSigned(): void
+    {
+        $unsigned = array_diff(Sorter::REQUEST_PARAM_ORDER, DigestParamsFilter::DIGEST_PARAMS_KEYS);
+
+        self::assertSame([Param::DIGEST, Param::LANG], array_values($unsigned));
+    }
+
     /**
      * @return string[]
      */
@@ -72,12 +80,14 @@ class DigestParamsFilterTest extends TestCase
             Param::MD,
             Param::USERPARAM,
             Param::FASTPAYID,
+            Param::VRCODE,
             Param::DISABLEPAYMETHOD,
             Param::PAYMETHOD,
             Param::EMAIL,
             Param::PAYMETHODS,
             Param::REFERENCENUMBER,
             Param::ADDINFO,
+            Param::PANPATTERN,
             Param::TOKEN,
             Param::FAST_TOKEN,
         ];
