@@ -9,6 +9,11 @@
   <php>
     <ini name="error_reporting" value="-1"/>
     <env name="SHELL_VERBOSITY" value="-1"/>
+    <!-- test keys for tests/ExamplesTest.php; force them so real keys from the environment are never used -->
+    <env name="GPWEBPAY_PRIVATE_KEY" value="tests/_certs/test.pem" force="true"/>
+    <env name="GPWEBPAY_PRIVATE_KEY_PASSPHRASE" value="1234567" force="true"/>
+    <env name="GPWEBPAY_PUBLIC_KEY" value="tests/_certs/test-pub.pem" force="true"/>
+    <env name="GPWEBPAY_MERCHANT_NUMBER" value="123456789" force="true"/>
     <!-- define your env variables for the test env here -->
   </php>
   <testsuites>

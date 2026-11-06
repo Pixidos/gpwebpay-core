@@ -2,6 +2,7 @@
 <ruleset name="Pixidos ruleset">
     <file>src</file>
     <file>tests</file>
+    <file>example</file>
     <exclude-pattern>src/stubs.php</exclude-pattern>
 
     <arg name="basepath" value="."/>

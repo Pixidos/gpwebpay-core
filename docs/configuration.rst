@@ -4,8 +4,12 @@
 Configuration
 =============
 
-You are need create configuration for gateway. Library supporting single or multiple gateways,
-because for every currency you are need one.
+You need a configuration for every gateway. The library supports a single gateway or several gateways,
+for example one per currency, each with its own merchant number and keys.
+
+.. warning::
+	Never commit private keys, passphrases or merchant credentials to version control, and keep key files
+	outside the web root. Load them from your secret storage or environment, as the :ref:`example` does.
 
 
 .. _configuration.attributes:
@@ -18,7 +22,7 @@ Attributes
 The `privateKey` attribute
 --------------------------
 
-Absolute path to your private certificate `pem` file.
+Absolute path to your private key ``pem`` file, generated in the GP webpay portal.
 
 :Type: ``string``
 
@@ -27,7 +31,7 @@ Absolute path to your private certificate `pem` file.
 The `privateKeyPassphrase` attribute
 ------------------------------------
 
-Passphrase of your private certificate
+Passphrase of your private key.
 
 :Type: ``string``
 
@@ -36,7 +40,8 @@ Passphrase of your private certificate
 The `publicKey` attribute
 -------------------------
 
-Absolute path to GPWebPay service public certificate ``pem`` file.
+Absolute path to the GP webpay public key ``pem`` file, downloaded from the GP webpay portal.
+It verifies the signatures of responses.
 
 :Type: ``string``
 
@@ -45,12 +50,16 @@ Absolute path to GPWebPay service public certificate ``pem`` file.
 The `url` attribute
 -------------------
 
-Absolute URL to gateway
+Absolute URL of the gateway. GP webpay HTTP API 1.19 lists:
+
+* test environment: ``https://test.3dsecure.gpwebpay.com/pgw/order.do``
+* production: ``https://3dsecure.gpwebpay.com/pgw/order.do``
 
 :Type: ``string``
 
 .. note::
-	You are get from GPWebPay service
+	Use the address your provider gives you. Older integrations may use another path, such as
+	``/unicredit/order.do``; this library does not change the configured URL.
 
 .. _configuration.attributes.depositFlag:
 
@@ -70,26 +79,32 @@ The `depositFlag` attribute
 The `merchantNumber` attribute
 ------------------------------
 
-Your Merchant Number
+Your merchant number, assigned by the provider.
 
 :Type: ``string``
-
-.. note::
-	You are get from GPWebPay service.
 
 .. _configuration.attributes.responseUrl:
 
 The `responseUrl` attribute
 ---------------------------
 
-Absolute URL to your site where GPWebPay sends a response
+Absolute URL of your page that receives the response, see :ref:`response`.
 
 :Type: ``string``
 
-It is optional in config. You can set up url for each request in Operation object.
+Optional. Each gateway can have its own URL; a request uses the URL of its gateway unless the operation sets
+a ``ResponseUrl``. If neither is set, creating the request fails.
 
-.. warning:: GPWebPay is recommendation does not use url which has parameters (after '?')
-	because they may drop it for *"security reason"*.
+.. warning:: GP webpay may refuse addresses with query parameters (after ``?``) for security reasons.
+	Test the real address in the test environment.
+
+.. _configuration.gateways:
+
+Gateway keys
+############
+
+Gateway keys are case-insensitive and stored in lowercase (``CZK`` and ``czk`` are the same gateway). The key is sent
+in MD, so it must consist of printable ASCII characters without ``|`` and ``#``.
 
 .. _configuration.example:
 
@@ -110,13 +125,13 @@ Single gateway
 
 	$config = $configFactory->create(
 		[
-			ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/test.pem',
-			ConfigFactory::PRIVATE_KEY_PASSPHRASE => '1234567',
-			ConfigFactory::PUBLIC_KEY => __DIR__ . '/_certs/test-pub.pem',
-			ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/unicredit/order.do',
-			ConfigFactory::MERCHANT_NUMBER => '123456789',
+			ConfigFactory::PRIVATE_KEY => '/path/outside/webroot/gpwebpay-private-key.pem',
+			ConfigFactory::PRIVATE_KEY_PASSPHRASE => $privateKeyPassphrase, // from your secret storage
+			ConfigFactory::PUBLIC_KEY => '/path/outside/webroot/gpwebpay-public-key.pem',
+			ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/pgw/order.do',
+			ConfigFactory::MERCHANT_NUMBER => $merchantNumber,
 			ConfigFactory::DEPOSIT_FLAG => 1,
-			ConfigFactory::RESPONSE_URL => 'http://example.com/proccess-gpw-response'
+			ConfigFactory::RESPONSE_URL => 'https://shop.example/payment/gpwebpay-response',
 		]
 	);
 
@@ -136,21 +151,23 @@ Multiple gateways
 	$config = $configFactory->create(
 		[
 			'czk' => [
-				ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/test.pem',
-				ConfigFactory::PRIVATE_KEY_PASSPHRASE => '1234567',
-				ConfigFactory::PUBLIC_KEY => __DIR__ . '/_certs/test-pub.pem',
-				ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/unicredit/order.do',
-				ConfigFactory::MERCHANT_NUMBER => '123456789',
+				ConfigFactory::PRIVATE_KEY => '/path/outside/webroot/gpwebpay-czk-private-key.pem',
+				ConfigFactory::PRIVATE_KEY_PASSPHRASE => $czkPassphrase,
+				ConfigFactory::PUBLIC_KEY => '/path/outside/webroot/gpwebpay-public-key.pem',
+				ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/pgw/order.do',
+				ConfigFactory::MERCHANT_NUMBER => $czkMerchantNumber,
 				ConfigFactory::DEPOSIT_FLAG => 1,
+				ConfigFactory::RESPONSE_URL => 'https://shop.example/payment/gpwebpay-response',
 			],
 			'eur' => [
-				ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/test2.pem',
-				ConfigFactory::PRIVATE_KEY_PASSPHRASE => '12345678',
-				ConfigFactory::PUBLIC_KEY => __DIR__ . '/_certs/test-pub2.pem',
-				ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/unicredit/order.do',
-				ConfigFactory::MERCHANT_NUMBER => '123456780',
+				ConfigFactory::PRIVATE_KEY => '/path/outside/webroot/gpwebpay-eur-private-key.pem',
+				ConfigFactory::PRIVATE_KEY_PASSPHRASE => $eurPassphrase,
+				ConfigFactory::PUBLIC_KEY => '/path/outside/webroot/gpwebpay-public-key.pem',
+				ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/pgw/order.do',
+				ConfigFactory::MERCHANT_NUMBER => $eurMerchantNumber,
 				ConfigFactory::DEPOSIT_FLAG => 1,
+				ConfigFactory::RESPONSE_URL => 'https://shop.example/payment/gpwebpay-eur-response',
 			],
 		],
-		'czk' // what gateway is default
+		'czk' // the default gateway
 	);
