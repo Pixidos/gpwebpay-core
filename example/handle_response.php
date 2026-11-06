@@ -41,9 +41,11 @@ $responseProvider->addOnSuccess(static function (ResponseInterface $response): v
     //    that it belongs to $response->getGatewayKey(). Unknown attempt: reject, change nothing.
     // 2. The response does not repeat the amount. It is bound to ORDERNUMBER by the signed request,
     //    so take the amount from your payment attempt, not from any received parameter.
-    // 3. Mark the attempt and its order paid atomically and only once, for example
+    // 3. Record the successful attempt atomically, for example
     //    UPDATE payment_attempt SET status = 'paid' WHERE id = ? AND status = 'pending'.
-    //    The same response can arrive again (refresh, back button, replay); it must not fulfil the order twice.
+    // 4. In the same transaction, guard fulfillment separately by an atomic unpaid-to-paid order transition
+    //    or a unique fulfillment record keyed by order ID. Two attempts for the same order can both succeed;
+    //    record additional successful attempts without fulfilling again. Replayed responses must also be harmless.
     echo 'Payment accepted.';
 });
 

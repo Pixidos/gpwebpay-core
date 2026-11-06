@@ -106,9 +106,13 @@ The library does not store payments. Your application must:
   ``$response->getGatewayKey()``; reject unknown attempts;
 * take the amount and currency from your payment attempt. The response does not repeat them; they were signed
   in your request for this ORDERNUMBER;
-* change the state atomically and only once, for example
-  ``UPDATE payment_attempt SET status = 'paid' WHERE id = ? AND status = 'pending'``. The same signed response can
-  arrive again (page refresh, back button, replay) and must not fulfil the order twice;
+* record each successful attempt atomically, for example
+  ``UPDATE payment_attempt SET status = 'paid' WHERE id = ? AND status = 'pending'``. This prevents reprocessing
+  the same attempt when its signed response arrives again (page refresh, back button or replay);
+* separately guard fulfillment at the order level. Two different attempts for the same order can both succeed.
+  In the same transaction, atomically change the order from unpaid to paid and fulfill it only if that transition
+  succeeds, or create a fulfillment record with a unique constraint on the order ID. Record additional successful
+  attempts for reconciliation without fulfilling the order again;
 * not rely on the browser returning at all. If no response arrives within about 15 minutes, ask GP webpay for the
   payment state through its Web Services (``processPaymentStatus``, ``processPaymentDetail``).
 
