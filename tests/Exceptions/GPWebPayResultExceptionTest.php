@@ -30,4 +30,12 @@ class GPWebPayResultExceptionTest extends TestCase
         self::assertSame('Zamitnuto v autorizacnim centru, katra blokována', $exception->translate('cz'));
         self::assertSame('Declined in AC, Card blocked', $exception->translate('en'));
     }
+
+    public function testTranslateTechnicalProblem(): void
+    {
+        $exception = new GPWebPayResultException('', 1000, 0);
+
+        self::assertSame('Technical problem', $exception->translate('en'));
+        self::assertSame('Technický problém', $exception->translate('cz'));
+    }
 }

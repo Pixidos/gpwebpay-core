@@ -26,17 +26,31 @@ interface ResponseInterface
     public const ACCODE = 'ACCODE';
     public const DAYTOCAPTURE = 'DAYTOCAPTURE';
     public const TOKENREGSTATUS = 'TOKENREGSTATUS';
+    public const ACRC = 'ACRC';
+    public const RRN = 'RRN';
+    public const PAR = 'PAR';
+    public const TRACEID = 'TRACEID';
     public const DIGEST1 = 'DIGEST1';
 
+    /**
+     * Optional response-only fields that GP webpay includes in DIGEST and DIGEST1.
+     * The signing order of all response fields is Sorter::RESPONSE_PARAM_ORDER.
+     */
     public const RESPONSE_PARAMS = [
         self::EXPIRY,
         self::ACCODE,
         self::ACSRES,
         self::DAYTOCAPTURE,
         self::TOKENREGSTATUS,
+        self::ACRC,
+        self::RRN,
+        self::PAR,
+        self::TRACEID,
     ];
 
     /**
+     * Signed response fields exactly as received, in signing order, without DIGEST and DIGEST1.
+     *
      * @return array<string, IParam>
      */
     public function getParams(): array;
@@ -57,11 +71,18 @@ interface ResponseInterface
     public function getDigest1(): string;
 
     /**
+     * MERORDERNUM as received: null when it was not received, an empty string when it was received empty.
+     *
      * @return string|null
      */
     public function getMerOrderNumber(): ?string;
 
     /**
+     * Merchant data the caller added to the request with the Md parameter,
+     * without the gateway routing prefix and without the "#ID=…" or "#IDPP=…" suffix
+     * that GP webpay may append. Null when the request carried no merchant data.
+     * The exact signed MD value is available in getParams().
+     *
      * @return string|null
      */
     public function getMd(): ?string;
@@ -92,6 +113,8 @@ interface ResponseInterface
     public function getResultText(): string;
 
     /**
+     * Legacy response field. Since HTTP API 1.17 GP webpay returns the card token in TOKEN instead.
+     *
      * @return string|null
      */
     public function getUserParam1(): ?string;

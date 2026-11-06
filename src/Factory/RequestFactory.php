@@ -35,6 +35,7 @@ class RequestFactory
 
     /**
      * @throws InvalidArgumentException
+     * @throws LogicException when neither the operation nor the selected gateway configuration has a response URL
      * @throws SignerException
      * @throws UnexpectedValueException
      */
@@ -42,9 +43,11 @@ class RequestFactory
     {
         $key = $this->config->getGateway($operation->getGateway());
         if (null === $operation->getParam(Param::RESPONSE_URL())) {
-            $responseUrl = $this->config->getResponseUrl();
+            $responseUrl = $this->config->getResponseUrl($key);
             if (null === $responseUrl) {
-                throw new LogicException('You are forgot setup response url');
+                throw new LogicException(
+                    sprintf('You are forgot setup response url (gateway "%s")', $key)
+                );
             }
             $operation->addParam($responseUrl);
         }

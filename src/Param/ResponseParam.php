@@ -26,14 +26,15 @@ class ResponseParam implements IParam
     private $name;
 
     /**
-     * Email constructor.
-     *
      * @param string $value
      * @param string $name
+     * @param bool   $trim  strip whitespace from both ends; pass false to keep a received signed value exactly
      */
-    public function __construct(string $value, string $name)
+    public function __construct(string $value, string $name, bool $trim = true)
     {
-        $value = trim($value);
+        if ($trim) {
+            $value = trim($value);
+        }
         $this->value = $value;
         $this->name = $name;
     }

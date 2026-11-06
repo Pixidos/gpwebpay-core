@@ -8,7 +8,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-versions: ['8.1', '8.2', '8.3', '8.4']
+                php-versions: ['8.1', '8.2', '8.3', '8.4', '8.5']
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -22,8 +22,11 @@ jobs:
             - name: Composer dependencies
               uses: "ramsey/composer-install@v3"
 
+            - name: Check dependencies for security advisories
+              run: composer audit --locked
+
             - name: Run Codestyle chceck
               run: php vendor/bin/phpcs -p
 
             - name: Run PHPStan
-              run: php vendor/bin/phpstan analyse
+              run: php vendor/bin/phpstan analyse --memory-limit=1G

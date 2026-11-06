@@ -33,8 +33,12 @@ class ConfigFactory implements ConfigFactoryInterface
         $this->paymentConfigFactory = $paymentConfigFactory;
     }
 
+    /**
+     * Gateway keys are case-insensitive and normalized to lowercase, the form Operation sends in MD.
+     */
     public function create(array $params, string $defaultGateway = 'default'): Config
     {
+        $defaultGateway = $this->normalizeGateway($defaultGateway);
         $data = $this->normalizeParams($params, $defaultGateway);
         $config = $this->createConfig($defaultGateway);
         $this->processParams($data, $config);
@@ -48,15 +52,25 @@ class ConfigFactory implements ConfigFactoryInterface
      */
     private function normalizeParams(array $params, string $defaultGateway): array
     {
-        $defaultGateway = strtolower($defaultGateway);
-
-        // Pokud je to přímo GatewayConfig (ne array<string, GatewayConfig>)
+        // a single GatewayConfig, not array<string, GatewayConfig>
         if (array_key_exists(self::PRIVATE_KEY, $params)) {
             /** @var GatewayConfig $params */
             return [$defaultGateway => $params];
         }
 
-        if (!array_key_exists($defaultGateway, $params)) {
+        /** @phpstan-var array<array-key, GatewayConfig> $params */
+        $normalized = [];
+        foreach ($params as $gateway => $data) {
+            $key = $this->normalizeGateway((string)$gateway);
+            if (array_key_exists($key, $normalized)) {
+                throw new InvalidArgumentException(
+                    sprintf('Gateway keys are case-insensitive, "%s" is configured more than once.', $key)
+                );
+            }
+            $normalized[$key] = $data;
+        }
+
+        if (!array_key_exists($defaultGateway, $normalized)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'The key for defautlGateway: "%s" is not included in the configuration parameters. Keys in the parameters "%s"',
@@ -66,8 +80,23 @@ class ConfigFactory implements ConfigFactoryInterface
             );
         }
 
-        /** @phpstan-var array<string, GatewayConfig> $params */
-        return $params;
+        return $normalized;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function normalizeGateway(string $gateway): string
+    {
+        // the gateway key is sent in MD, which allows printable ASCII only;
+        // "|" separates merchant data and "#" starts the suffix GP webpay may append
+        if (1 !== preg_match('~^[\x20-\x7E]+$~D', $gateway) || strpbrk($gateway, '|#') !== false) {
+            throw new InvalidArgumentException(
+                sprintf('Gateway key "%s" must be printable ASCII without "|" and "#".', $gateway)
+            );
+        }
+
+        return strtolower($gateway);
     }
 
     private function createConfig(string $defaultGateway): Config

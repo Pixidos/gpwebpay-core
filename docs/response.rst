@@ -4,63 +4,119 @@
 Response
 ========
 
-For processing response from GPWebPay your are need :ref:`service.response_factory` and :ref:`service.response_provider`
+To process a response from GP webpay, use the :ref:`service.response_factory` and the
+:ref:`service.response_provider`.
 
 .. _response.create:
 
-Create response
-###############
+Create a response
+#################
+
+GP webpay sends the result through the customer's browser to your response URL, either by a redirect (``GET``) or by an
+automatically submitted form (``POST``). The provider chooses the method according to the services used, so your
+response URL must accept both. Read the data of the actual request method; never merge ``$_GET`` and ``$_POST``.
 
 .. code-block:: php
 
-	$params = $_GET; // or $_POST depends on how you send request
-	$response = $responseFactory->create($params);
+	use Pixidos\GPWebPay\Exceptions\InvalidResponseException;
 
-Now you are have two options.
+	$params = 'POST' === ($_SERVER['REQUEST_METHOD'] ?? 'GET') ? $_POST : $_GET;
 
-.. _response.manual:
-
-**Processing by your code.**
-
-.. code-block:: php
-
-	// verify response signatures
-	if (!$provider->verifyPaymentResponse($response)) {
-		// invalid verification
+	try {
+		$response = $responseFactory->create($params);
+	} catch (InvalidResponseException $exception) {
+		// not a GP webpay response for this shop: a missing or malformed field, or an unknown gateway in MD
+		http_response_code(400);
+		return;
 	}
-	// success verification
-	if ($response->hasError()) {
-		// here is you code for processing response error
-	}
-	// here is you code for processing response
 
+The factory ignores fields that are not part of a GP webpay response. It does **not** verify the signatures: until
+the response is verified, every value in it comes from the browser and may be forged.
 
-**Or use ResponseProvider and callbacks**
+Then choose one of two ways of processing it.
+
+.. _response.provider:
+
+**ResponseProvider and callbacks (recommended)**
+
+``provide()`` verifies DIGEST and DIGEST1 first. Success callbacks run only for an authentic response with PRCODE and
+SRCODE equal to 0; otherwise the error callbacks receive the reason. Error callbacks must accept
+``GPWebPayException``, the common parent of the signature and payment-result exceptions.
 
 .. code-block:: php
 
-	// success callbacks
-	$provider
-		->addOnSuccess(
-			static function (ResponseInterface $response) {
-				// here is your code for processing response
-			}
-		)
-		->addOnSuccess(
-			static function (ResponseInterface $response) {
-				// here is your another code for processing response
-			}
-		);
+	use Pixidos\GPWebPay\Data\ResponseInterface;
+	use Pixidos\GPWebPay\Exceptions\GPWebPayException;
+	use Pixidos\GPWebPay\Exceptions\GPWebPayResultException;
 
-	// error callback
-	$provider->addOnError(
-		static function (GPWebPayException $exception, ResponseInterface $response) {
-			// here is you code for processing error
+	$provider->addOnSuccess(
+		static function (ResponseInterface $response): void {
+			// authentic and paid: mark the payment attempt paid, see "Processing a payment" below
 		}
 	);
 
-	// and next step is call
+	$provider->addOnError(
+		static function (GPWebPayException $exception, ResponseInterface $response): void {
+			if ($exception instanceof GPWebPayResultException) {
+				// authentic, but the payment failed: $exception->getPrcode(), getSrcode(), translate('en')
+				return;
+			}
+			// SignerException: not authentic; change nothing and reject the request
+		}
+	);
+
 	$provider->provide($response);
+
+Without any error callback, ``provide()`` throws the exception instead.
+
+.. _response.manual:
+
+**Manual processing**
+
+Stop on every failure; never continue after a failed check.
+
+.. code-block:: php
+
+	if (!$provider->verifyPaymentResponse($response)) {
+		// not authentic: change nothing, log it and reject the request
+		http_response_code(400);
+		return;
+	}
+
+	if ($response->hasError()) {
+		// authentic, but the payment failed: mark the payment attempt failed and stop
+		return;
+	}
+
+	// authentic and paid
+
+
+.. _response.processing:
+
+Processing a payment
+####################
+
+The examples assume a standard payment with ``depositFlag=1``. With ``depositFlag=0``, a successful response
+confirms authorization; arrange capture through your provider before treating it as a captured payment.
+Handle other operation types according to their provider contract.
+
+The library does not store payments. Your application must:
+
+* find the payment attempt by ORDERNUMBER (``$response->getOrderNumber()``) and check that it belongs to the gateway
+  ``$response->getGatewayKey()``; reject unknown attempts;
+* take the amount and currency from your payment attempt. The response does not repeat them; they were signed
+  in your request for this ORDERNUMBER;
+* record each successful attempt atomically, for example
+  ``UPDATE payment_attempt SET status = 'paid' WHERE id = ? AND status = 'pending'``. This prevents reprocessing
+  the same attempt when its signed response arrives again (page refresh, back button or replay);
+* separately guard fulfillment at the order level. Two different attempts for the same order can both succeed.
+  In the same transaction, atomically change the order from unpaid to paid and fulfill it only if that transition
+  succeeds, or create a fulfillment record with a unique constraint on the order ID. Record additional successful
+  attempts for reconciliation without fulfilling the order again;
+* not rely on the browser returning at all. If no response arrives within about 15 minutes, ask GP webpay for the
+  payment state through its Web Services (``processPaymentStatus``, ``processPaymentDetail``).
+
+Exception messages may contain received values. Do not show them unescaped.
 
 
 .. _response.params:
@@ -68,13 +124,30 @@ Now you are have two options.
 Parameters
 ##########
 
+``getParams()`` returns all signed fields exactly as received, in signing order, without DIGEST and DIGEST1.
+A field received with an empty value is included with that empty value, because GP webpay signs it; a field that was
+not received is absent.
+Fields without a dedicated getter are read from it, for example:
+
+.. code-block:: php
+
+	use Pixidos\GPWebPay\Data\ResponseInterface;
+	use Pixidos\GPWebPay\Enum\Param;
+
+	$params = $response->getParams();
+	$token = isset($params[Param::TOKEN]) ? $params[Param::TOKEN]->getValue() : null;
+	$rrn = isset($params[ResponseInterface::RRN]) ? $params[ResponseInterface::RRN]->getValue() : null;
+
+The library verifies these optional fields: ADDINFO, TOKEN, EXPIRY, ACSRES, ACCODE, PANPATTERN, DAYTOCAPTURE,
+TOKENREGSTATUS, ACRC, RRN, PAR, TRACEID, and USERPARAM1 of API versions before 1.17. Some of them are returned only when
+your provider enables them.
+
 .. _response.params.resultText:
 
 ResultText
 ----------
 
-A text description of the error identified by a combination of PRCODE and SRCODE.
-The contents are coded using the Windows Central European (Code Page 1250).
+A text description of the result given by PRCODE and SRCODE, without diacritics. Optional; an empty string when absent.
 
 :return: ``string``
 
@@ -87,7 +160,7 @@ The contents are coded using the Windows Central European (Code Page 1250).
 PrCode
 ------
 
-Primary code. For details, see “List of return codes in GPWebPay doc”.
+Primary return code; 0 means OK. See the list of return codes in the GP webpay documentation.
 
 :return: ``int``
 
@@ -99,9 +172,9 @@ Primary code. For details, see “List of return codes in GPWebPay doc”.
 .. _response.params.srcode:
 
 SrCode
-----------
+------
 
-Secondary code. For details, see “List of return codes in GPWebPay doc”.
+Secondary return code with details of the primary code.
 
 :return: ``int``
 
@@ -115,7 +188,7 @@ Secondary code. For details, see “List of return codes in GPWebPay doc”.
 OrderNumber
 -----------
 
-Contents of the field from the request.
+The ORDERNUMBER from the request.
 
 :return: ``string``
 
@@ -129,7 +202,7 @@ Contents of the field from the request.
 MerOrderNumber
 --------------
 
-Contents of the field from the request, if included.
+The MERORDERNUM from the request, if it was sent.
 
 :return: ``string`` | ``null``
 
@@ -138,16 +211,15 @@ Contents of the field from the request, if included.
 	$response->getMerOrderNumber();
 
 
-.. _response.params.userparam:
+.. _response.params.token:
 
-UserParam1
-----------
+Token and UserParam1
+--------------------
 
-Hash numbers of the payment card. Hash is a unique value for each and every card and merchant – that is if the payment is made by the same card at the same merchant, the resulting hash is identical, if the same card is used at another merchant, there is another hash.
+Since HTTP API 1.17 GP webpay returns the unique card identifier in TOKEN (read it from ``getParams()``, see above) and
+no longer returns USERPARAM1. ``getUserParam1()`` returns USERPARAM1 only for providers that still send it.
 
 :return: ``string`` | ``null``
-
-.. note:: Only if the merchant has this functionality enabled
 
 .. code-block:: php
 
@@ -158,11 +230,9 @@ Hash numbers of the payment card. Hash is a unique value for each and every card
 Md
 --
 
-Any merchant’s data returned to the merchant in the response in the unchanged form – only “whitespace” characters are removed from both sides. The field is used to satisfy various demands of the e-shops. The field may only contain ASCII characters ranging from 0x20 to 0x7E.
-
-.. note:: GPWebPay core use this field to store information about used gateway.
-
-	So method ``$response->getParam(string $paramName)`` return value contain gateway info.
+The merchant data added to the request with ``Md``, without the gateway prefix added by the library or the
+``#ID=…`` or ``#IDPP=…`` suffix that GP webpay appends when the provider uses its notification service or the payment
+was made by PayPal. ``null`` when the request carried no merchant data.
 
 :return: ``string`` | ``null``
 
@@ -170,15 +240,25 @@ Any merchant’s data returned to the merchant in the response in the unchanged 
 
 	$response->getMd();
 
+The signed value exactly as received, including the prefix and the suffix:
+
+.. code-block:: php
+
+	$response->getRawMd(); // Pixidos\GPWebPay\Data\Response only
+
+The gateway is selected by the text before the first ``|`` or ``#`` of MD. A response that names a gateway that is not
+configured is rejected with ``InvalidResponseException``.
+
 
 .. _response.params.digest:
 
 Digest and Digest1
 ------------------
 
-*Digest* is a check signature of the string generated as a concatenation of all the fields sent in the given order
+*DIGEST* is the signature of all received fields in the specified order.
 
-*Digest1* is same as *Digest* but (without the DIGEST field) and on the top of that also the MERCHANTNUMBER field (the field is not sent, the merchant has to know it, the field is added to the end of the string).
+*DIGEST1* is the signature of the same fields followed by your MERCHANTNUMBER, which is not sent. It binds the response
+to the merchant of the selected gateway.
 
 :return: ``string``
 

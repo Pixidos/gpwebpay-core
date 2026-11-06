@@ -58,4 +58,54 @@ class OperationTest extends TestCase
         self::assertSame('http://response.com/proccess-gpw-response', $responseUrl->getValue());
         self::assertSame('czk|someMd', (string)$operation->getParam(Param::MD()));
     }
+
+    public function testGatewayAloneIsOnlyRoutingMarker(): void
+    {
+        $operation = $this->createOperation('czk');
+
+        self::assertSame('czk', (string)$operation->getParam(Param::MD()));
+    }
+
+    /**
+     * @dataProvider merchantData
+     */
+    public function testMerchantDataAlwaysGetsGatewayPrefix(?string $gateway, string $data, string $expected): void
+    {
+        $operation = $this->createOperation($gateway);
+        $operation->addParam(new Md($data));
+
+        self::assertSame($expected, (string)$operation->getParam(Param::MD()));
+    }
+
+    /**
+     * @return array<string, array{string|null, string, string}>
+     */
+    public static function merchantData(): array
+    {
+        return [
+            'data equal to gateway' => ['czk', 'czk', 'czk|czk'],
+            'data' => ['czk', 'order-7', 'czk|order-7'],
+            'default gateway' => [null, 'order-7', '|order-7'],
+            'default gateway, data like a gateway' => [null, 'czk', '|czk'],
+        ];
+    }
+
+    public function testMerchantDataAddedTwiceReplacesPreviousData(): void
+    {
+        $operation = $this->createOperation('czk');
+        $operation->addParam(new Md('first'));
+        $operation->addParam(new Md('second'));
+
+        self::assertSame('czk|second', (string)$operation->getParam(Param::MD()));
+    }
+
+    private function createOperation(?string $gateway): Operation
+    {
+        return new Operation(
+            new OrderNumber('123456'),
+            new AmountInPennies(100000),
+            new Currency(CurrencyEnum::CZK()),
+            $gateway
+        );
+    }
 }

@@ -74,8 +74,12 @@ class SorterTest extends TestCase
             Response::DIGEST1 => new FakeParam('someparam'),
             Param::PANPATTERN => new FakeParam('someparam'),
             Response::DAYTOCAPTURE => new FakeParam('someparam'),
+            Response::TRACEID => new FakeParam('someparam'),
             Response::TOKENREGSTATUS => new FakeParam('someparam'),
+            Response::PAR => new FakeParam('someparam'),
             Param::DIGEST => new FakeParam('someparam'),
+            Response::RRN => new FakeParam('someparam'),
+            Response::ACRC => new FakeParam('someparam'),
         ];
 
         $sorted = Sorter::sortResponseParams($params);

@@ -20,6 +20,10 @@ use Pixidos\GPWebPay\Param\DepositFlag;
 use Pixidos\GPWebPay\Param\MerchantNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
 
+/**
+ * Gateway keys are case-insensitive: they are stored and returned in lowercase,
+ * the form Operation uses in MD.
+ */
 class PaymentConfigProvider
 {
     /**
@@ -33,12 +37,12 @@ class PaymentConfigProvider
 
     public function __construct(string $defaultGateway = 'default')
     {
-        $this->defaultGateway = $defaultGateway;
+        $this->defaultGateway = strtolower($defaultGateway);
     }
 
     public function addPaymentConfig(PaymentConfig $paymentConfig): void
     {
-        $this->paymentConfigs[$paymentConfig->getGateway()] = $paymentConfig;
+        $this->paymentConfigs[strtolower($paymentConfig->getGateway())] = $paymentConfig;
     }
 
 
@@ -64,14 +68,16 @@ class PaymentConfigProvider
 
     public function setDefaultGateway(string $gateway): void
     {
-        $this->defaultGateway = $gateway;
+        $this->defaultGateway = strtolower($gateway);
     }
 
+    /**
+     * @return string the configured gateway key in lowercase
+     * @throws InvalidArgumentException when the gateway is not configured
+     */
     public function getGateway(?string $gateway = null): string
     {
-        if (null === $gateway) {
-            $gateway = $this->getDefaultGateway();
-        }
+        $gateway = null === $gateway ? $this->getDefaultGateway() : strtolower($gateway);
 
         if (!array_key_exists($gateway, $this->paymentConfigs)) {
             throw new InvalidArgumentException(

@@ -26,6 +26,7 @@ use Pixidos\GPWebPay\Param\AmountInPennies;
 use Pixidos\GPWebPay\Param\Currency;
 use Pixidos\GPWebPay\Param\OrderNumber;
 use Pixidos\GPWebPay\Param\ResponseUrl;
+use Pixidos\GPWebPay\Signer\SignerInterface;
 use UnexpectedValueException;
 
 /**
@@ -167,6 +168,95 @@ class TestHelpers
             ],
             'czk'
         );
+    }
+
+    /**
+     * Response fields in the order of GP webpay HTTP API 1.19 (card payment response, pages 13-15).
+     * USERPARAM1 was returned between RESULTTEXT and ADDINFO before API 1.17.
+     * Transcribed from the specification independently of Sorter::RESPONSE_PARAM_ORDER.
+     */
+    public const SPEC_RESPONSE_ORDER = [
+        'OPERATION',
+        'ORDERNUMBER',
+        'MERORDERNUM',
+        'MD',
+        'PRCODE',
+        'SRCODE',
+        'RESULTTEXT',
+        'USERPARAM1',
+        'ADDINFO',
+        'TOKEN',
+        'EXPIRY',
+        'ACSRES',
+        'ACCODE',
+        'PANPATTERN',
+        'DAYTOCAPTURE',
+        'TOKENREGSTATUS',
+        'ACRC',
+        'RRN',
+        'PAR',
+        'TRACEID',
+    ];
+
+    public const CZK_MERCHANT_NUMBER = '123456789';
+    public const EUR_MERCHANT_NUMBER = '123456780';
+
+    /**
+     * Two gateways with their own keys, merchant numbers and optional response URLs.
+     */
+    public static function createMultiGatewayConfig(
+        ?string $czkResponseUrl = null,
+        ?string $eurResponseUrl = null,
+        string $defaultGateway = 'czk',
+        string $czkKey = 'czk',
+        string $eurKey = 'eur'
+    ): Config {
+        $gateway = static function (string $key, string $merchantNumber, int $depositFlag, ?string $responseUrl): array {
+            $config = [
+                ConfigFactory::PRIVATE_KEY => __DIR__ . '/_certs/' . $key . '.pem',
+                ConfigFactory::PRIVATE_KEY_PASSPHRASE => '1234567',
+                ConfigFactory::PUBLIC_KEY => __DIR__ . '/_certs/' . str_replace('test', 'test-pub', $key) . '.pem',
+                ConfigFactory::URL => 'https://test.3dsecure.gpwebpay.com/pgw/order.do',
+                ConfigFactory::MERCHANT_NUMBER => $merchantNumber,
+                ConfigFactory::DEPOSIT_FLAG => $depositFlag,
+            ];
+            if (null !== $responseUrl) {
+                $config[ConfigFactory::RESPONSE_URL] = $responseUrl;
+            }
+
+            return $config;
+        };
+
+        return (new ConfigFactory(new PaymentConfigFactory()))->create(
+            [
+                $czkKey => $gateway('test', self::CZK_MERCHANT_NUMBER, 1, $czkResponseUrl),
+                $eurKey => $gateway('test2', self::EUR_MERCHANT_NUMBER, 0, $eurResponseUrl),
+            ],
+            $defaultGateway
+        );
+    }
+
+    /**
+     * Emulates GP webpay: signs the fields in specification order (DIGEST)
+     * and the same fields followed by the merchant number (DIGEST1).
+     *
+     * @param array<string, string> $fields
+     * @return array<string, string> fields with DIGEST and DIGEST1, as received by the merchant
+     */
+    public static function signAsGateway(SignerInterface $signer, array $fields, string $merchantNumber): array
+    {
+        $signed = [];
+        foreach (self::SPEC_RESPONSE_ORDER as $name) {
+            if (array_key_exists($name, $fields)) {
+                $signed[$name] = $fields[$name];
+            }
+        }
+
+        $fields[Param::DIGEST] = $signer->sign($signed);
+        $signed[Param::MERCHANTNUMBER] = $merchantNumber;
+        $fields[ResponseInterface::DIGEST1] = $signer->sign($signed);
+
+        return $fields;
     }
 
     public static function getLongText300(): string

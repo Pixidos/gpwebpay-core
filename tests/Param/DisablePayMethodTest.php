@@ -23,7 +23,7 @@ class DisablePayMethodTest extends TestCase
 {
     public function testCreate(): void
     {
-        $payMethod = new DisablePayMethod(PayMethod::CARD());
+        $payMethod = new DisablePayMethod(PayMethod::CARD()); // @phpstan-ignore new.deprecated (kept for BC)
 
         self::assertEquals(PayMethod::CARD(), $payMethod->getValue());
         self::assertSame('CRD', (string)$payMethod);

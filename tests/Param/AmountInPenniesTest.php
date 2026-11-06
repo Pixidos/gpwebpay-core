@@ -30,4 +30,37 @@ class AmountInPenniesTest extends TestCase
         self::assertSame(100000, $amount->getValue());
         self::assertSame('100000', (string)$amount);
     }
+
+    public function testZeroIsAcceptedBecauseItDependsOnTheOperation(): void
+    {
+        self::assertSame('0', (string)new AmountInPennies(0));
+    }
+
+    public function testLargestFifteenDigitAmount(): void
+    {
+        self::assertSame('999999999999999', (string)new AmountInPennies(999999999999999));
+    }
+
+    /**
+     * @dataProvider invalidAmounts
+     */
+    public function testInvalidAmountThrowException(int $amount): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('AMOUNT must be an integer from 0 to 999999999999999');
+
+        new AmountInPennies($amount);
+    }
+
+    /**
+     * @return array<string, array{int}>
+     */
+    public static function invalidAmounts(): array
+    {
+        return [
+            'negative' => [-500],
+            'sixteen digits' => [1000000000000000],
+            'max int' => [PHP_INT_MAX],
+        ];
+    }
 }

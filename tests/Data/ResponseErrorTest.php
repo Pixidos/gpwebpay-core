@@ -44,6 +44,12 @@ class ResponseErrorTest extends TestCase
             '3D en' => [28, 3000, 'en', 'Not Authenticated in 3D. Cardholder not authenticated in 3D.'],
             'zamítnuto cz' => [30, 1001, 'cz', 'Zamitnuto v autorizacnim centru, katra blokována'],
             'zamítnuto en' => [30, 1001, 'en', 'Declined in AC, Card blocked'],
+            'technical problem cz' => [1000, 0, 'cz', 'Technický problém'],
+            'technical problem en' => [1000, 0, 'en', 'Technical problem'],
+            'technical problem, any SRCODE' => [1000, 5, 'en', 'Technical problem'],
+            'unknown SRCODE' => [30, 9999, 'en', 'Technical problem in system, contact the merchant.'],
+            'unknown PRCODE' => [999, 0, 'cz', 'Technický problém v systému, kontaktujete obchodníka'],
+            'unknown language' => [30, 1001, 'de', 'Technical problem in system, contact the merchant.'],
         ];
     }
 }

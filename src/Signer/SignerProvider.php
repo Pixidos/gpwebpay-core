@@ -35,9 +35,7 @@ final class SignerProvider implements SignerProviderInterface
      */
     public function get(string|null $gateway = null): SignerInterface
     {
-        if (null === $gateway) {
-            $gateway = $this->configs->getDefaultGateway();
-        }
+        $gateway = strtolower($gateway ?? $this->configs->getDefaultGateway());
         if (array_key_exists($gateway, $this->signers)) {
             return $this->signers[$gateway];
         }

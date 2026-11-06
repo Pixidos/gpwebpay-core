@@ -266,6 +266,50 @@ class WorkflowTest extends TestCase
         $responseProvider->provide($response);
     }
 
+    public function testMerchantDataEqualToGatewaySurvivesProviderSuffix(): void
+    {
+        $config = TestHelpers::createMultiGatewayConfig('https://shop.example/czk', 'https://shop.example/eur');
+        $signerProvider = new SignerProvider(new SignerFactory(), $config->getSignerConfigProvider());
+        $requestFactory = new RequestFactory($config->getPaymentConfigProvider(), $signerProvider);
+        $responseFactory = new ResponseFactory($config->getPaymentConfigProvider());
+        $responseProvider = new ResponseProvider($config->getPaymentConfigProvider(), $signerProvider);
+
+        $operation = new OperationData(
+            orderNumber: new OrderNumber(self::ORDER_NUMBER),
+            amount: new AmountInPennies(10000),
+            currency: new Currency(CurrencyEnum::EUR()),
+            gateway: 'EUR'
+        );
+        $operation->addParam(new Md('eur'));
+        $request = $requestFactory->create($operation);
+
+        self::assertSame('eur|eur', $request->getParams()[Param::MD]);
+        self::assertSame('https://shop.example/eur', $request->getParams()[Param::RESPONSE_URL]);
+
+        $received = TestHelpers::signAsGateway(
+            $signerProvider->get('eur'),
+            [
+                Param::OPERATION => 'CREATE_ORDER',
+                Param::ORDERNUMBER => self::ORDER_NUMBER,
+                Param::MD => $request->getParams()[Param::MD] . '#IDPP=2RN85480PL048943C',
+                ResponseInterface::PRCODE => '0',
+                ResponseInterface::SRCODE => '0',
+            ],
+            TestHelpers::EUR_MERCHANT_NUMBER
+        );
+        $response = $responseFactory->create($received);
+
+        self::assertSame('eur', $response->getGatewayKey());
+        self::assertSame('eur', $response->getMd());
+
+        $paid = false;
+        $responseProvider->addOnSuccess(static function () use (&$paid): void {
+            $paid = true;
+        });
+        $responseProvider->provide($response);
+        self::assertTrue($paid);
+    }
+
     private function createSingleConfig(): Config
     {
         $configFactory = new ConfigFactory(new PaymentConfigFactory());
