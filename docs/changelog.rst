@@ -10,8 +10,9 @@ Version 2.5.0
 Fixes:
 
 * Responses with ACRC, RRN, PAR or TRACEID, and responses with USERPARAM1 (API before 1.17), now pass signature
-  verification. ``ResponseFactory`` retains the signed response fields exactly as received for subsequent verification
-  by ``ResponseProvider`` and ignores fields that are not part of a GP webpay response.
+  verification. ``ResponseFactory`` retains the signed response fields exactly as received, including fields received
+  with an empty value, for subsequent verification by ``ResponseProvider`` and ignores fields that are not part of
+  a GP webpay response.
 * VRCODE and PANPATTERN are included in the request signature.
 * A request for a non-default gateway uses the response URL of that gateway.
 * MD with the ``#ID=…`` or ``#IDPP=…`` suffix appended by GP webpay selects the right gateway. ``getMd()`` returns the

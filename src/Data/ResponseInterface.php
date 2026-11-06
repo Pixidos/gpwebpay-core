@@ -71,6 +71,8 @@ interface ResponseInterface
     public function getDigest1(): string;
 
     /**
+     * MERORDERNUM as received: null when it was not received, an empty string when it was received empty.
+     *
      * @return string|null
      */
     public function getMerOrderNumber(): ?string;

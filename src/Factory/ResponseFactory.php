@@ -27,9 +27,19 @@ use Pixidos\GPWebPay\Param\Utils\MdParser;
 class ResponseFactory
 {
     /**
-     * Optional signed response fields besides OPERATION, ORDERNUMBER, MERORDERNUM, MD,
-     * PRCODE, SRCODE and RESULTTEXT. Any other received field is not part of a GP webpay
-     * response and is ignored.
+     * Optional signed fields passed to the Response constructor. OPERATION, ORDERNUMBER, PRCODE
+     * and SRCODE are mandatory and must have a valid, non-empty value.
+     */
+    private const OPTIONAL_CONSTRUCTOR_PARAMS = [
+        Param::MERORDERNUM,
+        Param::MD,
+        ResponseInterface::RESULTTEXT,
+    ];
+
+    /**
+     * Other optional signed response fields. Every field is kept exactly as received, also when
+     * empty, and an absent field stays absent. Any other received field is not part of
+     * a GP webpay response and is ignored.
      */
     private const OPTIONAL_SIGNED_PARAMS = [
         Param::USERPARAM,
@@ -80,6 +90,14 @@ class ResponseFactory
                 0,
                 $exception
             );
+        }
+
+        // Response treats an empty MERORDERNUM, MD or RESULTTEXT as not received. GP webpay signs the
+        // fields it actually sends, so a field received with an empty value stays a signed field.
+        foreach (self::OPTIONAL_CONSTRUCTOR_PARAMS as $name) {
+            if (array_key_exists($name, $params) && '' === $this->getString($name, $params)) {
+                $response->addParam(new ResponseParam('', $name, false));
+            }
         }
 
         foreach (self::OPTIONAL_SIGNED_PARAMS as $name) {

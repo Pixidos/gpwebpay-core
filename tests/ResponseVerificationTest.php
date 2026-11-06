@@ -212,6 +212,114 @@ class ResponseVerificationTest extends TestCase
         return $names;
     }
 
+    /**
+     * GP webpay signs the fields it actually sends, so a field received with an empty value
+     * is part of DIGEST and DIGEST1 ("...|0||..."), while an absent field is not.
+     *
+     * @dataProvider optionalSignedFieldNames
+     */
+    public function testFieldReceivedEmptyIsVerifiedAsReceived(string $name): void
+    {
+        $fields = $this->baseFields();
+        $fields[$name] = '';
+
+        $response = $this->factory->create($this->signCzk($fields));
+
+        self::assertArrayHasKey($name, $response->getParams());
+        self::assertSame('', (string)$response->getParams()[$name]);
+        self::assertTrue($this->provider->verifyPaymentResponse($response));
+    }
+
+    /**
+     * @dataProvider optionalSignedFieldNames
+     */
+    public function testAbsentFieldStaysAbsent(string $name): void
+    {
+        $fields = $this->baseFields();
+        unset($fields[$name]);
+
+        $response = $this->factory->create($this->signCzk($fields));
+
+        self::assertArrayNotHasKey($name, $response->getParams());
+        self::assertTrue($this->provider->verifyPaymentResponse($response));
+    }
+
+    /**
+     * @dataProvider optionalSignedFieldNames
+     */
+    public function testEmptyFieldAddedToSignedResponseIsRejected(string $name): void
+    {
+        $fields = $this->baseFields();
+        unset($fields[$name]);
+        $received = $this->signCzk($fields);
+        $received[$name] = '';
+
+        $this->assertRejected($this->factory->create($received));
+    }
+
+    /**
+     * @dataProvider optionalSignedFieldNames
+     */
+    public function testSignedEmptyFieldRemovedFromResponseIsRejected(string $name): void
+    {
+        $fields = $this->baseFields();
+        $fields[$name] = '';
+        $received = $this->signCzk($fields);
+        unset($received[$name]);
+
+        $this->assertRejected($this->factory->create($received));
+    }
+
+    /**
+     * @dataProvider optionalSignedFieldNames
+     */
+    public function testSignedEmptyFieldFilledInIsRejected(string $name): void
+    {
+        $fields = $this->baseFields();
+        $fields[$name] = '';
+        $received = $this->signCzk($fields);
+        $received[$name] = match ($name) {
+            'MERORDERNUM' => '1',
+            'MD' => '|order-7', // routes to the default gateway, so only the signature can reject it
+            default => 'x',
+        };
+
+        $this->assertRejected($this->factory->create($received));
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public static function optionalSignedFieldNames(): array
+    {
+        $names = [];
+        foreach (TestHelpers::SPEC_RESPONSE_ORDER as $name) {
+            if (!in_array($name, ['OPERATION', 'ORDERNUMBER', 'PRCODE', 'SRCODE'], true)) {
+                $names[$name] = [$name];
+            }
+        }
+
+        return $names;
+    }
+
+    public function testEmptyMdSelectsDefaultGatewayAndHasNoMerchantData(): void
+    {
+        $fields = $this->baseFields();
+        $fields['MD'] = '';
+        $fields['MERORDERNUM'] = '';
+        $fields['RESULTTEXT'] = '';
+
+        /** @var \Pixidos\GPWebPay\Data\Response $response */
+        $response = $this->factory->create($this->signCzk($fields));
+
+        self::assertSame('czk', $response->getGatewayKey());
+        self::assertSame('', $response->getRawMd());
+        self::assertNull($response->getMd());
+        self::assertSame('', $response->getMerOrderNumber());
+        self::assertSame('', $response->getResultText());
+        self::assertTrue($this->provider->verifyPaymentResponse($response));
+    }
+
     public function testDigest1IsBoundToTheMerchantNumberOfTheGateway(): void
     {
         $received = TestHelpers::signAsGateway(

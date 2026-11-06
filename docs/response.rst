@@ -121,6 +121,8 @@ Parameters
 ##########
 
 ``getParams()`` returns all signed fields exactly as received, in signing order, without DIGEST and DIGEST1.
+A field received with an empty value is included with that empty value, because GP webpay signs it; a field that was
+not received is absent.
 Fields without a dedicated getter are read from it, for example:
 
 .. code-block:: php
