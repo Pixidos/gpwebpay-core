@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3532685aa5825206e54324011650ce92",
+    "content-hash": "4f7355409612787e06dd494b3fa8ae56",
     "packages": [
         {
             "name": "grifart/enum",
@@ -2501,7 +2501,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-openssl": "*"
     },
     "platform-dev": {},

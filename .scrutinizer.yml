@@ -2,7 +2,7 @@ build:
     image: default-bionic
     environment:
         php:
-            version: 8.1.13
+            version: 8.2
             pecl_extensions:
                 - xdebug
         variables:
