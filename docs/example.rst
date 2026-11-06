@@ -1,8 +1,8 @@
 .. _example:
 
-=====================
-Example of use
-=====================
+==============
+Usage examples
+==============
 
 These examples are part of the repository (``example/``) and run in the test suite with test keys.
 They read keys and the merchant number from environment variables:
@@ -13,8 +13,8 @@ They read keys and the merchant number from environment variables:
 
 .. _example.request:
 
-Create Request and Rendering
-#############################
+Create and render a request
+###########################
 
 .. literalinclude:: ../example/create_request.php
     :language: php
@@ -22,8 +22,8 @@ Create Request and Rendering
 
 .. _example.response:
 
-Handle Response from GP webpay
-##############################
+Handle a response from GP webpay
+################################
 
 .. literalinclude:: ../example/handle_response.php
     :language: php
@@ -31,4 +31,4 @@ Handle Response from GP webpay
 
 .. note::
 
-    For more examples see **tests/WorkflowTest.php** and **tests/ExamplesTest.php**.
+    For more examples, see **tests/WorkflowTest.php** and **tests/ExamplesTest.php**.

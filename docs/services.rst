@@ -4,14 +4,14 @@
 Services
 ========
 
-After you create the :ref:`configuration` you are need instance a few next services.
+After creating the :ref:`configuration`, create the services below.
 
 .. _service.signer_provider:
 
 SignerProvider
 --------------
 
-Signer provider is the services what provide `Signer` for each gateway.
+``SignerProvider`` supplies a ``Signer`` for each configured gateway.
 
 .. code-block:: php
 
@@ -25,7 +25,7 @@ Signer provider is the services what provide `Signer` for each gateway.
 RequestFactory
 ---------------
 
-Request factory is helper what provide creating `Request` object from :ref:`request.operation`
+``RequestFactory`` creates a signed ``Request`` from an :ref:`request.operation`.
 
 .. code-block:: php
 
@@ -37,7 +37,7 @@ Request factory is helper what provide creating `Request` object from :ref:`requ
 ResponseFactory
 ----------------
 
-Service for creating `Response` from received params
+``ResponseFactory`` creates a ``Response`` from the received parameters. It does not verify its signatures.
 
 .. code-block:: php
 
@@ -51,7 +51,7 @@ Service for creating `Response` from received params
 ResponseProvider
 ----------------
 
-Is service what validate and can processed `Response`
+``ResponseProvider`` verifies both response signatures and dispatches success or error callbacks.
 
 .. code-block:: php
 

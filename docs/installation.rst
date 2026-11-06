@@ -21,8 +21,7 @@ extension.
 Composer
 ########
 
-| Simple add a dependency on``pixidos/gpwebpay-core`` to your project's ``composer.json`` file.
-| If you use `Composer <https://getcomposer.org/>`_ to manage the dependencies of your project:
+Install the library with `Composer <https://getcomposer.org/>`_:
 
 .. code-block:: bash
 

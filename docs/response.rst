@@ -4,13 +4,13 @@
 Response
 ========
 
-To process the response from GP webpay you need the :ref:`service.response_factory` and the
+To process a response from GP webpay, use the :ref:`service.response_factory` and the
 :ref:`service.response_provider`.
 
 .. _response.create:
 
-Create response
-###############
+Create a response
+#################
 
 GP webpay sends the result through the customer's browser to your response URL, either by a redirect (``GET``) or by an
 automatically submitted form (``POST``). The provider chooses the method according to the services used, so your
@@ -41,7 +41,7 @@ Then choose one of two ways of processing it.
 
 ``provide()`` verifies DIGEST and DIGEST1 first. Success callbacks run only for an authentic response with PRCODE and
 SRCODE equal to 0; otherwise the error callbacks receive the reason. Error callbacks must accept
-``GPWebPayException``, the parent of both possible exceptions.
+``GPWebPayException``, the common parent of the signature and payment-result exceptions.
 
 .. code-block:: php
 
@@ -71,7 +71,7 @@ Without any error callback, ``provide()`` throws the exception instead.
 
 .. _response.manual:
 
-**Processing by your own code**
+**Manual processing**
 
 Stop on every failure; never continue after a failed check.
 
@@ -96,7 +96,11 @@ Stop on every failure; never continue after a failed check.
 Processing a payment
 ####################
 
-The library does not store payments. Your application has to:
+The examples assume a standard payment with ``depositFlag=1``. With ``depositFlag=0``, a successful response
+confirms authorization; arrange capture through your provider before treating it as a captured payment.
+Handle other operation types according to their provider contract.
+
+The library does not store payments. Your application must:
 
 * find the payment attempt by ORDERNUMBER (``$response->getOrderNumber()``) and check that it belongs to the gateway
   ``$response->getGatewayKey()``; reject unknown attempts;
@@ -220,7 +224,7 @@ no longer returns USERPARAM1. ``getUserParam1()`` returns USERPARAM1 only for pr
 Md
 --
 
-The merchant data added to the request with ``Md``: without the gateway prefix the library adds and without the
+The merchant data added to the request with ``Md``, without the gateway prefix added by the library or the
 ``#ID=…`` or ``#IDPP=…`` suffix that GP webpay appends when the provider uses its notification service or the payment
 was made by PayPal. ``null`` when the request carried no merchant data.
 

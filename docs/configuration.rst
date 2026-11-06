@@ -31,7 +31,7 @@ Absolute path to your private key ``pem`` file, generated in the GP webpay porta
 The `privateKeyPassphrase` attribute
 ------------------------------------
 
-Passphrase of your private key.
+The passphrase for your private key.
 
 :Type: ``string``
 
@@ -66,9 +66,9 @@ Absolute URL of the gateway. GP webpay HTTP API 1.19 lists:
 The `depositFlag` attribute
 ---------------------------
 
-| Specifies if the order has to be paid for automatically.
-| ``0`` = instant payment not required
-| ``1`` = payment required
+| Specifies whether the payment should be captured automatically.
+| ``0`` = authorize without immediate capture
+| ``1`` = request capture
 
 :Type: ``int``
 

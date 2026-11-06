@@ -8,24 +8,24 @@
 [![Build Status](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Pixidos/gpwebpay-core/build-status/main)
 [![Documentation Status](https://readthedocs.org/projects/gpwebpay-core/badge/?version=latest)](https://gpwebpay-core.readthedocs.io/en/latest/?badge=latest)
 
-[![Donwloads](https://poser.pugx.org/pixidos/gpwebpay-core/downloads)](https://packagist.org/packages/pixidos/gpwebpay-core)
+[![Downloads](https://poser.pugx.org/pixidos/gpwebpay-core/downloads)](https://packagist.org/packages/pixidos/gpwebpay-core)
 [![Latest stable](https://img.shields.io/packagist/v/pixidos/gpwebpay-core.svg)](https://packagist.org/packages/pixidos/gpwebpay-core)
 ![](https://img.shields.io/badge/php-8.1%20to%208.5-777bb3.svg?logo=php&logoColor=white&labelColor=555555%22)
 
-GPWebPay Core is library for [GPWebPay service](http://www.gpwebpay.cz/ ) HTTP API
+GPWebPay Core is a PHP library for the [GP webpay](https://www.gpwebpay.cz/) HTTP API.
 
 
 Requirements
 ------------
 
-Pixidos/Gpwebpay-core requires PHP ^8.1 and ext-openssl
+GPWebPay Core requires PHP ^8.1 and the OpenSSL extension (`ext-openssl`).
 
 
 
 Installation
 ------------
 
-The best way to install Pixidos/GPWebPay-Core is using  [Composer](http://getcomposer.org/):
+Install GPWebPay Core with [Composer](https://getcomposer.org/):
 
 ```sh
 $ composer require pixidos/gpwebpay-core

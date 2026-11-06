@@ -4,12 +4,12 @@
 Operation and Request
 =====================
 
-To send a payment request to GP webpay you create two objects: an ``Operation`` with the payment data
+To send a payment request to GP webpay, create two objects: an ``Operation`` with the payment data
 and a signed ``Request`` created from it.
 
 .. _request.operation:
 
-The Operation
+The operation
 #############
 
 A basic operation needs an :ref:`request.params.order_number`, an :ref:`request.params.amount_in_pennies`
@@ -51,8 +51,8 @@ Add more :ref:`request.params` with ``addParam(IParam $param)``, for example:
 
 .. _request.request:
 
-Request and Rendering
-#####################
+Create and render a request
+###########################
 
 Create the request with the :ref:`service.request_factory`. It adds the merchant number, the deposit flag and the
 response URL of the selected gateway and signs all fields except LANG.
@@ -93,7 +93,7 @@ Parameters
 OrderNumber
 -----------
 
-Number of the payment request. GP webpay requires it to be unique for every request of the merchant:
+The payment request number. GP webpay requires it to be unique across all requests from the merchant:
 a number with at most 15 digits that is never reused, not even for another attempt to pay the same order.
 
 .. warning:: It is not your order number. Send your order number in :ref:`request.params.merOrderNum`.
@@ -138,7 +138,7 @@ the float, so ``new Amount(19.99)`` sends exactly 1999; older versions of this l
 
 .. code-block:: php
 
-    $amount = new Amount(1000.00);      // 100000
+    $amount = new Amount(1000.00);       // 100000
     $amount = new Amount(100000, false); // already in the smallest unit: 100000
 
 
@@ -180,7 +180,8 @@ Merchant data returned unchanged in the response. ASCII characters 0x20 to 0x7E 
 including the gateway prefix, and no personal data.
 
 The library uses MD to remember the gateway: an operation for gateway ``czk`` sends ``MD=czk``. Data you add are sent as
-``czk|<data>`` (``|<data>`` with the default gateway), and :ref:`response.params.md` returns exactly ``<data>``.
+``czk|<data>`` (``|<data>`` with the default gateway). :ref:`response.params.md` returns the payload without any
+``#ID=…`` or ``#IDPP=…`` suffix appended by the provider.
 
 .. code-block:: php
 
@@ -252,7 +253,7 @@ Newer elements such as ``paymentGatewayData`` or ``submerchantInfo/merchantCount
 UserParam, Token, FastToken, FastPayId
 --------------------------------------
 
-``UserParam`` (USERPARAM1) marks registration payments for recurring payments and stored cards (values such as ``R``,
+``UserParam`` (USERPARAM1) identifies registration payments for recurring payments and stored cards (values such as ``R``,
 ``T`` or ``S``, see the GP webpay documentation). ``Token``, ``FastToken`` and ``FastPayId`` use a card stored by an
 earlier payment. Since HTTP API 1.17 the response returns the card token in TOKEN, see :ref:`response.params.token`.
 
