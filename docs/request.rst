@@ -132,9 +132,13 @@ Amount
 .. warning::
     ``Amount`` is **deprecated**. Use :ref:`request.params.amount_in_pennies`.
 
-``Amount`` converts a float in the main currency unit to the smallest unit. It converts the shortest decimal form of
-the float, so ``new Amount(19.99)`` sends exactly 1999; older versions of this library could send one heller less
-(1998). It rejects values that are not positive, have more than two decimal places or more than 15 digits.
+``Amount`` converts a float in the main currency unit to the smallest unit. The float must be the value that a decimal
+number with at most two decimal places produces, so ``new Amount(19.99)`` sends exactly 1999; older versions of this
+library could send one heller less (1998). Roundoff of a short calculation such as ``0.1 + 0.2`` is accepted only while
+it is far below one heller: at most two representable floating-point steps and at most 10\ :sup:`-6` of a heller.
+From about 6.7·10\ :sup:`9` hellers (2\ :sup:`26` main units) only exact values are accepted. Values that are not
+positive, have more decimal places or exceed 15 digits in the smallest unit are rejected before any rounding.
+Use :ref:`request.params.amount_in_pennies` to avoid floats altogether.
 
 .. code-block:: php
 

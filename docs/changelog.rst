@@ -18,7 +18,8 @@ Fixes:
 * MD with the ``#ID=…`` or ``#IDPP=…`` suffix appended by GP webpay selects the right gateway. ``getMd()`` returns the
   merchant data without the suffix, including when the payload equals the gateway name; ``Response::getRawMd()`` returns the
   signed value.
-* ``Amount(19.99)`` sends 1999 instead of 1998; values with more than two decimals or more than 15 digits are rejected.
+* ``Amount(19.99)`` sends 1999 instead of 1998; values with more than two decimals or more than 15 digits are rejected
+  before any rounding.
 * Gateway keys are case-insensitive everywhere (configuration, operation, response).
 * PRCODE 1000 is translated as "Technical problem" instead of a single character.
 
