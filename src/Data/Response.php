@@ -163,7 +163,7 @@ class Response implements ResponseInterface
      */
     public function getResultText(): string
     {
-        return (string)$this->params[self::RESULTTEXT];
+        return isset($this->params[self::RESULTTEXT]) ? (string)$this->params[self::RESULTTEXT] : '';
     }
 
     /**
