@@ -4,17 +4,18 @@
 Changelog
 =========
 
-Unreleased
-##########
+Version 3.0.0
+#############
 
 Breaking changes:
 
 * PHP 8.1 is no longer supported because it no longer receives security updates. GPWebPay Core now requires
-  PHP ^8.2. Projects that still run on PHP 8.1 can stay on 2.5.x.
+  PHP ^8.2. Upgrade PHP before installing this series. Version 2.5.0 remains available as a previous release,
+  without a commitment to continued PHP 8.1 maintenance.
 
 Changes:
 
-* The public API and the library behaviour are unchanged. GPWebPay Core is tested with PHP 8.2 to 8.5.
+* The public API and payment behavior are unchanged from 2.5.0. GPWebPay Core is tested with PHP 8.2 to 8.5.
 * Development: CI and Scrutinizer no longer run on PHP 8.1.
 
 
